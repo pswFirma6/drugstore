@@ -1,0 +1,13 @@
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\bin\Debug\netcoreapp3.1\DrugstoreLibrary.deps.json
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\bin\Debug\netcoreapp3.1\DrugstoreLibrary.runtimeconfig.json
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\bin\Debug\netcoreapp3.1\DrugstoreLibrary.runtimeconfig.dev.json
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\bin\Debug\netcoreapp3.1\DrugstoreLibrary.dll
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\bin\Debug\netcoreapp3.1\DrugstoreLibrary.pdb
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.csprojAssemblyReference.cache
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.AssemblyInfoInputs.cache
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.AssemblyInfo.cs
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.csproj.CoreCompileInputs.cache
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.dll
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.pdb
+C:\Users\dajan\OneDrive\Desktop\Drugstore\DrugstoreLibrary\obj\Debug\netcoreapp3.1\DrugstoreLibrary.genruntimeconfig.cache
