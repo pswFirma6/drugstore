@@ -29,6 +29,7 @@ namespace Drugstore
         {
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
             services.AddControllers();
+            services.AddCors();
            
         }
 
