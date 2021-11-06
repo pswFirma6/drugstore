@@ -14,7 +14,6 @@ namespace DrugstoreLibrary.Model
         }
 
         public DbSet<Medicine> Medicines { get; set;}
-        public DbSet<Feedback> FeedBacks { get; set;}
         public DbSet<Pharmacy> Pharmacies { get; set;}
         public DbSet<PharmacyMedicines> PharmacyMedicines { get; set; }
 
