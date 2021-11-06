@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DrugstoreLibrary.Model;
+using PharmacyLibrary.Model;
 
 namespace Drugstore
 {
@@ -28,6 +29,9 @@ namespace Drugstore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+            services.AddDbContext<FeedbackDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+            services.AddDbContext<FeedbackResponseDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+
             services.AddControllers();
             services.AddCors();
            
@@ -36,6 +40,9 @@ namespace Drugstore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

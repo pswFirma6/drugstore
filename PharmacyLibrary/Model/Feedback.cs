@@ -8,7 +8,7 @@ namespace PharmacyLibrary.Model
     {
         public int Id { get; set; }
         public string Content { get; set; }
-        public DateTime Date { get; set; }
-        public int IdPharmacy { get; set; }
+        public string FeedbackDate { get; set; }
+        public string PharmacyName { get; set; }
     }
 }
