@@ -13,6 +13,11 @@ namespace PharmacyLibrary.Model
 
         public string ApiKey { get; set; }
 
+        public Pharmacy ()
+        {
+
+        }
+
         public Pharmacy(int id, string name, string address, string apiKey)
         {
             Id = id;
