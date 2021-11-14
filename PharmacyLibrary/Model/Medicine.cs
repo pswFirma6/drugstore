@@ -19,7 +19,7 @@ namespace PhramacyLibrary.Model
         public double Intensity { get; set; }
 
         public Medicine(int id, string name, string manufacturer, MedicineType medicineType, string description, bool isPrescribed, string sideEffects, string recommendedDose, int quantity, double intensity)
-        {
+
             Id = id;
             Name = name;
             Manufacturer = manufacturer;

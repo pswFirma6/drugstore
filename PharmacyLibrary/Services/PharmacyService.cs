@@ -1,4 +1,4 @@
-﻿using PhramacyLibrary.Model;
+using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -11,6 +11,7 @@ namespace PharmacyLibrary.Services
     public class PharmacyService
     {
         private readonly IPharmacyRepository pharmacyRepository;
+
         public PharmacyService(DatabaseContext context) {
             pharmacyRepository = new PharmacyRepository(context);
         }

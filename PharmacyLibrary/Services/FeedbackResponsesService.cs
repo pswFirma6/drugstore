@@ -11,6 +11,7 @@ namespace PharmacyLibrary.Services
     public class FeedbackResponsesService
     {
         private readonly IFeedbackResponsesRepository feedbackResponsesRepository;
+
         public FeedbackResponsesService(DatabaseContext context)
         {
             feedbackResponsesRepository = new FeedbackResponsesRepository(context);

@@ -1,4 +1,6 @@
+
 ﻿using PhramacyLibrary.Model;
+
 using PharmacyLibrary.Services;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace Pharmacy.Controllers
 {
     public class MedicineController 
     {
-        private readonly MedicineService medicineService;
+        private MedicineService medicineService;
         public MedicineController(DatabaseContext context)
         {
             medicineService = new MedicineService(context);
