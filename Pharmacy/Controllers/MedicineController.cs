@@ -1,4 +1,5 @@
 ﻿using DrugstoreLibrary.Model;
+using PharmacyLibrary.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,35 +10,20 @@ namespace Pharmacy.Controllers
     public class MedicineController 
     {
         private readonly DatabaseContext context;
+        private MedicineService medicineService;
         public MedicineController(DatabaseContext context)
         {
             this.context = context;
+            medicineService = new MedicineService(context);
         }
-        public void Add(Medicine newObject)
+        public void Add(Medicine medicine)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Medicine FindById(int id)
-        {
-            throw new NotImplementedException();
+            medicineService.Add(medicine);
         }
 
         public List<Medicine> GetAll()
         {
-            List<Medicine> result = new List<Medicine>();
-            context.Medicines.ToList().ForEach(medicine => result.Add(medicine));
-            return result;
-        }
-
-        public void Update(int id)
-        {
-            throw new NotImplementedException();
+            return medicineService.GetAll();
         }
     }
 }
