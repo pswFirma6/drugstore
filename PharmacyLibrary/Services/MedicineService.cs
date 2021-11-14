@@ -1,15 +1,16 @@
-﻿using DrugstoreLibrary.Model;
+﻿using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using PharmacyLibrary.Model;
 
 namespace PharmacyLibrary.Services
 {
     public class MedicineService
     {
-        private IMedicineRepository medicineRepository;
+        private readonly IMedicineRepository medicineRepository;
         public MedicineService(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
@@ -37,6 +38,15 @@ namespace PharmacyLibrary.Services
         public void Save()
         {
             medicineRepository.Save();
+        }
+        public Medicine GetMedicineInformationByName(String medicineName)
+        {
+            foreach(Medicine medicine in GetAll())
+            {
+                if (medicine.Name.Equals(medicineName))
+                    return medicine;
+            }
+            return null;
         }
     }
 }
