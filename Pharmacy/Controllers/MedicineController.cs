@@ -1,5 +1,4 @@
 ﻿using DrugstoreLibrary.Model;
-using PharmacyLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Controllers
 {
-    public class MedicineController : IRepo<Medicine>
+    public class MedicineController 
     {
         private readonly DatabaseContext context;
         public MedicineController(DatabaseContext context)

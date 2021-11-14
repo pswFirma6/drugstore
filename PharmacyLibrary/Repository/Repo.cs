@@ -1,35 +1,56 @@
-﻿using PharmacyLibrary.IRepository;
+﻿using DrugstoreLibrary.Model;
+using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.IRepository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
+
 
 namespace PharmacyLibrary.Repository
 {
-    public class Repo<T> : IRepo<T>
+    public class Repo<T> : IRepo<T> where T: class
     {
+        private readonly DatabaseContext _context;
+        private readonly DbSet<T> table;
+
+        public Repo(DatabaseContext context)
+        {
+            _context = context;
+            table = _context.Set<T>();
+        }
         public void Add(T newObject)
         {
-            throw new NotImplementedException();
+            table.Add(newObject);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            T exists = table.Find(id);
+            table.Remove(exists);
         }
 
         public T FindById(int id)
         {
-            throw new NotImplementedException();
+          return table.Find(id);
         }
 
         public List<T> GetAll()
         {
-            throw new NotImplementedException();
+            return table.ToList();
         }
 
-        public void Update(int id)
+        public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
+        }
+
+        public void Update(T obj)
+        {
+            table.Attach(obj);
+            _context.Entry(obj).State = EntityState.Modified;
         }
     }
 }

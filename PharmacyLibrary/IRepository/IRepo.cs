@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PharmacyLibrary.IRepository
 {
-        public interface IRepo<T>
+        public interface IRepo<T> where T: class
         {
             public List<T> GetAll();
 
@@ -14,7 +14,9 @@ namespace PharmacyLibrary.IRepository
 
             public void Delete(int id);
 
-            public void Update(int id);
+            public void Update(T obj);
+
+            public void Save();
         }
     }
 
