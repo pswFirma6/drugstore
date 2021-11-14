@@ -1,4 +1,4 @@
-﻿using DrugstoreLibrary.Model;
+﻿using PhramacyLibrary.Model;
 using Microsoft.EntityFrameworkCore;
 using PharmacyLibrary.IRepository;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
-
+using PharmacyLibrary.Model;
 
 namespace PharmacyLibrary.Repository
 {

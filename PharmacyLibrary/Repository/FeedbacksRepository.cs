@@ -1,4 +1,4 @@
-﻿using DrugstoreLibrary.Model;
+﻿using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using System;

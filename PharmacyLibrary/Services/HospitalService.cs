@@ -1,4 +1,4 @@
-﻿using DrugstoreLibrary.Model;
+using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -10,7 +10,7 @@ namespace PharmacyLibrary.Services
 {
     public class HospitalService
     {
-        private IHospitalRepository hospitalRepository;
+        private readonly IHospitalRepository hospitalRepository;
         public HospitalService(DatabaseContext context)
         {
             hospitalRepository = new HospitalRepository(context);

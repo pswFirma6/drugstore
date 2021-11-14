@@ -1,4 +1,4 @@
-﻿using DrugstoreLibrary.Model;
+using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -10,7 +10,8 @@ namespace PharmacyLibrary.Services
 {
     public class PharmacyService
     {
-        private IPharmacyRepository pharmacyRepository;
+        private readonly IPharmacyRepository pharmacyRepository;
+
         public PharmacyService(DatabaseContext context) {
             pharmacyRepository = new PharmacyRepository(context);
         }
@@ -37,6 +38,13 @@ namespace PharmacyLibrary.Services
         public void Save()
         {
             pharmacyRepository.Save();
+        }
+        public List<string> GetPharmacyNames()
+        {
+            List<string> pharmacyNames = new List<string>();
+            foreach (Pharmacy pharmacy in GetAll())
+                pharmacyNames.Add(pharmacy.Name);
+            return pharmacyNames;
         }
     }
 }

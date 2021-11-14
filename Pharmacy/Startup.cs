@@ -11,10 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DrugstoreLibrary.Model;
 using PharmacyLibrary.Model;
 
-namespace Drugstore
+namespace Pharmacy
 {
     public class Startup
     {

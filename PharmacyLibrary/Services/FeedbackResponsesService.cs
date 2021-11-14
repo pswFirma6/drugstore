@@ -1,4 +1,4 @@
-﻿using DrugstoreLibrary.Model;
+﻿using PhramacyLibrary.Model;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -10,7 +10,8 @@ namespace PharmacyLibrary.Services
 {
     public class FeedbackResponsesService
     {
-        private IFeedbackResponsesRepository feedbackResponsesRepository;
+        private readonly IFeedbackResponsesRepository feedbackResponsesRepository;
+
         public FeedbackResponsesService(DatabaseContext context)
         {
             feedbackResponsesRepository = new FeedbackResponsesRepository(context);
