@@ -11,5 +11,7 @@ namespace PharmacyLibrary.Model
         public int IdPharmacy { get; set; }
         public int IdMedicine { get; set; }
 
+        public int Quantity { get; set; }
+
     }
 }
