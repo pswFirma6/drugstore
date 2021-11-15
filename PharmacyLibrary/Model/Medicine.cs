@@ -18,7 +18,7 @@ namespace PhramacyLibrary.Model
         public int Quantity { get; set; }
         public double Intensity { get; set; }
 
-        public Medicine(int id, string name, string manufacturer, MedicineType medicineType, string description, bool isPrescribed, string sideEffects, string recommendedDose, int quantity, double intensity)
+        public Medicine(int id, string name, string manufacturer, MedicineType medicineType, string description, bool isPrescribed, string sideEffects, string recommendedDose, int quantity, double intensity) { 
 
             Id = id;
             Name = name;
