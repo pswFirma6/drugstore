@@ -18,12 +18,12 @@ namespace Pharmacy.Controllers
             this.context = context;
         }
 
-        public List<PharmacyLibrary.Model.Pharmacy> GetAll()
+        /*public List<PharmacyLibrary.Model.Pharmacy> GetAll()
         {
             List<PharmacyLibrary.Model.Pharmacy> result = new List<PharmacyLibrary.Model.Pharmacy>();
             context.Pharmacies.ToList().ForEach(pharmacy => result.Add(pharmacy));
             return result;
-        }
+        }*/
 
         [HttpGet]
         [Route("pharmacyNames")]

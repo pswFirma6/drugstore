@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PharmacyLibrary.Model
+namespace PharmacyLibrary.Model.DTOs
 {
-    public class Offer
+    public class OfferDTO
     {
         public int Id { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
 
-        public Offer(string title, string content, DateTime startDate, DateTime endDate)
+        public OfferDTO(string title, string content, string startDate, string endDate)
         {
             Title = title;
             Content = content;

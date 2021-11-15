@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Model.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +20,14 @@ namespace Pharmacy.Controllers
             _context = context;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("createOffer")]
-        public IActionResult AddHospital(Offer offer)
+        public IActionResult AddOffer()
         {
-                _context.Offers.Add(new Offer(offer.Title, offer.Content, offer.DateStart, offer.DateEnd));
-                _context.SaveChanges();
-                return Ok();
+            Offer offer = new Offer("title", "content", DateTime.Now, new DateTime());
+            _context.Offers.Add(offer);
+            _context.SaveChanges();
+            return Ok(offer);
 
         }
     }
