@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Model.Enums;
 
 namespace PharmacyLibrary.Services
 {
@@ -48,5 +49,32 @@ namespace PharmacyLibrary.Services
             }
             return null;
         }
+
+        public List<Medicine> SearchMedicineByNameAndSubstance(String medicineName, MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicineType == MedicineType.NO_TYPE && !medicineName.Equals(""))
+                {
+                    searchedMedicine = SearchMedicineOnlyByName(medicineName);
+                }
+                
+            }
+            return searchedMedicine;
+        }
+        public List<Medicine> SearchMedicineOnlyByName(String medicineName)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.Name.Contains(medicineName))
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
+
     }
 }
