@@ -19,6 +19,10 @@ namespace PharmacyLibrary.Model.Enums
         CYTOSTATIC = 11,
         ANTITUSSIVE = 12,
         EXPECTORANT = 13,
-        ANTIMALARIAL = 14
+        ANTIMALARIAL = 14,
+
+        //NO_TYPE dodat zbog pretrage, ukoliko neko ima bolje resenje neka kontaktira devops (David Jandric)
+
+        NO_TYPE = 15
     }
 }
