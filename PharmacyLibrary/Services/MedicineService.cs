@@ -49,7 +49,6 @@ namespace PharmacyLibrary.Services
             }
             return null;
         }
-
         public List<Medicine> SearchMedicineByNameAndSubstance(String medicineName, MedicineType medicineType)
         {
             List<Medicine> searchedMedicine = new List<Medicine>();
@@ -67,7 +66,10 @@ namespace PharmacyLibrary.Services
                 {
                     searchedMedicine = SearchByBothNameAndType(medicineName, medicineType);
                 }
-                
+                else
+                {
+                    searchedMedicine = GetAll();
+                }
             }
             return searchedMedicine;
         }
