@@ -12,9 +12,9 @@ namespace PharmacyLibrary.Services
     {
         private readonly IFeedbackResponsesRepository feedbackResponsesRepository;
 
-        public FeedbackResponsesService(DatabaseContext context)
+        public FeedbackResponsesService(IFeedbackResponsesRepository iFeedbackResponsesRepository)
         {
-            feedbackResponsesRepository = new FeedbackResponsesRepository(context);
+            feedbackResponsesRepository = iFeedbackResponsesRepository;
         }
         public List<FeedbackResponse> GetAll()
         {
@@ -24,21 +24,6 @@ namespace PharmacyLibrary.Services
         {
             return feedbackResponsesRepository.FindById(id);
         }
-        public void Add(FeedbackResponse feedbackResponse)
-        {
-            feedbackResponsesRepository.Add(feedbackResponse);
-        }
-        public void Update(FeedbackResponse feedbackResponse)
-        {
-            feedbackResponsesRepository.Update(feedbackResponse);
-        }
-        public void Delete(int id)
-        {
-            feedbackResponsesRepository.Delete(id);
-        }
-        public void Save()
-        {
-            feedbackResponsesRepository.Save();
-        }
+        
     }
 }

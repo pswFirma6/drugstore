@@ -12,9 +12,9 @@ namespace PharmacyLibrary.Services
     {
         private readonly IFeedbacksRepository feedbacksRepository;
 
-        public FeedbacksService(DatabaseContext context)
+        public FeedbacksService(IFeedbacksRepository iFeedbacksRepository)
         {
-            feedbacksRepository = new FeedbacksRepository(context);
+            feedbacksRepository = iFeedbacksRepository;
         }
         public List<Feedback> GetAll()
         {
@@ -39,6 +39,12 @@ namespace PharmacyLibrary.Services
         public void Save()
         {
             feedbacksRepository.Save();
+        }
+
+        public void CreateFeedback(Feedback feedback)
+        {
+            Add(feedback);
+            Save();
         }
     }
 }

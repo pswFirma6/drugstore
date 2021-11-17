@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
 using System;
 using System.Collections.Generic;
@@ -14,9 +16,11 @@ namespace Pharmacy.Controllers
     public class ReportsController : ControllerBase
     {
         private ReportsService reportsService;
+        private IMedicineRepository medicineRepository;
         public ReportsController(DatabaseContext context)
         {
-            reportsService = new ReportsService(context);
+            medicineRepository = new MedicineRepository(context);
+            reportsService = new ReportsService(medicineRepository);
         }
 
         [HttpPost]

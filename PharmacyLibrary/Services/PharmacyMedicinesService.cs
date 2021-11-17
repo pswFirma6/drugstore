@@ -10,9 +10,9 @@ namespace PharmacyLibrary.Services
     public class PharmacyMedicinesService
     {
         private readonly IPharmacyMedicinesRepository pharmacyMedicinesRepository;
-        public PharmacyMedicinesService(DatabaseContext context)
+        public PharmacyMedicinesService(IPharmacyMedicinesRepository iPharmacyMedicinesRepository)
         {
-            pharmacyMedicinesRepository = new PharmacyMedicinesRepository(context);
+            pharmacyMedicinesRepository =  iPharmacyMedicinesRepository;
         }
         public List<PharmacyMedicines> GetAll()
         {

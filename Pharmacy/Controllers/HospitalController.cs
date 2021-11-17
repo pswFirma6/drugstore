@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using PharmacyLibrary.Services;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Repository;
 
 namespace FakePharmacy.Controller
 {
@@ -17,74 +19,37 @@ namespace FakePharmacy.Controller
     [ApiController]
     public class HospitalController : ControllerBase
     {
-        private readonly HospitalDbContext _context;
+        private HospitalService service;
+        private IHospitalRepository hospitalRepository;
 
-        public HospitalController(HospitalDbContext context)
+        public HospitalController(DatabaseContext dcontext)
         {
-            _context = context;
+            hospitalRepository = new HospitalRepository(dcontext);
+            service = new HospitalService(hospitalRepository);
         }
-
 
         [HttpPost]
         [Route("registerHospital")]
         public IActionResult AddHospital(Hospital hospital)
         {
-            if (checkHospitalName(hospital))
+            if (service.CheckHospitalName(hospital))
             {
-
                 return BadRequest();
             }
             else
             {
-                string apiKey = generateApiKey();
-                _context.Hospitals.Add(new Hospital(hospital.HospitalName, hospital.HospitalAddress, hospital.HospitalCity, hospital.PharmacyName, apiKey));
-                _context.SaveChanges();
+                service.AddHospital(hospital);
                 return Ok();
             }
-
-        }
-
-        private bool checkHospitalName(Hospital hospital)
-        {
-            List<Hospital> result = new List<Hospital>();
-            _context.Hospitals.ToList().ForEach(hospital => result.Add(hospital));
-            bool duplicate = false;
-            foreach (Hospital currHospital in result)
-            {
-                if (currHospital.HospitalName.Equals(hospital.HospitalName))
-                {
-                    duplicate = true;
-                    break;
-                }
-            }
-            return duplicate;
         }
 
         [HttpGet]
         [Route("hospitals")]
         public IActionResult GetAllRegisteredHospitals()
         {
-            //kako se pristupa listi svih
-            List<Hospital> result = new List<Hospital>();
-            _context.Hospitals.ToList().ForEach
-                (hospital => result.Add(hospital));
-
-            return Ok(result);
+            return Ok(service.GetAll());
         }
 
-        private String generateApiKey()
-        {
-            const string src = "abcdefghijklmnopqrstuvwxyz0123456789";
-            int length = 16;
-            var sb = new StringBuilder();
-            Random RNG = new Random();
-            for (var i = 0; i < length; i++)
-            {
-                var c = src[RNG.Next(0, src.Length)];
-                sb.Append(c);
-            }
-            return sb.ToString();
-        }
     }
 
 }

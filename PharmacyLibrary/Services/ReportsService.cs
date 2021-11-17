@@ -15,9 +15,9 @@ namespace PharmacyLibrary.Services
     {
         private readonly IMedicineRepository medicineRepository;
 
-        public ReportsService(DatabaseContext context)
+        public ReportsService(IMedicineRepository imedicineRepository)
         {
-            medicineRepository = new MedicineRepository(context);
+            medicineRepository = imedicineRepository;
         }
 
         public Medicine GetMedicine(String medicineName)
