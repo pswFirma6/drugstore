@@ -24,7 +24,7 @@ namespace Pharmacy.Controllers
         public String GetMedicineSpecification(String medicineName)
         {
             if (reportsService.GetMedicine(medicineName)!=null)
-                reportsService.GenerateReport("Brufen");
+                reportsService.GenerateReport(medicineName);
 
             return "OK";
         }

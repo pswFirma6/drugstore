@@ -22,19 +22,17 @@ namespace PharmacyLibrary.Services
 
         public Medicine GetMedicine(String medicineName)
         {
-            /*
             foreach (Medicine medicine in medicineRepository.GetAll())
             {
                 if (medicine.Name.Equals(medicineName))
                     return medicine;
             }
-            */
-            return new Medicine(1,"Brufen","Neko", MedicineType.ANALGESIC, "opis", false,"side", "2", 2.0);
+            return null
         }
 
         public void GenerateReport(String medicineName)
         {
-            String filePath = @"C:\Users\Milica\Desktop\PSW-repos\drugstore-repo\drugstore";
+            String filePath = Directory.GetCurrentDirectory();
             String fileName = "MedicineSpecification (" + medicineName + ").txt";
 
 
