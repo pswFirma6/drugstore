@@ -11,12 +11,10 @@ using PhramacyLibrary.Model;
 
 namespace Pharmacy.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class MedicineController : ControllerBase
+    public class MedicineController
     {
-
         private MedicineService medicineService;
+
         public MedicineController(DatabaseContext context)
         {
             medicineService = new MedicineService(context);
@@ -29,5 +27,6 @@ namespace Pharmacy.Controllers
         {
             return medicineService.GetAll();
         }
+
     }
 }

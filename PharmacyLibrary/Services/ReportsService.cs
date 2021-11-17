@@ -1,5 +1,6 @@
 ﻿using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Model.Enums;
 using PharmacyLibrary.Repository;
 using PhramacyLibrary.Model;
 using Renci.SshNet;
@@ -10,23 +11,25 @@ using System.Text;
 
 namespace PharmacyLibrary.Services
 {
-    class MedicineSpecificationService
+    public class ReportsService
     {
         private readonly IMedicineRepository medicineRepository;
 
-        public MedicineSpecificationService(DatabaseContext context)
+        public ReportsService(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
         }
 
         public Medicine GetMedicine(String medicineName)
         {
+            /*
             foreach (Medicine medicine in medicineRepository.GetAll())
             {
                 if (medicine.Name.Equals(medicineName))
                     return medicine;
             }
-            return null;
+            */
+            return new Medicine(1,"Brufen","Neko", MedicineType.ANALGESIC, "opis", false,"side", "2", 2.0);
         }
 
         public void GenerateReport(String medicineName)
@@ -35,11 +38,11 @@ namespace PharmacyLibrary.Services
             String fileName = "MedicineSpecification (" + medicineName + ").txt";
 
 
-            StreamWriter File = new StreamWriter(Path.Combine(filePath, "MedicationConsumptionReport.txt"), true);
+            StreamWriter File = new StreamWriter(Path.Combine(filePath, fileName), true);
             File.Write(GetReportContent(medicineName));
             File.Close();
 
-            SendReport(Path.Combine(filePath, "MedicineSpecification.txt"));
+            SendReport(Path.Combine(filePath, fileName));
 
         }
 
@@ -51,7 +54,7 @@ namespace PharmacyLibrary.Services
 
                 using (Stream stream = File.OpenRead(filePath))
                 {
-                    client.UploadFile(stream, @"\MedicineSpecifications\" + Path.GetFileName(filePath), null);
+                    client.UploadFile(stream, @"\public\" + Path.GetFileName(filePath), null);
                 }
                 client.Disconnect();
             }
