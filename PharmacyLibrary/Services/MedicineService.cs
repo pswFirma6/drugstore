@@ -59,6 +59,10 @@ namespace PharmacyLibrary.Services
                 {
                     searchedMedicine = SearchMedicineOnlyByName(medicineName);
                 }
+                else if (medicineName.Equals("") && medicineType != MedicineType.NO_TYPE)
+                {
+                    searchedMedicine = SearchMedicineOnlyByType(medicineType);
+                }
                 
             }
             return searchedMedicine;
@@ -75,6 +79,19 @@ namespace PharmacyLibrary.Services
             }
             return searchedMedicine;
         }
+        public List<Medicine> SearchMedicineOnlyByType(MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.MedicineType == medicineType)
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
+       
 
     }
 }
