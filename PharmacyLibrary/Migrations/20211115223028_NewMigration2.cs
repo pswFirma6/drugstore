@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
-namespace PharmacyLibrary.Migrations.OfferDb
+namespace PharmacyLibrary.Migrations
 {
-    public partial class NewMigration : Migration
+    public partial class NewMigration2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,8 +16,8 @@ namespace PharmacyLibrary.Migrations.OfferDb
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: true),
                     Content = table.Column<string>(type: "text", nullable: true),
-                    DateStart = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    DateEnd = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                    StartDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {

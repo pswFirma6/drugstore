@@ -15,5 +15,6 @@ namespace PharmacyLibrary.Model
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<FeedbackResponse> FeedbackResponses { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
+        public DbSet<Offer> Offers { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyLibrary.Model;
 
-namespace PharmacyLibrary.Migrations.OfferDb
+namespace PharmacyLibrary.Migrations
 {
     [DbContext(typeof(OfferDbContext))]
     partial class OfferDbContextModelSnapshot : ModelSnapshot
@@ -29,10 +29,10 @@ namespace PharmacyLibrary.Migrations.OfferDb
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateEnd")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateStart")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Title")

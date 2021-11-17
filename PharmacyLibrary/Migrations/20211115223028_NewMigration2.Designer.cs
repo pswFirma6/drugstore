@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyLibrary.Model;
 
-namespace PharmacyLibrary.Migrations.OfferDb
+namespace PharmacyLibrary.Migrations
 {
     [DbContext(typeof(OfferDbContext))]
-    [Migration("20211115130758_NewMigration")]
-    partial class NewMigration
+    [Migration("20211115223028_NewMigration2")]
+    partial class NewMigration2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,10 @@ namespace PharmacyLibrary.Migrations.OfferDb
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("DateEnd")
+                    b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("DateStart")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Title")

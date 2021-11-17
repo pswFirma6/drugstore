@@ -19,5 +19,10 @@ namespace PharmacyLibrary.Model
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public override string ToString()
+        {
+            return Title + "#" + Content + "#" + StartDate + "#" + EndDate;
+        }
     }
 }
