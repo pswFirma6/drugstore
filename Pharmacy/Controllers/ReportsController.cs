@@ -28,5 +28,13 @@ namespace Pharmacy.Controllers
 
             return "OK";
         }
+
+        [HttpPost]
+        [Route("consumptionReport")]
+        public String GetConsumptionReport()
+        {
+            reportsService.GetConsumptionReport();
+            return "OK";
+        }
     }
 }

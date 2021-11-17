@@ -27,7 +27,7 @@ namespace PharmacyLibrary.Services
                 if (medicine.Name.Equals(medicineName))
                     return medicine;
             }
-            return null
+            return null;
         }
 
         public void GenerateReport(String medicineName)
@@ -70,6 +70,23 @@ namespace PharmacyLibrary.Services
             content += "RecommendedDose: " + medicine.RecommendedDose + "\r\n";
 
             return content;
+        }
+
+        public void GetConsumptionReport()
+        {
+            String localFile = Path.Combine(Directory.GetCurrentDirectory(),"ConsumptionReport.txt");
+            String serverFile = @"\public\MedicationConsumptionReport.txt";
+
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
+            {
+                client.Connect();
+                using (Stream stream = File.OpenWrite(localFile))
+                {
+                    client.DownloadFile(serverFile, stream, null);
+                }
+                client.Disconnect();
+            }
+
         }
 
     }
