@@ -63,6 +63,10 @@ namespace PharmacyLibrary.Services
                 {
                     searchedMedicine = SearchMedicineOnlyByType(medicineType);
                 }
+                else if (medicineType != MedicineType.NO_TYPE && !medicineName.Equals(""))
+                {
+                    searchedMedicine = SearchByBothNameAndType(medicineName, medicineType);
+                }
                 
             }
             return searchedMedicine;
@@ -91,7 +95,19 @@ namespace PharmacyLibrary.Services
             }
             return searchedMedicine;
         }
-       
+        public List<Medicine> SearchByBothNameAndType(String medicineName, MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            List<Medicine> tempListOfMedicine = SearchMedicineOnlyByName(medicineName);
+            foreach (Medicine medicine in tempListOfMedicine)
+            {
+                if (medicine.MedicineType == medicineType)
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
 
     }
 }
