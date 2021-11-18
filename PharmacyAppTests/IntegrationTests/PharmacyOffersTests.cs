@@ -1,6 +1,7 @@
 using Moq;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
 using Shouldly;
 using System;
@@ -12,33 +13,30 @@ namespace PharmacyAppTests
     public class PharmacyOffersTests
     {
         private OfferService service;
+        private DatabaseContext context = new DatabaseContext();
+        private IOfferRepository repository;
 
         [Fact]
         public void Add_offer()
         {
-            var stubRepository = new Mock<IOfferRepository>();
-            service = new OfferService(stubRepository.Object);
-            List<Offer> offers = new List<Offer>();
+            repository = new OfferRepository(context);
+            service = new OfferService(repository);
             Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30), PharmacyName = "Pharmacy1" };
 
-            stubRepository.Setup(m => m.Add(offer)).Callback((Offer o) => offers.Add(o));
-
+            List<Offer> beforeAdding = service.GetOffers();
             service.AddOffer(offer);
+            List<Offer> afterAdding = service.GetOffers();
 
-            offers.ShouldNotBeEmpty();
+            (afterAdding.Count - beforeAdding.Count).ShouldNotBe(0);
         }
 
         [Fact]
         public void Get_offers()
         {
-            var stubRepository = new Mock<IOfferRepository>();
-            service = new OfferService(stubRepository.Object);
+            repository = new OfferRepository(context);
+            service = new OfferService(repository);
 
             List<Offer> offers = new List<Offer>();
-            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30), PharmacyName = "Pharmacy1" };
-            offers.Add(offer);
-
-            stubRepository.Setup(m => m.GetAll()).Returns(offers);
 
             offers = service.GetOffers();
 
