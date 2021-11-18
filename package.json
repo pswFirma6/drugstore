@@ -39,5 +39,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/pswFirma6/drugstore.git"
+  },
+  "release":{
+    "branches": ["master", "develop"]
   }
 }
