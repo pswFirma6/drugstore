@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
+using PharmacyLibrary.Services;
 
 namespace Pharmacy.Controllers
 {
@@ -13,40 +16,33 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class FeedbacksController : ControllerBase
     {
-        private readonly FeedbackDbContext _context;
+        private FeedbacksService feedbacksService;
+        private IFeedbacksRepository feedbacksRepository;
 
-        public FeedbacksController(FeedbackDbContext context)
+        public FeedbacksController(DatabaseContext context)
         {
-            _context = context;
+            feedbacksRepository = new FeedbacksRepository(context);
+            feedbacksService = new FeedbacksService(feedbacksRepository);
         }
 
         // GET: api/Feedbacks
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedbacks()
+        public List<Feedback> GetFeedbacks()
         {
-            return await _context.Feedbacks.ToListAsync();
+            return feedbacksService.GetAll();
         }
 
         // GET: api/Feedbacks/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Feedback>> GetFeedback(int id)
+        public Feedback GetFeedback(int id)
         {
-            var feedback = await _context.Feedbacks.FindAsync(id);
-
-            if (feedback == null)
-            {
-                return NotFound();
-            }
-
-            return feedback;
+            return feedbacksService.FindById(id);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Feedback>> PostFeedback(Feedback feedback)
+        public IActionResult PostFeedback(Feedback feedback)
         {
-            _context.Feedbacks.Add(feedback);
-            await _context.SaveChangesAsync();
-
+            feedbacksService.CreateFeedback(feedback);
             return CreatedAtAction("GetFeedback", new { id = feedback.Id }, feedback);
         }
 
