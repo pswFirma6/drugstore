@@ -23,7 +23,7 @@ namespace PharmacyLibrary.Migrations
                     table.PrimaryKey("PK_FeedBacks", x => x.Id);
                 });
 
-           /* migrationBuilder.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Medicines",
                 columns: table => new
                 {
@@ -53,7 +53,7 @@ namespace PharmacyLibrary.Migrations
                 {
                     table.PrimaryKey("PK_Pharmacies", x => x.Id);
                 });
-           */
+           
 
             migrationBuilder.CreateTable(
                 name: "PharmacyMedicines",

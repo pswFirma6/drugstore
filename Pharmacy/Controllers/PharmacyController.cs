@@ -1,45 +1,33 @@
-﻿using DrugstoreLibrary.Model;
-using PharmacyLibrary.Interfaces;
+﻿using PhramacyLibrary.Model;
+
 using PharmacyLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using PharmacyLibrary.Services;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Repository;
 
 namespace Pharmacy.Controllers
 {
-    public class PharmacyController : IRepo<PharmacyLibrary.Model.Pharmacy>
+    [ApiController]
+    public class PharmacyController : ControllerBase
     {
-        private readonly DatabaseContext context;
+        private PharmacyService service;
+        private IPharmacyRepository pharmacyRepository;
+
         public PharmacyController(DatabaseContext context)
         {
-            this.context = context;
-        }
-        public void Add(PharmacyLibrary.Model.Pharmacy newObject)
-        {
-            throw new NotImplementedException();
+            pharmacyRepository = new PharmacyRepository(context);
+            service = new PharmacyService(pharmacyRepository);
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public PharmacyLibrary.Model.Pharmacy FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<PharmacyLibrary.Model.Pharmacy> GetAll()
-        {
-            List<PharmacyLibrary.Model.Pharmacy> result = new List<PharmacyLibrary.Model.Pharmacy>();
-            context.Pharmacies.ToList().ForEach(pharmacy => result.Add(pharmacy));
-            return result;
-        }
-
-        public void Update(int id)
-        {
-            throw new NotImplementedException();
+        [HttpGet]
+        [Route("pharmacyNames")]
+        public IActionResult GetPharmacyNames()
+        {        
+            return Ok(service.GetPharmacyNames());
         }
     }
 }

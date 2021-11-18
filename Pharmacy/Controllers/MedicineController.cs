@@ -1,44 +1,35 @@
-﻿using DrugstoreLibrary.Model;
-using PharmacyLibrary.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
+using PharmacyLibrary.Services;
+using PhramacyLibrary.Model;
 
 namespace Pharmacy.Controllers
 {
-    public class MedicineController : IRepo<Medicine>
+    public class MedicineController
     {
-        private readonly DatabaseContext context;
+        private MedicineService medicineService;
+        private IMedicineRepository medicineRepository;
         public MedicineController(DatabaseContext context)
         {
-            this.context = context;
+            medicineRepository = new MedicineRepository(context);
+            medicineService = new MedicineService(medicineRepository);
         }
-        public void Add(Medicine newObject)
+        public void Add(Medicine medicine)
         {
-            throw new NotImplementedException();
+            medicineService.Add(medicine);
         }
-
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Medicine FindById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Medicine> GetAll()
         {
-            List<Medicine> result = new List<Medicine>();
-            context.Medicines.ToList().ForEach(medicine => result.Add(medicine));
-            return result;
+            return medicineService.GetAll();
         }
 
-        public void Update(int id)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

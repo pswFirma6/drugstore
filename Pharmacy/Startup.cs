@@ -11,10 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DrugstoreLibrary.Model;
 using PharmacyLibrary.Model;
 
-namespace Drugstore
+namespace Pharmacy
 {
     public class Startup
     {
@@ -31,6 +30,8 @@ namespace Drugstore
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
             services.AddDbContext<FeedbackDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
             services.AddDbContext<FeedbackResponseDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+            services.AddDbContext<PharmacyDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+            services.AddDbContext<HospitalDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
 
             services.AddControllers();
             services.AddCors();
