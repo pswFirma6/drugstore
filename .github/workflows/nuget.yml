@@ -1,35 +1,46 @@
-name: Packaging Integration Library
+name: Packaging Drugstore Library
 
 on:
-  release:
-     types: [created, published, prereleased, edited]
+  push:
+    tags:
+      - 'v**'
 
 env:
- PROJECT-DLL : 'PharmacyLibrary/PharmacyLibrary.csproj'
- GITHUB_TOKEN:    '${{ secrets.GITHUB_TOKEN }}'  
- OUTPUT-DLL-DIR : '${{ github.workspace }}/output'
- NUGET-SOURCE-URL : 'https://nuget.pkg.github.com/pswFirma6/index.json'
-
+  HOSPITAL-DLL-PATH : 'PharmacyLibrary/PharmacyLibrary.csproj'
+  OUTPUT-DLL-DIR : '${{ github.workspace }}\output'
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+  deploy-nuget:
+    runs-on : ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
-    - name: Clean
-      run: dotnet clean ${{ env.PROJECT-DLL }} && dotnet nuget locals all --clear
-    - name: Restore dependencies
-      run: nuget restore ${{ env.PROJECT-DLL }}
-    - name: Build
-      run: dotnet build ${{ env.PROJECT-DLL }} --configuration Release /p:Version=${VERSION}
-    - name: Test
-      run: dotnet test ${{ env.PROJECT-DLL }} --configuration Release /p:Version=${VERSION} --no-build
-    - name: Pack
-      run: dotnet pack ${{ env.PROJECT-DLL }} --configuration Release /p:Version=${VERSION} --no-build --output .
-    - name: Push
-      run: dotnet nuget push PharmacyLibrary.${VERSION}.nupkg --source https://nuget.pkg.github.com/pswFirma6/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+      - name : Pulling repository to the VM
+        uses : actions/checkout@v2
+      
+      - name : Installing the dotnet tool
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-verison: '5.0.x'
+
+      - name : Listing dir
+        run : ls -a
+
+      - name : Restore and build packages
+        id : build-results
+        run : dotnet build ${{ env.HOSPITAL-DLL-PATH }} --configuration Release
+
+      - name : Determining the version
+        id : get_version
+        uses : battila7/get-version-action@v2
+
+      - name : Found version
+        run: |
+          echo ${{ steps.get_version.outputs.version }}
+          echo ${{ steps.get_version.outputs.version-without-v }}
+      
+      - name : Packaging the dll
+        run: dotnet pack ${{ env.HOSPITAL-DLL-PATH }} --no-restore --no-build --configuration Release  -p:PackageVersion=${{steps.get_version.outputs.version-without-v}} --output ${{ env.OUTPUT-DLL-DIR }}
+
+      - name : Pushing to nuget repository
+        run: dotnet nuget push ${{ env.OUTPUT-DLL-DIR }}/*.nupkg --source https://nuget.pkg.github.com/drugstore/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+    
     
