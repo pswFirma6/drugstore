@@ -111,5 +111,31 @@ namespace PharmacyLibrary.Services
             return searchedMedicine;
         }
 
+        public void SubstractMedicineQuantity(int idMedicine, int usedDrugs)
+        {
+            Medicine medicine = FindById(idMedicine);
+            if(medicine != null && medicine.Quantity >= usedDrugs)
+            {
+                medicine.Quantity -= usedDrugs;
+                Update(medicine);
+            }
+        }
+
+        public void AddMedicineQuantity(int idMedicine, int addedDrugs)
+        {
+            Medicine medicine = FindById(idMedicine);
+            if (medicine != null)
+            {
+                medicine.Quantity += addedDrugs;
+                Update(medicine);
+            }
+        }
+
+        public bool CheckQuantityOfMedicine(int idMedicine, int quantity)
+        {
+            Medicine medicine = FindById(idMedicine);
+
+            return medicine != null && medicine.Quantity == quantity;
+        }
     }
 }
