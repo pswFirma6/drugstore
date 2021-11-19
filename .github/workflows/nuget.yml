@@ -8,8 +8,9 @@ on:
 
 env:
  PROJECT-DLL : 'PharmacyLibrary/PharmacyLibrary.csproj'
+ GITHUB_TOKEN:    '${{ secrets.GITHUB_TOKEN }}'  
  OUTPUT-DLL-DIR : '${{ github.workspace }}/output'
- NUGET-SOURCE-URL : 'https://nuget.pkg.github.com/drugstore/index.json'
+ NUGET-SOURCE-URL : 'https://nuget.pkg.github.com/pswFirma6/index.json'
 
 
 jobs:
