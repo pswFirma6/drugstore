@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0-development",
+  "version": "v0.0.0-development",
   "license": "MIT",
   "engines": {
     "node": ">=10"
