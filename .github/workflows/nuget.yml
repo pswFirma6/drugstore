@@ -41,6 +41,6 @@ jobs:
         run: dotnet pack ${{ env.HOSPITAL-DLL-PATH }} --no-restore --no-build --configuration Release  -p:PackageVersion=${{steps.get_version.outputs.version-without-v}} --output ${{ env.OUTPUT-DLL-DIR }}
 
       - name : Pushing to nuget repository
-        run: dotnet nuget push ${{ env.OUTPUT-DLL-DIR }}/*.nupkg --source https://nuget.pkg.github.com/drugstore/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+        run: dotnet nuget push ${{ env.OUTPUT-DLL-DIR }}/*.nupkg --source https://nuget.pkg.github.com/drugstore/index.json --api-key ${{ secrets.TOKEN_DRUGSTORE }}
     
     
