@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master, develop ]
     tags:
-    - '*'
+    - 'v*'
 
 env:
  PROJECT-DLL : 'PharmacyLibrary/PharmacyLibrary.csproj'
@@ -33,5 +33,5 @@ jobs:
     - name: Pack
       run: dotnet pack ${{ env.PROJECT-DLL }} --configuration Release /p:Version=${VERSION} --no-build --output .
     - name: Push
-      run: dotnet nuget push PharmacyLibrary.nupkg --source https://nuget.pkg.github.com/pswFirma6/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
+      run: dotnet nuget push PharmacyLibrary.${VERSION}.nupkg --source https://nuget.pkg.github.com/pswFirma6/index.json --api-key ${{ secrets.GITHUB_TOKEN }}
     
