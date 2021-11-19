@@ -110,6 +110,5 @@ namespace PharmacyLibrary.Services
             }
             return searchedMedicine;
         }
-
     }
 }
