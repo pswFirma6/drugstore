@@ -12,33 +12,15 @@ namespace PharmacyLibrary.Services
     {
         private readonly IPharmacyRepository pharmacyRepository;
 
-        public PharmacyService(DatabaseContext context) {
-            pharmacyRepository = new PharmacyRepository(context);
+        public PharmacyService(IPharmacyRepository iRepository) {
+            pharmacyRepository = iRepository;
         }
+
         public List<Pharmacy> GetAll()
         {
             return pharmacyRepository.GetAll();
         }
-        public Pharmacy FindById(int id)
-        {
-            return pharmacyRepository.FindById(id);
-        }
-        public void Add(Pharmacy pharmacy)
-        {
-            pharmacyRepository.Add(pharmacy);
-        }
-        public void Update(Pharmacy pharmacy)
-        {
-            pharmacyRepository.Update(pharmacy);
-        }
-        public void Delete(int id)
-        {
-            pharmacyRepository.Delete(id);
-        }
-        public void Save()
-        {
-            pharmacyRepository.Save();
-        }
+        
         public List<string> GetPharmacyNames()
         {
             List<string> pharmacyNames = new List<string>();

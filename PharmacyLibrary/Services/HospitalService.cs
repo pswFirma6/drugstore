@@ -10,34 +10,51 @@ namespace PharmacyLibrary.Services
 {
     public class HospitalService
     {
+        private const int APIKEY_LENGTH = 16;
+
         private readonly IHospitalRepository hospitalRepository;
-        public HospitalService(DatabaseContext context)
+        public HospitalService(IHospitalRepository iRepository)
         {
-            hospitalRepository = new HospitalRepository(context);
+            hospitalRepository = iRepository;
         }
+
         public List<Hospital> GetAll()
         {
             return hospitalRepository.GetAll();
         }
-        public Hospital FindById(int id)
+
+        public void AddHospital(Hospital hospital)
         {
-            return hospitalRepository.FindById(id);
-        }
-        public void Add(Hospital hospital)
-        {
+            hospital.ApiKey = GenerateApiKey();
             hospitalRepository.Add(hospital);
-        }
-        public void Update(Hospital hospital)
-        {
-            hospitalRepository.Update(hospital);
-        }
-        public void Delete(int id)
-        {
-            hospitalRepository.Delete(id);
-        }
-        public void Save()
-        {
             hospitalRepository.Save();
+        }
+
+        public bool CheckHospitalName(Hospital hospital)
+        {
+            bool duplicate = false;
+            foreach (Hospital currHospital in hospitalRepository.GetAll())
+            {
+                if (currHospital.HospitalName.Equals(hospital.HospitalName))
+                {
+                    duplicate = true;
+                    break;
+                }
+            }
+            return duplicate;
+        }
+
+        private String GenerateApiKey()
+        {
+            const string src = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var sb = new StringBuilder();
+            Random RNG = new Random();
+            for (var i = 0; i < APIKEY_LENGTH; i++)
+            {
+                var c = src[RNG.Next(0, src.Length)];
+                sb.Append(c);
+            }
+            return sb.ToString();
         }
     }
 }

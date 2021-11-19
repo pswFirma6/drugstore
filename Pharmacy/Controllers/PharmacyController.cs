@@ -5,33 +5,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using PharmacyLibrary.Services;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Repository;
 
 namespace Pharmacy.Controllers
 {
     [ApiController]
     public class PharmacyController : ControllerBase
     {
-        private readonly PharmacyDbContext context;
+        private PharmacyService service;
+        private IPharmacyRepository pharmacyRepository;
 
-        public PharmacyController(PharmacyDbContext context)
+        public PharmacyController(DatabaseContext context)
         {
-            this.context = context;
-        }
-
-        public List<PharmacyLibrary.Model.Pharmacy> GetAll()
-        {
-            List<PharmacyLibrary.Model.Pharmacy> result = new List<PharmacyLibrary.Model.Pharmacy>();
-            context.Pharmacies.ToList().ForEach(pharmacy => result.Add(pharmacy));
-            return result;
+            pharmacyRepository = new PharmacyRepository(context);
+            service = new PharmacyService(pharmacyRepository);
         }
 
         [HttpGet]
         [Route("pharmacyNames")]
         public IActionResult GetPharmacyNames()
-        {
-            List<string> result = new List<string>();
-            context.Pharmacies.ToList().ForEach(pharmacy => result.Add(pharmacy.Name));
-            return Ok(result);
+        {        
+            return Ok(service.GetPharmacyNames());
         }
     }
 }

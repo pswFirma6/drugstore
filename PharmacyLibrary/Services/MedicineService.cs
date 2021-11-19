@@ -5,15 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Model.Enums;
 
 namespace PharmacyLibrary.Services
 {
     public class MedicineService
     {
         private readonly IMedicineRepository medicineRepository;
-        public MedicineService(DatabaseContext context)
+        public MedicineService(IMedicineRepository iMedicineRepository)
         {
-            medicineRepository = new MedicineRepository(context);
+            medicineRepository = iMedicineRepository;
         }
         public List<Medicine> GetAll()
         {
@@ -48,5 +49,67 @@ namespace PharmacyLibrary.Services
             }
             return null;
         }
+        public List<Medicine> SearchMedicineByNameAndSubstance(String medicineName, MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicineType == MedicineType.NO_TYPE && !medicineName.Equals(""))
+                {
+                    searchedMedicine = SearchMedicineOnlyByName(medicineName);
+                }
+                else if (medicineName.Equals("") && medicineType != MedicineType.NO_TYPE)
+                {
+                    searchedMedicine = SearchMedicineOnlyByType(medicineType);
+                }
+                else if (medicineType != MedicineType.NO_TYPE && !medicineName.Equals(""))
+                {
+                    searchedMedicine = SearchByBothNameAndType(medicineName, medicineType);
+                }
+                else
+                {
+                    searchedMedicine = GetAll();
+                }
+            }
+            return searchedMedicine;
+        }
+        public List<Medicine> SearchMedicineOnlyByName(String medicineName)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.Name.Contains(medicineName))
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
+        public List<Medicine> SearchMedicineOnlyByType(MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.MedicineType == medicineType)
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
+        public List<Medicine> SearchByBothNameAndType(String medicineName, MedicineType medicineType)
+        {
+            List<Medicine> searchedMedicine = new List<Medicine>();
+            List<Medicine> tempListOfMedicine = SearchMedicineOnlyByName(medicineName);
+            foreach (Medicine medicine in tempListOfMedicine)
+            {
+                if (medicine.MedicineType == medicineType)
+                {
+                    searchedMedicine.Add(medicine);
+                }
+            }
+            return searchedMedicine;
+        }
+
     }
 }

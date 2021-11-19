@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
+using PharmacyLibrary.Services;
 
 namespace Pharmacy.Controllers
 {
@@ -13,32 +16,26 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class FeedbackResponsesController : ControllerBase
     {
-        private readonly FeedbackResponseDbContext _context;
-
-        public FeedbackResponsesController(FeedbackResponseDbContext context)
+        private FeedbackResponsesService feedbackResponsesService;
+        private IFeedbackResponsesRepository feedbackResponsesRepository;
+        public FeedbackResponsesController(DatabaseContext context)
         {
-            _context = context;
+            feedbackResponsesRepository = new FeedbackResponsesRepository(context);
+            feedbackResponsesService = new FeedbackResponsesService(feedbackResponsesRepository);
         }
 
         // GET: api/FeedbackResponses
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FeedbackResponse>>> GetFeedbacResponses()
+        public List<FeedbackResponse> GetFeedbacResponses()
         {
-            return await _context.FeedbackResponses.ToListAsync();
+            return feedbackResponsesService.GetAll();
         }
 
         // GET: api/FeedbackResponses/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<FeedbackResponse>> GetFeedbackResponse(int id)
+        public FeedbackResponse GetFeedbackResponse(int id)
         {
-            var feedbackResponse = await _context.FeedbackResponses.FindAsync(id);
-
-            if (feedbackResponse == null)
-            {
-                return NotFound();
-            }
-
-            return feedbackResponse;
+            return feedbackResponsesService.FindById(id);
         }
     }
 }
