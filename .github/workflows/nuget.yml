@@ -22,7 +22,6 @@ jobs:
           dotnet-verison: '5.0.x'
       - name : Listing dir
         run : ls -a
-
       - name : Restore and build packages
         id : build-results
         run : dotnet build ${{ env.HOSPITAL-DLL-PATH }} --configuration Release
