@@ -2,7 +2,7 @@ name: Packaging Integration Library
 
 on:
   release:
-     types: [created, published]
+     types: [created, published, prereleased]
 
 env:
  PROJECT-DLL : 'PharmacyLibrary/PharmacyLibrary.csproj'
