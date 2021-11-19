@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+	<RepositoryUrl>https://github.com/pswFirma6/drugstore.git</RepositoryUrl>
+	<IsPackable>true</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
