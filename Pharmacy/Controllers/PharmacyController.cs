@@ -14,7 +14,7 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class PharmacyController : ControllerBase
     {
-        private PharmacyService service;
+       /* private PharmacyService service;
         private IPharmacyRepository pharmacyRepository;
 
         public PharmacyController(DatabaseContext context)
@@ -28,6 +28,6 @@ namespace Pharmacy.Controllers
         public IActionResult GetPharmacyNames()
         {        
             return Ok(service.GetPharmacyNames());
-        }
+        }*/
     }
 }
