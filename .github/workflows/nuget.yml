@@ -3,7 +3,7 @@ name: Packaging Integration Library
 on:
   push:
     tags:
-    - "*"
+    - "v[0-9]+.[0-9]+.[0-9]+"
 
 env:
  PROJECT-DLL : 'PharmacyLibrary/PharmacyLibrary.csproj'
@@ -20,7 +20,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set VERSION variable from tag
-      run: echo "VERSION=${GITHUB_REF/refs\/tags\/}" >> $GITHUB_ENV
+      run: echo "VERSION=${GITHUB_REF/refs\/tags\/v/}" >> $GITHUB_ENV
     - name: Clean
       run: dotnet clean ${{ env.PROJECT-DLL }} && dotnet nuget locals all --clear
     - name: Restore dependencies

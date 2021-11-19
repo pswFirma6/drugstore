@@ -1,5 +1,5 @@
 {
-  "version": "v0.0.0-development",
+  "version": "0.0.0-development",
   "license": "MIT",
   "engines": {
     "node": ">=10"
@@ -41,6 +41,6 @@
     "url": "https://github.com/pswFirma6/drugstore.git"
   },
   "release":{
-    "branches": ["master", "develop", "feature-semanticRelease"]
+    "branches": ["master", "develop"]
   }
 }
