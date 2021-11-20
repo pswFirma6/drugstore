@@ -28,10 +28,6 @@ namespace Pharmacy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
-            services.AddDbContext<FeedbackDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
-            services.AddDbContext<FeedbackResponseDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
-            services.AddDbContext<PharmacyDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
-            services.AddDbContext<HospitalDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
 
             services.AddControllers();
             services.AddCors();
