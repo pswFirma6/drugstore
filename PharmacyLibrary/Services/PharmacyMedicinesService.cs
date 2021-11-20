@@ -50,5 +50,19 @@ namespace PharmacyLibrary.Services
                 }
             }
         }
+
+        public bool IsEnoughAmount(int medicineId, int medicineAmount)
+        {
+            List<PharmacyMedicines> allMedicines = pharmacyMedicinesRepository.GetAll();
+            foreach (PharmacyMedicines phaMed in allMedicines)
+            {
+                if (phaMed.IdMedicine.Equals(medicineId))
+                {
+                    if (phaMed.Quantity >= medicineAmount) return true;
+                }
+            }
+            return false;
+        }
+
     }
 }
