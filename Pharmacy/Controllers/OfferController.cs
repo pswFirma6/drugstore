@@ -30,5 +30,12 @@ namespace Pharmacy.Controllers
             service.AddOffer(newOffer);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("getOffers")]
+        public List<Offer> GetOffers()
+        {
+            return service.GetOffers();
+        }
     }
 }
