@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Text;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Model.Enums;
+using PharmacyLibrary.DTO;
+using System.Diagnostics;
 
 namespace PharmacyLibrary.Services
 {
@@ -49,6 +51,27 @@ namespace PharmacyLibrary.Services
             }
             return null;
         }
+
+        public bool CheckMedicine(MedicineDTO medicineDTO)
+        {
+            Medicine medicine = GetMedicineInformationByName(medicineDTO.Name);
+            if(medicine == null)
+            {
+                return false;
+            }
+            else
+            {
+                if(IsEnoughAmount(medicine.Id, medicineDTO.Quantity))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public List<Medicine> SearchMedicineByNameAndSubstance(String medicineName, MedicineType medicineType)
         {
             List<Medicine> searchedMedicine = new List<Medicine>();
