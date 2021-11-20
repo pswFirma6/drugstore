@@ -15,7 +15,7 @@ namespace PharmacyAppTests.UnitTests
         private OfferService service;
 
         [Fact]
-        public void Check_dates()
+        public void Are_dates_correct()
         {
             var stubRepository = new Mock<IOfferRepository>();
             service = new OfferService(stubRepository.Object);
@@ -23,7 +23,19 @@ namespace PharmacyAppTests.UnitTests
 
             bool checkDates = service.AreDatesAcceptable(offer.StartDate, offer.EndDate);
 
-            checkDates.ShouldNotBe(false);
+            checkDates.ShouldBe(true);
+        }
+
+        [Fact]
+        public void Are_dates_incorrect()
+        {
+            var stubRepository = new Mock<IOfferRepository>();
+            service = new OfferService(stubRepository.Object);
+            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 09, 30) };
+
+            bool checkDates = service.AreDatesAcceptable(offer.StartDate, offer.EndDate);
+
+            checkDates.ShouldBe(false);
         }
 
         [Fact]
