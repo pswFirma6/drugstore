@@ -58,9 +58,10 @@ namespace PharmacyLibrary.Services
             }
         }
 
+
         private String GetReportContent(String medicineName)
         {
-            String content = "Specification for " + medicineName +"\r\n";
+            String content = "Specification for " + medicineName + "\r\n";
             Medicine medicine = GetMedicine(medicineName);
             content += "Manufacturer: " + medicine.Manufacturer + "\r\n";
             content += "Medicine type: " + medicine.MedicineType.ToString() + "\r\n";
@@ -74,7 +75,7 @@ namespace PharmacyLibrary.Services
 
         public void GetConsumptionReport()
         {
-            String localFile = Path.Combine(Directory.GetCurrentDirectory(),"ConsumptionReport.txt");
+            String localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.txt");
             String serverFile = @"\public\MedicationConsumptionReport.txt";
 
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
@@ -87,6 +88,15 @@ namespace PharmacyLibrary.Services
                 client.Disconnect();
             }
 
+        }
+        public List<string> GetMedicineNames()
+        {
+            List<String> names = new List<String>();
+            foreach (Medicine med in medicineRepository.GetAll())
+            {
+                names.Add(med.Name);
+            }
+            return names;
         }
 
     }

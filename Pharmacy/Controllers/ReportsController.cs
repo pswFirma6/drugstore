@@ -4,6 +4,7 @@ using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
+using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace Pharmacy.Controllers
     {
         private ReportsService reportsService;
         private IMedicineRepository medicineRepository;
+
         public ReportsController(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
@@ -25,20 +27,29 @@ namespace Pharmacy.Controllers
 
         [HttpPost]
         [Route("report")]
-        public String GetMedicineSpecification(String medicineName)
+        public String GetMedicineSpecification([FromBody] String medicineName)
         {
-            if (reportsService.GetMedicine(medicineName)!=null)
+            if (reportsService.GetMedicine(medicineName) != null)
+            {
                 reportsService.GenerateReport(medicineName);
-
-            return "OK";
+                return "OK";
+            }
+            return "Not ok";
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("consumptionReport")]
         public String GetConsumptionReport()
         {
             reportsService.GetConsumptionReport();
             return "OK";
+        }
+
+        [HttpGet]
+        [Route("pharmacyMedicine")]
+        public List<String> GetPharmacyMedications()
+        {
+            return reportsService.GetMedicineNames();
         }
     }
 }
