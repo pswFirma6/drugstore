@@ -1,8 +1,8 @@
 name: Pharmacy Build and Test
 
 on:
-  pull_request:
-    branches: [ master, develop ]
+  push:
+    branches: [ feature-testing ]
       
 env:
   DOTNET_VERSION: '3.1.x'
@@ -30,3 +30,9 @@ jobs:
 
     - name: Test
       run: dotnet test --no-restore ${{ env.PROJECT_PATH }}/${{ matrix.test_project }} --logger "trx;logfilename=${{ matrix.test_project }}.trx" --results-directory "./TestResults/${{ matrix.test_project }}"
+
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v1
+      if: always()
+      with:
+        files: test-results/**/*.xml
