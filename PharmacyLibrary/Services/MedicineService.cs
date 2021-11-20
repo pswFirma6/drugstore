@@ -110,5 +110,31 @@ namespace PharmacyLibrary.Services
             }
             return searchedMedicine;
         }
+
+        public void UpdateMedicineQuantity(int idMedicine, int spentNumberOfDrugs)
+        {
+            foreach (Medicine medicine in GetAll())
+            {
+                if (medicine.Id == idMedicine)
+                {
+                    medicine.Quantity -= spentNumberOfDrugs;
+                    Update(medicine);
+                    break;
+                }
+            }
+        }
+
+        public bool IsEnoughAmount(int medicineId, int medicineAmount)
+        {
+            List<Medicine> allMedicines = medicineRepository.GetAll();
+            foreach (Medicine med in allMedicines)
+            {
+                if (med.Id.Equals(medicineId))
+                {
+                    if (med.Quantity >= medicineAmount) return true;
+                }
+            }
+            return false;
+        }
     }
 }
