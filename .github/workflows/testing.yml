@@ -29,4 +29,4 @@ jobs:
       run: dotnet build --configuration Release --no-restore ${{ env.PROJECT_PATH }}
 
     - name: Test
-      run: dotnet test --no-restore ${{ env.PROJECT_PATH }}/${{ matrix.test_project }} --logger "trx;logfilename=${{ matrix.test_project }}.trx" --results-directory "./TestResults/${{ matrix.test_project }}"
+      run: dotnet test --no-restore ${{ matrix.test_project }} --logger "trx;logfilename=${{ matrix.test_project }}.trx" --results-directory "./TestResults/${{ matrix.test_project }}"
