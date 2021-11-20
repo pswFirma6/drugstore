@@ -7,26 +7,40 @@ using Moq;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using Shouldly;
+using PhramacyLibrary.Model;
+using PharmacyLibrary.Model.Enums;
 
 namespace PharmacyAppTests.UnitTests
 {
     public class UrgentProcurementTests
     {
-        private PharmacyMedicinesService pharmacyMedicinesService;
+        private MedicineService medicineService;
 
         [Fact]
         public void CheckIfEnoughAmount()
         {
-            var stubRepository = new Mock<IPharmacyMedicinesRepository>();
-            pharmacyMedicinesService = new PharmacyMedicinesService(stubRepository.Object);
+            var stubRepository = new Mock<IMedicineRepository>();
+            medicineService = new MedicineService(stubRepository.Object);
 
-            List<PharmacyMedicines> pharmacyMedicines = new List<PharmacyMedicines>();
-            PharmacyMedicines pharmacyMedicine = new PharmacyMedicines { IdPharmacy = 1, IdMedicine = 2, Quantity = 30 };
-            pharmacyMedicines.Add(pharmacyMedicine);
+            List<Medicine> medicines = new List<Medicine>();
+            Medicine medicine = new Medicine 
+            { 
+               Id = 1, 
+               Name = "Brufen", 
+               Manufacturer = "Hemofarm",
+               MedicineType = MedicineType.ANALGESIC, 
+               Description="newMedicine",
+               IsPrescribed = true, 
+               SideEffects = "None", 
+               RecommendedDose = "Two times per day", 
+               Intensity = 0.2, 
+               Quantity = 30 
+            };
+            medicines.Add(medicine);
 
-            stubRepository.Setup(m => m.GetAll()).Returns(pharmacyMedicines);
+            stubRepository.Setup(m => m.GetAll()).Returns(medicines);
 
-            bool ifEnoughAmount = pharmacyMedicinesService.IsEnoughAmount(2, 15);
+            bool ifEnoughAmount = medicineService.IsEnoughAmount(1, 15);
 
             ifEnoughAmount.ShouldBeTrue();
         }
@@ -34,16 +48,28 @@ namespace PharmacyAppTests.UnitTests
         [Fact]
         public void CheckIfNotEnoughAmount()
         {
-            var stubRepository = new Mock<IPharmacyMedicinesRepository>();
-            pharmacyMedicinesService = new PharmacyMedicinesService(stubRepository.Object);
+            var stubRepository = new Mock<IMedicineRepository>();
+            medicineService = new MedicineService(stubRepository.Object);
 
-            List<PharmacyMedicines> pharmacyMedicines = new List<PharmacyMedicines>();
-            PharmacyMedicines pharmacyMedicine = new PharmacyMedicines { IdPharmacy = 1, IdMedicine = 2, Quantity = 30 };
-            pharmacyMedicines.Add(pharmacyMedicine);
+            List<Medicine> medicines = new List<Medicine>();
+            Medicine medicine = new Medicine
+            {
+                Id = 1,
+                Name = "Brufen",
+                Manufacturer = "Hemofarm",
+                MedicineType = MedicineType.ANALGESIC,
+                Description = "newMedicine",
+                IsPrescribed = true,
+                SideEffects = "None",
+                RecommendedDose = "Two times per day",
+                Intensity = 0.2,
+                Quantity = 30
+            };
+            medicines.Add(medicine);
 
-            stubRepository.Setup(m => m.GetAll()).Returns(pharmacyMedicines);
+            stubRepository.Setup(m => m.GetAll()).Returns(medicines);
 
-            bool ifEnoughAmount = pharmacyMedicinesService.IsEnoughAmount(2, 40);
+            bool ifEnoughAmount = medicineService.IsEnoughAmount(1, 40);
 
             ifEnoughAmount.ShouldBeFalse();
         }
@@ -51,19 +77,31 @@ namespace PharmacyAppTests.UnitTests
         [Fact]
         public void Medicine_procurement()
         {
-            var stubRepository = new Mock<IPharmacyMedicinesRepository>();
-            pharmacyMedicinesService = new PharmacyMedicinesService(stubRepository.Object);
+            var stubRepository = new Mock<IMedicineRepository>();
+            medicineService = new MedicineService(stubRepository.Object);
 
-            List<PharmacyMedicines> pharmacyMedicines = new List<PharmacyMedicines>();
-            PharmacyMedicines pharmacyMedicine = new PharmacyMedicines { IdPharmacy = 1, IdMedicine = 2, Quantity = 30 };
-            pharmacyMedicines.Add(pharmacyMedicine);
+            List<Medicine> medicines = new List<Medicine>();
+            Medicine medicine = new Medicine
+            {
+                Id = 1,
+                Name = "Brufen",
+                Manufacturer = "Hemofarm",
+                MedicineType = MedicineType.ANALGESIC,
+                Description = "newMedicine",
+                IsPrescribed = true,
+                SideEffects = "None",
+                RecommendedDose = "Two times per day",
+                Intensity = 0.2,
+                Quantity = 30
+            };
+            medicines.Add(medicine);
 
-            stubRepository.Setup(m => m.GetAll()).Returns(pharmacyMedicines);
-            stubRepository.Setup(m => m.Update(pharmacyMedicine)).Verifiable();
+            stubRepository.Setup(m => m.GetAll()).Returns(medicines);
+            stubRepository.Setup(m => m.Update(medicine)).Verifiable();
 
-            pharmacyMedicinesService.UpdatePharmacyMedicineQuantity(1,2,10);
+            medicineService.UpdateMedicineQuantity(1,10);
 
-            pharmacyMedicines[0].Quantity.ShouldBe(20);
+            medicines[0].Quantity.ShouldBe(20);
         }
     }
 }

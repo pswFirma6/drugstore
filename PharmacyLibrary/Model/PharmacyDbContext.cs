@@ -12,7 +12,6 @@ namespace PharmacyLibrary.Model
 
         }
 
-        public DbSet<Pharmacy> Pharmacies { get; set; }
 
     }
 }

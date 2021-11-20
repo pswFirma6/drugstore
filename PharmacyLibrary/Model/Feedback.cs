@@ -9,6 +9,6 @@ namespace PharmacyLibrary.Model
         public int Id { get; set; }
         public string Content { get; set; }
         public string FeedbackDate { get; set; }
-        public string PharmacyName { get; set; }
+        public string HospitalName { get; set; }
     }
 }

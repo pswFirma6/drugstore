@@ -19,7 +19,7 @@ namespace PharmacyAppTests.UnitTests
         {
             var stubRepository = new Mock<IOfferRepository>();
             service = new OfferService(stubRepository.Object);
-            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30), PharmacyName = "Pharmacy1" };
+            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30) };
 
             bool checkDates = service.AreDatesAcceptable(offer.StartDate, offer.EndDate);
 
@@ -32,7 +32,7 @@ namespace PharmacyAppTests.UnitTests
             var stubRepository = new Mock<IOfferRepository>();
             service = new OfferService(stubRepository.Object);
             List<Offer> offers = new List<Offer>();
-            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30), PharmacyName = "Pharmacy1" };
+            Offer offer = new Offer { Id = 2, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30) };
 
             stubRepository.Setup(m => m.Add(offer)).Callback((Offer o) => offers.Add(o));
 
@@ -48,7 +48,7 @@ namespace PharmacyAppTests.UnitTests
             service = new OfferService(stubRepository.Object);
 
             List<Offer> offers = new List<Offer>();
-            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30), PharmacyName = "Pharmacy1" };
+            Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", StartDate = new DateTime(2021, 11, 11), EndDate = new DateTime(2021, 11, 30) };
             offers.Add(offer);
 
             stubRepository.Setup(m => m.GetAll()).Returns(offers);
