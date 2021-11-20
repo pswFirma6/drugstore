@@ -16,7 +16,7 @@ jobs:
       image: mcr.microsoft.com/dotnet/sdk:3.1
     strategy:
       matrix: 
-        test_project: ['PharmacyAppTests/IntegrationTests', 'PharmacyAppTests/UnitTests']
+        test_project: ['PharmacyAppTests']
     
     steps:
     - name: Checkout GitHub actions
