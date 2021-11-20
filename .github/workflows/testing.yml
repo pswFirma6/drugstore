@@ -32,8 +32,8 @@ jobs:
       run: dotnet test --no-restore ${{ matrix.test_project }} /p:CollectCoverage=true /p:CoverletOutputFormat=opencover --logger "trx;LogFileName=${{ matrix.test_project }}.trx" --results-directory "./TestResults-${{ matrix.test_project }}"
 
     - name: Upload dotnet test results
-          uses: actions/upload-artifact@v2
-          with:
-            name: dotnet-results-${{ matrix.dotnet-version }}
-            path: TestResults-${{ matrix.dotnet-version }}
-          if: ${{ always() }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: dotnet-results-${{ matrix.dotnet-version }}
+        path: TestResults-${{ matrix.dotnet-version }}
+      if: ${{ always() }}
