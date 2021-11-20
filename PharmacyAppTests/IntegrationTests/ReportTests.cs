@@ -16,7 +16,7 @@ namespace PharmacyAppTests.IntegrationTests
             String fileName = @"data\public\MedicationConsumptionReport.txt";
             bool exists = false;
 
-            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "passwor")))
             {
                 client.Connect();
                 if (File.Exists(fileName))
@@ -25,6 +25,19 @@ namespace PharmacyAppTests.IntegrationTests
             }
 
             exists.ShouldBe(true);
+        }
+
+        [Fact]
+        public void CheckConnection()
+        {
+            bool connected = true;
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "passwor")))
+            {
+                if (!client.IsConnected)
+                    connected = false;
+            }
+
+            connected.ShouldBeFalse();
         }
     }
 }
