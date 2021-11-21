@@ -52,6 +52,18 @@ namespace PharmacyLibrary.Services
             return null;
         }
 
+        public void OrderMedicine(MedicineDTO medicine)
+        {
+            foreach(Medicine currentMedicine in medicineRepository.GetAll())
+            {
+                if(currentMedicine.Name == medicine.Name)
+                {
+                    currentMedicine.Quantity -= medicine.Quantity;
+                    medicineRepository.Save();
+                }
+            }
+        }
+
         public bool CheckMedicine(MedicineDTO medicineDTO)
         {
             Medicine medicine = GetMedicineInformationByName(medicineDTO.Name);

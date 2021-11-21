@@ -47,5 +47,12 @@ namespace Pharmacy.Controllers
             return medicineService.CheckMedicine(medicine);
         }
 
+        [HttpPost]
+        [Route("orderMedicine")]
+        public void OrderMedicine(MedicineDTO medicine)
+        {
+            medicineService.OrderMedicine(medicine);
+        }
+
     }
 }
