@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 using Moq;
+using Shouldly;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
-using Shouldly;
 using PhramacyLibrary.Model;
 using PharmacyLibrary.Model.Enums;
 
@@ -23,18 +23,18 @@ namespace PharmacyAppTests.UnitTests
             medicineService = new MedicineService(stubRepository.Object);
 
             List<Medicine> medicines = new List<Medicine>();
-            Medicine medicine = new Medicine 
-            { 
-               Id = 1, 
-               Name = "Brufen", 
-               Manufacturer = "Hemofarm",
-               MedicineType = MedicineType.ANALGESIC, 
-               Description="newMedicine",
-               IsPrescribed = true, 
-               SideEffects = "None", 
-               RecommendedDose = "Two times per day", 
-               Intensity = 0.2, 
-               Quantity = 30 
+            Medicine medicine = new Medicine
+            {
+                Id = 1,
+                Name = "Brufen",
+                Manufacturer = "Hemofarm",
+                MedicineType = MedicineType.ANALGESIC,
+                Description = "newMedicine",
+                IsPrescribed = true,
+                SideEffects = "None",
+                RecommendedDose = "Two times per day",
+                Intensity = 0.2,
+                Quantity = 30
             };
             medicines.Add(medicine);
 
@@ -99,7 +99,7 @@ namespace PharmacyAppTests.UnitTests
             stubRepository.Setup(m => m.GetAll()).Returns(medicines);
             stubRepository.Setup(m => m.Update(medicine)).Verifiable();
 
-            medicineService.UpdateMedicineQuantity(1,10);
+            medicineService.UpdateMedicineQuantity(1, 10);
 
             medicines[0].Quantity.ShouldBe(20);
         }
