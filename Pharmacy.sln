@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pharmacy", "Pharmacy\Pharma
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PharmacyLibrary", "PharmacyLibrary\PharmacyLibrary.csproj", "{73C9DF9A-11EF-4649-921C-D82D6BFBF206}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmacyAppTests", "PharmacyAppTests\PharmacyAppTests.csproj", "{8ADD5432-DCB1-48C8-AF76-80CE65284948}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PharmacyUnitTests", "PharmacyUnitTests\PharmacyUnitTests.csproj", "{0F60034F-4888-4E00-8286-373752681624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{73C9DF9A-11EF-4649-921C-D82D6BFBF206}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73C9DF9A-11EF-4649-921C-D82D6BFBF206}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73C9DF9A-11EF-4649-921C-D82D6BFBF206}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8ADD5432-DCB1-48C8-AF76-80CE65284948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ADD5432-DCB1-48C8-AF76-80CE65284948}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ADD5432-DCB1-48C8-AF76-80CE65284948}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ADD5432-DCB1-48C8-AF76-80CE65284948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F60034F-4888-4E00-8286-373752681624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F60034F-4888-4E00-8286-373752681624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F60034F-4888-4E00-8286-373752681624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F60034F-4888-4E00-8286-373752681624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
