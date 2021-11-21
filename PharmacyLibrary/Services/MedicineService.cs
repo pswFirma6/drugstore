@@ -73,14 +73,19 @@ namespace PharmacyLibrary.Services
             }
             else
             {
-                if(IsEnoughAmount(medicine.Id, medicineDTO.Quantity))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return CheckMedicineAmount(medicine, medicineDTO);
+            }
+        }
+
+        private bool CheckMedicineAmount(Medicine medicine, MedicineDTO medicineDTO)
+        {
+            if (IsEnoughAmount(medicine.Id, medicineDTO.Quantity))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
