@@ -39,8 +39,9 @@ namespace PharmacyAppTests.UnitTests
             medicines.Add(medicine);
 
             stubRepository.Setup(m => m.GetAll()).Returns(medicines);
+            stubRepository.Setup(m => m.FindById(medicine.Id)).Returns(medicine);
 
-            bool ifEnoughAmount = medicineService.IsEnoughAmount(1, 15);
+            bool ifEnoughAmount = medicineService.IsEnoughAmount(medicine.Id, 15);
 
             ifEnoughAmount.ShouldBeTrue();
         }
@@ -98,8 +99,9 @@ namespace PharmacyAppTests.UnitTests
 
             stubRepository.Setup(m => m.GetAll()).Returns(medicines);
             stubRepository.Setup(m => m.Update(medicine)).Verifiable();
+            stubRepository.Setup(m => m.FindById(medicine.Id)).Returns(medicine);
 
-            medicineService.UpdateMedicineQuantity(1, 10);
+            medicineService.UpdateMedicineQuantity(medicine.Id, 10);
 
             medicines[0].Quantity.ShouldBe(20);
         }

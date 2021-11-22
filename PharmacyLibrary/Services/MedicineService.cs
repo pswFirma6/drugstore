@@ -67,26 +67,7 @@ namespace PharmacyLibrary.Services
         public bool CheckMedicine(MedicineDTO medicineDTO)
         {
             Medicine medicine = GetMedicineInformationByName(medicineDTO.Name);
-            if(medicine == null)
-            {
-                return false;
-            }
-            else
-            {
-                return CheckMedicineAmount(medicine, medicineDTO);
-            }
-        }
-
-        private bool CheckMedicineAmount(Medicine medicine, MedicineDTO medicineDTO)
-        {
-            if (IsEnoughAmount(medicine.Id, medicineDTO.Quantity))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return medicine != null && IsEnoughAmount(medicine.Id, medicineDTO.Quantity);
         }
 
         public List<Medicine> SearchMedicineByNameAndSubstance(String medicineName, MedicineType medicineType)
@@ -153,28 +134,18 @@ namespace PharmacyLibrary.Services
 
         public void UpdateMedicineQuantity(int idMedicine, int spentNumberOfDrugs)
         {
-            foreach (Medicine medicine in GetAll())
+            Medicine medicine = FindById(idMedicine);
+            if (medicine != null)
             {
-                if (medicine.Id == idMedicine)
-                {
-                    medicine.Quantity -= spentNumberOfDrugs;
-                    Update(medicine);
-                    break;
-                }
+                medicine.Quantity -= spentNumberOfDrugs;
+                Update(medicine);
             }
         }
 
         public bool IsEnoughAmount(int medicineId, int medicineAmount)
         {
-            List<Medicine> allMedicines = medicineRepository.GetAll();
-            foreach (Medicine med in allMedicines)
-            {
-                if (med.Id.Equals(medicineId))
-                {
-                    if (med.Quantity >= medicineAmount) return true;
-                }
-            }
-            return false;
+            Medicine medicine = FindById(medicineId);
+            return medicine != null && medicine.Quantity >= medicineAmount;
         }
     }
 }
