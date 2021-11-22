@@ -22,5 +22,13 @@ namespace PharmacyLibrary.Model
             StartDate = startDate;
             EndDate = endDate;
         }
+
+        public Offer(string title, string content, DateTime startDate, DateTime endDate)
+        {
+            Title = title;
+            Content = content;
+            StartDate = startDate;
+            EndDate = endDate;
+        }
     }
 }

@@ -9,11 +9,10 @@ using System.Collections.Generic;
 using System.Text;
 using Xunit;
 
-namespace PharmacyAppTests.UnitTests
+namespace PharmacyUnitTests
 {
-    public class ReportUnitTests
+    public class ReportTests
     {
-
         private ReportsService service;
         [Fact]
         public void CheckIfMedicineExists()
