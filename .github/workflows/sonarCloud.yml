@@ -44,7 +44,7 @@ jobs:
           class_lib_path: PharmacyLibrary\PharmacyLibrary.csproj
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"pswfirma6_drugstore" /o:"pswfirma6" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"pswfirma6" /o:"pswfirma6" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build ${{env.class_lib_path}}
           dotnet build ${{env.api_path}}
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
