@@ -1,12 +1,12 @@
-name: Sonar Cloud Integration
+name: Build
 on:
   push:
     branches:
-      [ feature-sonarCloud ]
-   
+      - feature-sonarCloud
+
 jobs:
   build:
-    name: Sonar Cloud Integration
+    name: Build
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -15,7 +15,7 @@ jobs:
           java-version: 1.11
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: Cache SonarCloud packages
         uses: actions/cache@v1
         with:
@@ -35,16 +35,13 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-          
       - name: Build and analyze
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          api_path: Pharmacy\Pharmacy.csproj
-          class_lib_path: PharmacyLibrary\PharmacyLibrary.csproj
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"pswfirma6" /o:"pswfirma6" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"pswFirma6_drugstore" /o:"pswfirma6" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build ${{env.class_lib_path}}
           dotnet build ${{env.api_path}}
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
