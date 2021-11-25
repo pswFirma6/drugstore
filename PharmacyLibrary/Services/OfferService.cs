@@ -1,5 +1,7 @@
-﻿using PharmacyLibrary.IRepository;
+﻿using Newtonsoft.Json;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +34,22 @@ namespace PharmacyLibrary.Services
         public List<Offer> GetOffers()
         {
             return repository.GetAll();
+        }
+
+        public void SendOffer(Offer offer)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.ExchangeDeclare(exchange: "offer-exchange", type: ExchangeType.Fanout);
+
+                var message = offer;
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+
+                channel.BasicPublish("offer-exchange", string.Empty, null, body);
+            }
+
         }
     }
 }

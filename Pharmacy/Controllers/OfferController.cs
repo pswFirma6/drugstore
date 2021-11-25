@@ -28,7 +28,8 @@ namespace Pharmacy.Controllers
         {
             Offer newOffer = new Offer { Title = offer.Title, Content = offer.Content, StartDate = offer.StartDate, EndDate = offer.EndDate };
             service.AddOffer(newOffer);
-            return Ok();
+            service.SendOffer(newOffer);
+            return Ok(newOffer);
         }
 
         [HttpGet]
