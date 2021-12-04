@@ -12,11 +12,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PharmacyLibrary.Model;
+using Grpc.Core;
 
 namespace Pharmacy
 {
     public class Startup
     {
+        private Server server;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,7 +38,7 @@ namespace Pharmacy
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             app.UseCors(options => options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader());
 
@@ -55,6 +58,26 @@ namespace Pharmacy
             {
                 endpoints.MapControllers();
             });
+
+            // creating server
+            server = new Server
+            {
+                Services = { NetGrpcService.BindService(new MedicineAvailabilityService()) },
+                Ports = { new ServerPort("localhost", 8787, ServerCredentials.Insecure) }
+            };
+            server.Start();
+
+            applicationLifetime.ApplicationStopping.Register(OnShutDown);
+
         }
+
+        private void OnShutDown()
+        {
+            if(server != null)
+            {
+                server.ShutdownAsync().Wait();
+            }
+        }
+
     }
 }

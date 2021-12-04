@@ -1,0 +1,7 @@
+﻿syntax = "proto3";
+
+import "Proto/model.proto";
+
+service NetGrpcService {	
+	rpc transfer (MedicineAvailabilityMessage) returns (MedicineAvailabilityResponse);	//procedura	jednostavni unarni gRCP
+}
