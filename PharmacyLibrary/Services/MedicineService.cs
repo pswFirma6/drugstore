@@ -29,6 +29,7 @@ namespace PharmacyLibrary.Services
         public void Add(Medicine medicine)
         {
             medicineRepository.Add(medicine);
+            medicineRepository.Save();
         }
         public void Update(Medicine medicine)
         {
@@ -147,5 +148,6 @@ namespace PharmacyLibrary.Services
             Medicine medicine = FindById(medicineId);
             return medicine != null && medicine.Quantity >= medicineAmount;
         }
+
     }
 }

@@ -36,5 +36,18 @@ namespace PhramacyLibrary.Model
             Intensity = intensity;
             Quantity = quantity;
         }
+
+        public Medicine(string name, string manufacturer, MedicineType medicineType, string description, bool isPrescribed, string sideEffects, string recommendedDose, double intensity, int quantity)
+        {
+            Name = name;
+            Manufacturer = manufacturer;
+            MedicineType = medicineType;
+            Description = description;
+            IsPrescribed = isPrescribed;
+            SideEffects = sideEffects;
+            RecommendedDose = recommendedDose;
+            Intensity = intensity;
+            Quantity = quantity;
+        }
     }
 }
