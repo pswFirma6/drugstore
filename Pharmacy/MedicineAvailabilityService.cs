@@ -15,11 +15,10 @@ namespace Pharmacy
     {
         private readonly MedicineService service;
         private readonly DatabaseContext context = new DatabaseContext();
-        private readonly IMedicineRepository repository;
 
         public MedicineAvailabilityService()
         {
-            repository = new MedicineRepository(context);
+            IMedicineRepository repository = new MedicineRepository(context);
             service = new MedicineService(repository);
         }
 
