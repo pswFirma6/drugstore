@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
 using PhramacyLibrary.Model;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,16 +17,13 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-        private readonly MedicineSpecificationService reportsService;
-        private readonly MedicineConsumptionService consumptionsService;
-        private readonly PrescriptionService prescriptionService;
+        private ReportsService reportsService;
+        private IMedicineRepository medicineRepository;
 
         public ReportsController(DatabaseContext context)
         {
-            IMedicineRepository medicineRepository = new MedicineRepository(context);
-            reportsService = new MedicineSpecificationService(medicineRepository);
-            consumptionsService = new MedicineConsumptionService();
-            prescriptionService = new PrescriptionService();
+            medicineRepository = new MedicineRepository(context);
+            reportsService = new ReportsService(medicineRepository);
         }
 
         [HttpPost]
@@ -43,10 +40,9 @@ namespace Pharmacy.Controllers
 
         [HttpGet]
         [Route("consumptionReport")]
-        public String GetConsumptionReport()
+        public FileDto GetConsumptionReport()
         {
-            consumptionsService.GetConsumptionReport();
-            return "OK";
+            return reportsService.GetConsumptionReport();
         }
 
         [HttpGet]
@@ -54,13 +50,6 @@ namespace Pharmacy.Controllers
         public List<String> GetPharmacyMedications()
         {
             return reportsService.GetMedicineNames();
-        }
-
-        [HttpPost]
-        [Route("SendPrescription")]
-        public String GetPrescription()
-        {
-            return "OK";
         }
     }
 }
