@@ -1,13 +1,13 @@
 ﻿using PharmacyLibrary.IRepository;
-using PharmacyLibrary.Model;
-using PharmacyLibrary.Model.Enums;
-using PharmacyLibrary.Repository;
 using PhramacyLibrary.Model;
 using Renci.SshNet;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using Spire.Pdf;
+using Spire.Pdf.Graphics;
+using System.Drawing;
+
 
 namespace PharmacyLibrary.Services
 {
@@ -33,11 +33,15 @@ namespace PharmacyLibrary.Services
         public void GenerateReport(String medicineName)
         {
             String filePath = Directory.GetCurrentDirectory();
-            String fileName = "MedicineSpecification (" + medicineName + ").txt";
+            String fileName = "MedicineSpecification (" + medicineName + ").pdf";
+
+            PdfDocument doc = new PdfDocument();
+            PdfPageBase page = doc.Pages.Add();
+            page.Canvas.DrawString(GetReportContent(medicineName), new PdfFont(PdfFontFamily.Helvetica, 11f), new PdfSolidBrush(Color.Black), 10, 10);
 
 
             StreamWriter File = new StreamWriter(Path.Combine(filePath, fileName), true);
-            File.Write(GetReportContent(medicineName));
+            doc.SaveToStream(File.BaseStream);
             File.Close();
 
             SendReport(Path.Combine(filePath, fileName));
@@ -52,7 +56,7 @@ namespace PharmacyLibrary.Services
 
                 using (Stream stream = File.OpenRead(filePath))
                 {
-                    client.UploadFile(stream, @"\public\" + Path.GetFileName(filePath), null);
+                    client.UploadFile(stream, @"\public\specifications" + Path.GetFileName(filePath), null);
                 }
                 client.Disconnect();
             }
