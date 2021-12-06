@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -39,10 +40,9 @@ namespace Pharmacy.Controllers
 
         [HttpGet]
         [Route("consumptionReport")]
-        public String GetConsumptionReport()
+        public FileDTO GetConsumptionReport()
         {
-            reportsService.GetConsumptionReport();
-            return "OK";
+            return reportsService.GetConsumptionReport();
         }
 
         [HttpGet]

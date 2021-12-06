@@ -18,7 +18,7 @@ namespace PharmacyLibrary.Model
         public DbSet<FeedbackResponse> FeedbackResponses { get; set; }
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Offer> Offers { get; set; }
-
+        public DbSet<Notification> Notifications { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("server=localhost;port=5432;database=drugstoredb;username=root;password=root");
