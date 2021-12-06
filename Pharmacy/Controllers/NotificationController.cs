@@ -17,12 +17,11 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class NotificationController : ControllerBase
     {
-        private NotificationService notificationService;
-        private INotificationRepository notificationRepository;
+        private readonly NotificationService notificationService;
 
         public NotificationController(DatabaseContext context)
         {
-            notificationRepository = new NotificationRepository(context);
+            INotificationRepository notificationRepository = new NotificationRepository(context);
             notificationService = new NotificationService(notificationRepository);
         }
 

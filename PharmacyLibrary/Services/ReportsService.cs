@@ -74,11 +74,11 @@ namespace PharmacyLibrary.Services
             return content;
         }
 
-        public FileDTO GetConsumptionReport()
+        public FileDto GetConsumptionReport()
         {
             string localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.txt");
             string serverFile = @"\public\MedicationConsumptionReport.txt";
-            FileDTO file = new FileDTO();
+            FileDto file = new FileDto();
 
             //promenjen server IP za potrebe testiranja
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.0.15", "tester", "password")))

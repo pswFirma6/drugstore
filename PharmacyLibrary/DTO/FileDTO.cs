@@ -4,13 +4,13 @@ using System.Text;
 
 namespace PharmacyLibrary.DTO
 {
-    public class FileDTO
+    public class FileDto
     {
         public string Name { get; set; }
 
-        public FileDTO() { }
+        public FileDto() { }
 
-        public FileDTO(string name)
+        public FileDto(string name)
         {
             Name = name;
         }

@@ -40,7 +40,7 @@ namespace Pharmacy.Controllers
 
         [HttpGet]
         [Route("consumptionReport")]
-        public FileDTO GetConsumptionReport()
+        public FileDto GetConsumptionReport()
         {
             return reportsService.GetConsumptionReport();
         }
