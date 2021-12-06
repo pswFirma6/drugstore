@@ -6,6 +6,7 @@ using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
 using PhramacyLibrary.Model;
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,6 +54,13 @@ namespace Pharmacy.Controllers
         public List<String> GetPharmacyMedications()
         {
             return reportsService.GetMedicineNames();
+        }
+
+        [HttpPost]
+        [Route("SendPrescription")]
+        public String GetPrescription()
+        {
+            return "OK";
         }
     }
 }
