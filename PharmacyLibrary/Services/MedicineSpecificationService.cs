@@ -11,11 +11,11 @@ using System.Text;
 
 namespace PharmacyLibrary.Services
 {
-    public class ReportsService
+    public class MedicineSpecificationService
     {
         private readonly IMedicineRepository medicineRepository;
 
-        public ReportsService(IMedicineRepository imedicineRepository)
+        public MedicineSpecificationService(IMedicineRepository imedicineRepository)
         {
             medicineRepository = imedicineRepository;
         }
@@ -73,22 +73,6 @@ namespace PharmacyLibrary.Services
             return content;
         }
 
-        public void GetConsumptionReport()
-        {
-            String localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.txt");
-            String serverFile = @"\public\MedicationConsumptionReport.txt";
-
-            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
-            {
-                client.Connect();
-                using (Stream stream = File.OpenWrite(localFile))
-                {
-                    client.DownloadFile(serverFile, stream, null);
-                }
-                client.Disconnect();
-            }
-
-        }
         public List<string> GetMedicineNames()
         {
             List<String> names = new List<String>();

@@ -9,10 +9,13 @@ namespace PharmacyLibrary.Services
     public class MedicineConsumptionService
     {
 
+        public MedicineConsumptionService() { }
+
         public void GetConsumptionReport()
         {
-            String localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.pdf");
-            String serverFile = @"\public\consumptions\MedicationConsumptionReport.pdf";
+            string fileName = "ConsumptionReport.pdf";
+            String localFile = Path.Combine(GetConsumptionsDirectory(),fileName);
+            String serverFile = @"\public\consumptions\"+fileName+".pdf";
 
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
             {
@@ -24,6 +27,12 @@ namespace PharmacyLibrary.Services
                 client.Disconnect();
             }
 
+        }
+
+        public string GetConsumptionsDirectory()
+        {
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "Data\\Consumptions\\").ToString();
+            return path.Replace("\\bin\\Debug", "");
         }
 
 
