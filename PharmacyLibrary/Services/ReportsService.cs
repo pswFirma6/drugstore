@@ -1,4 +1,5 @@
-﻿using PharmacyLibrary.IRepository;
+﻿using PharmacyLibrary.DTO;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Model.Enums;
 using PharmacyLibrary.Repository;
@@ -73,12 +74,14 @@ namespace PharmacyLibrary.Services
             return content;
         }
 
-        public void GetConsumptionReport()
+        public FileDto GetConsumptionReport()
         {
-            String localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.txt");
-            String serverFile = @"\public\MedicationConsumptionReport.txt";
+            string localFile = Path.Combine(Directory.GetCurrentDirectory(), "ConsumptionReport.txt");
+            string serverFile = @"\public\MedicationConsumptionReport.txt";
+            FileDto file = new FileDto();
 
-            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
+            //promenjen server IP za potrebe testiranja
+            using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.0.15", "tester", "password")))
             {
                 client.Connect();
                 using (Stream stream = File.OpenWrite(localFile))
@@ -87,6 +90,10 @@ namespace PharmacyLibrary.Services
                 }
                 client.Disconnect();
             }
+            //promenjeno za probu!
+            string[] fileName = serverFile.Split('\\');
+            file.Name = fileName[fileName.Length - 1];
+            return file;
 
         }
         public List<string> GetMedicineNames()
