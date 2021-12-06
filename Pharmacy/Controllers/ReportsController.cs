@@ -16,13 +16,16 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-        private ReportsService reportsService;
-        private IMedicineRepository medicineRepository;
+        private readonly MedicineSpecificationService reportsService;
+        private readonly MedicineConsumptionService consumptionsService;
+        private readonly PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
         {
-            medicineRepository = new MedicineRepository(context);
-            reportsService = new ReportsService(medicineRepository);
+            IMedicineRepository medicineRepository = new MedicineRepository(context);
+            reportsService = new MedicineSpecificationService(medicineRepository);
+            consumptionsService = new MedicineConsumptionService();
+            prescriptionService = new PrescriptionService();
         }
 
         [HttpPost]
@@ -41,7 +44,7 @@ namespace Pharmacy.Controllers
         [Route("consumptionReport")]
         public String GetConsumptionReport()
         {
-            reportsService.GetConsumptionReport();
+            consumptionsService.GetConsumptionReport();
             return "OK";
         }
 
