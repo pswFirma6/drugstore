@@ -13,12 +13,12 @@ namespace PharmacyUnitTests
 {
     public class ReportTests
     {
-        private ReportsService service;
+        private MedicineSpecificationService service;
         [Fact]
         public void CheckIfMedicineExists()
         {
             var stubRepo = new Mock<IMedicineRepository>();
-            service = new ReportsService(stubRepo.Object);
+            service = new MedicineSpecificationService(stubRepo.Object);
             Medicine med = new Medicine(1, "Brufen", "Manufactorer", MedicineType.ANALGESIC, "", false, "none", "none", 1, 1);
             List<Medicine> medicines = new List<Medicine>();
             medicines.Add(med);
