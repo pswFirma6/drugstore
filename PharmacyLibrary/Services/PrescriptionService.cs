@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 
+
 namespace PharmacyLibrary.Services
 {
     public class PrescriptionService
@@ -40,6 +41,11 @@ namespace PharmacyLibrary.Services
         public string[] GetPrescriptionFileNames()
         {
             return Directory.GetFiles(GetPrescriptionsDirectory(), "*.pdf");
+        }
+
+        public string GetPrescriptionFile(string fileName)
+        {
+            return Path.Combine(GetPrescriptionsDirectory(),fileName);
         }
 
     }

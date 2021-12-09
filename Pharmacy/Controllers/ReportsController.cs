@@ -1,14 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
-using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Controllers
@@ -34,17 +32,31 @@ namespace Pharmacy.Controllers
             return prescriptionService.GetPrescriptionFileNames();
         }
 
+        [HttpGet]
+        [Route("getPdf/{fileName}")]
+        public async Task<IActionResult> GetPrescriptionFile(String fileName)
+        {
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(prescriptionService.GetPrescriptionFile(fileName), FileMode.Open))
+                await stream.CopyToAsync(memory);
+            
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+
+            return File(memory, contentType, fileName);
+        }
+
 
         [HttpPost]
         [Route("report")]
-        public String GetMedicineSpecification([FromBody] String medicineName)
+        public IActionResult GetMedicineSpecification([FromBody] String medicineName)
         {
             if (reportsService.GetMedicine(medicineName) != null)
             {
                 reportsService.GenerateReport(medicineName);
-                return "OK";
+                return Ok();
             }
-            return "Not ok";
+            return NotFound(404);
         }
 
         [HttpGet]
