@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 
+
 namespace PharmacyLibrary.Services
 {
     public class PrescriptionService
@@ -25,11 +26,26 @@ namespace PharmacyLibrary.Services
             }
 
         }
+        public void RecieveFileFromHttp(string content, string fileName)
+        {
+            byte[] bytes = Convert.FromBase64String(content);
+            File.WriteAllBytes(Path.Combine(GetPrescriptionsDirectory(),fileName), bytes);
+        }
 
         public string GetPrescriptionsDirectory()
         {
             string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "Data\\Prescriptions\\").ToString();
             return path.Replace("\\bin\\Debug", "");
+        }
+
+        public string[] GetPrescriptionFileNames()
+        {
+            return Directory.GetFiles(GetPrescriptionsDirectory(), "*.pdf");
+        }
+
+        public string GetPrescriptionFile(string fileName)
+        {
+            return Path.Combine(GetPrescriptionsDirectory(),fileName);
         }
 
     }
