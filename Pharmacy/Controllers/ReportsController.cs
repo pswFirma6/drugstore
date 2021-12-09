@@ -16,8 +16,8 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class ReportsController : ControllerBase
     {
-        private ReportsService reportsService;
         private IMedicineRepository medicineRepository;
+        private ReportsService reportsService;
         private PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
@@ -26,6 +26,14 @@ namespace Pharmacy.Controllers
             reportsService = new ReportsService(medicineRepository);
             prescriptionService = new PrescriptionService();
         }
+
+        [HttpGet]
+        [Route("prescriptions")]
+        public string[] GetPrescriptionNames()
+        {
+            return prescriptionService.GetPrescriptionFileNames();
+        }
+
 
         [HttpPost]
         [Route("report")]

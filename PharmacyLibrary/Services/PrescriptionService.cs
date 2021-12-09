@@ -37,5 +37,10 @@ namespace PharmacyLibrary.Services
             return path.Replace("\\bin\\Debug", "");
         }
 
+        public string[] GetPrescriptionFileNames()
+        {
+            return Directory.GetFiles(GetPrescriptionsDirectory(), "*.pdf");
+        }
+
     }
 }
