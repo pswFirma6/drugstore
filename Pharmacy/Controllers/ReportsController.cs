@@ -16,7 +16,7 @@ namespace Pharmacy.Controllers
     {
         private IMedicineRepository medicineRepository;
         private ReportsService reportsService;
-        private PrescriptionService prescriptionService;
+        private readonly PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
         {
