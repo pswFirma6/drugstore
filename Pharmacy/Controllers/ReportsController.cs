@@ -13,17 +13,18 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
     public class ReportsController : ControllerBase
     {
         private ReportsService reportsService;
         private IMedicineRepository medicineRepository;
+        private PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
             reportsService = new ReportsService(medicineRepository);
+            prescriptionService = new PrescriptionService();
         }
 
         [HttpPost]
@@ -50,6 +51,13 @@ namespace Pharmacy.Controllers
         public List<String> GetPharmacyMedications()
         {
             return reportsService.GetMedicineNames();
+        }
+
+        [HttpPost]
+        [Route("sendPrescription")]
+        public void GetPrescription([FromBody] string content, [FromHeader] string fileName)
+        {
+            prescriptionService.RecieveFileFromHttp(content,fileName);
         }
     }
 }

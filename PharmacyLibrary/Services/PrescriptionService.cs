@@ -25,6 +25,11 @@ namespace PharmacyLibrary.Services
             }
 
         }
+        public void RecieveFileFromHttp(string content, string fileName)
+        {
+            byte[] bytes = Convert.FromBase64String(content);
+            File.WriteAllBytes(Path.Combine(GetPrescriptionsDirectory(),fileName), bytes);
+        }
 
         public string GetPrescriptionsDirectory()
         {
