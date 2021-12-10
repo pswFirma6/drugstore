@@ -1,11 +1,10 @@
-﻿syntax = "proto3";	//verzija proto bafera
+﻿syntax = "proto3";	
 
 message MedicineAvailabilityMessage {
-	string medicineName = 1;	// 1 = na prvom mestu se nalazi poruka
-	int64 medicineQuantity = 2;	// 2 = na drugom mestu se nalazi random integer
+	string medicineName = 1;	
+	int64 medicineQuantity = 2;	
 }
 
 message MedicineAvailabilityResponse{
-	string response = 1;
-	string status = 2;
+	bool isAvailable = 1;
 }

@@ -59,25 +59,26 @@ namespace Pharmacy
                 endpoints.MapControllers();
             });
 
-            // creating server
             server = new Server
             {
-                Services = { NetGrpcService.BindService(new MedicineAvailabilityService()) },
-                Ports = { new ServerPort("localhost", 8787, ServerCredentials.Insecure) }
+                Services = { MedicineService.BindService(new MedicineAvailabilityService()) },
+                Ports = { new ServerPort("localhost", 4111, ServerCredentials.Insecure) }
             };
             server.Start();
 
-            applicationLifetime.ApplicationStopping.Register(OnShutDown);
+            applicationLifetime.ApplicationStopping.Register(OnShutdown);
 
         }
 
-        private void OnShutDown()
+        private void OnShutdown()
         {
-            if(server != null)
+            if (server != null)
             {
                 server.ShutdownAsync().Wait();
             }
+
         }
+
 
     }
 }

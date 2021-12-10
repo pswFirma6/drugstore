@@ -1,0 +1,8 @@
+﻿syntax = "proto3";
+
+import "Proto/model.proto";
+
+service MedicineService {
+	rpc checkMedicineAvailability (MedicineAvailabilityMessage) returns (MedicineAvailabilityResponse);
+	rpc medicineUrgentProcurement (MedicineAvailabilityMessage) returns (MedicineAvailabilityResponse);
+}
