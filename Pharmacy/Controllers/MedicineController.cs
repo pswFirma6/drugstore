@@ -17,7 +17,7 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class MedicineController
     {
-        private PharmacyLibrary.Services.MedicineService medicineService;
+        private readonly PharmacyLibrary.Services.MedicineService medicineService;
         private IMedicineRepository medicineRepository;
         public MedicineController(DatabaseContext context)
         {
