@@ -6,29 +6,48 @@ using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Pharmacy
 {
-    public class MedicineAvailabilityService : NetGrpcService.NetGrpcServiceBase
+    public class MedicineAvailabilityService : MedicineService.MedicineServiceBase
     {
-        private readonly MedicineService service;
-        private readonly DatabaseContext context = new DatabaseContext();
-
-        public MedicineAvailabilityService()
+        public override Task<MedicineAvailabilityResponse> checkMedicineAvailability(MedicineAvailabilityMessage request, ServerCallContext context)
         {
-            IMedicineRepository repository = new MedicineRepository(context);
-            service = new MedicineService(repository);
+            DatabaseContext dbContext = new DatabaseContext();
+            IMedicineRepository medicineRepository = new MedicineRepository(dbContext);
+            PharmacyLibrary.Services.MedicineService medicineService = new PharmacyLibrary.Services.MedicineService(medicineRepository);
+
+            MedicineDTO medicineDTO = new MedicineDTO
+            {
+                Name = request.MedicineName,
+                Quantity = (int)request.MedicineQuantity
+            };
+
+            MedicineAvailabilityResponse response = new MedicineAvailabilityResponse();
+            response.IsAvailable = medicineService.CheckMedicine(medicineDTO);
+
+            return Task.FromResult(response);
         }
 
-        public override Task<MedicineAvailabilityResponse> transfer(MedicineAvailabilityMessage request, ServerCallContext context)
+        public override Task<MedicineAvailabilityResponse> medicineUrgentProcurement(MedicineAvailabilityMessage request, ServerCallContext context)
         {
+            DatabaseContext dbContext = new DatabaseContext();
+            IMedicineRepository medicineRepository = new MedicineRepository(dbContext);
+            PharmacyLibrary.Services.MedicineService medicineService = new PharmacyLibrary.Services.MedicineService(medicineRepository);
+
+            MedicineDTO medicineDTO = new MedicineDTO
+            {
+                Name = request.MedicineName,
+                Quantity = (int)request.MedicineQuantity
+            };
+
             MedicineAvailabilityResponse response = new MedicineAvailabilityResponse();
-            MedicineDTO dto = new MedicineDTO { Name = request.MedicineName, Quantity = (int)request.MedicineQuantity };
-            response.Response = service.CheckMedicine(dto).ToString();
-            response.Status = "STATUS OK";
-            Console.WriteLine("SALJE SERVER");
+            medicineService.OrderMedicine(medicineDTO);
+            response.IsAvailable = true;
+
             return Task.FromResult(response);
         }
     }
