@@ -32,7 +32,7 @@ namespace PharmacyLibrary.Migrations
                     b.Property<string>("FeedbackDate")
                         .HasColumnType("text");
 
-                    b.Property<string>("PharmacyName")
+                    b.Property<string>("HospitalName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -75,12 +75,36 @@ namespace PharmacyLibrary.Migrations
                     b.Property<string>("HospitalCity")
                         .HasColumnType("text");
 
-                    b.Property<string>("PharmacyName")
-                        .HasColumnType("text");
-
                     b.HasKey("HospitalName");
 
                     b.ToTable("Hospitals");
+                });
+
+            modelBuilder.Entity("PharmacyLibrary.Model.Notification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Content")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FileName")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Read")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("PharmacyLibrary.Model.Offer", b =>
@@ -96,9 +120,6 @@ namespace PharmacyLibrary.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("PharmacyName")
-                        .HasColumnType("text");
-
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -108,41 +129,6 @@ namespace PharmacyLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Offers");
-                });
-
-            modelBuilder.Entity("PharmacyLibrary.Model.Pharmacy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ApiKey")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pharmacies");
-                });
-
-            modelBuilder.Entity("PharmacyLibrary.Model.PharmacyMedicines", b =>
-                {
-                    b.Property<int>("IdMedicine")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("IdPharmacy")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.ToTable("PharmacyMedicines");
                 });
 
             modelBuilder.Entity("PhramacyLibrary.Model.Medicine", b =>
@@ -169,6 +155,9 @@ namespace PharmacyLibrary.Migrations
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
 
                     b.Property<string>("RecommendedDose")
                         .HasColumnType("text");

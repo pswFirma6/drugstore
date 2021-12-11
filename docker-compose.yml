@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "root"
+      POSTGRES_USER: "root"
+      POSTGRES_DB: "drugstoredb"
+    volumes:
+      - type: volume
+        source: database-data
+        target: /var/lib/postgresql/data
+      - type: bind
+        source: ./scripts/data.sql
+        target: /docker-entrypoint-initdb.d/init.sql
+    ports: 
+      - "5555:5432"
+    networks: 
+      - network
+    
+  pharmacy:
+      image: student161/drugstore
+      container_name: savulja
+      build:
+        context: .
+        dockerfile: Dockerfile
+      restart: on-failure
+      ports:
+        - "8888:80"
+      networks: 
+        - application
+        - network
+      environment:
+        ASPNETCORE_ENVIRONMENT: Development
+        DATABASE_HOST: "postgres"
+        DATABASE_PORT: "5432"
+        DATABASE_USERNAME: "root"
+        DATABASE_PASSWORD: "root"
+        DATABASE_SCHEMA: "drugstoredb"
+      depends_on:
+        - postgres
+  front:
+    depends_on:
+      - pharmacy
+    image: student161/appforpharmacy
+    ports:
+      - "4201:4200"
+    restart: on-failure
+    networks:
+      - public
+      - application
+volumes:
+  database-data:
+    name: drugstoredb
+networks:
+  public:
+    name: public
+    driver: bridge
+  application:
+    name: application
+    driver: bridge
+  network:
+    name: network
+    driver: bridge
+    external: true
