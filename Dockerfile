@@ -14,11 +14,7 @@ FROM build AS publish
 RUN dotnet publish "Pharmacy/Pharmacy.csproj" -c Release -o /app/publish
 
 FROM base AS final
-RUN useradd -u 1234 nonrootuser
-USER nonrootuser
 WORKDIR /app
 COPY --from=publish /app/publish .
 EXPOSE 80
-ENV PORT 80
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet Pharmacy.dll
 ENTRYPOINT ["dotnet", "Pharmacy.dll"]

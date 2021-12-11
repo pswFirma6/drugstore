@@ -23,6 +23,8 @@ namespace PharmacyLibrary.Model
         {
             optionsBuilder.UseNpgsql("server=localhost;port=5432;database=drugstoredb;username=root;password=root");
             base.OnConfiguring(optionsBuilder);
+            
+
         }
 
     }
