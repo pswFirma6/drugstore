@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.9"
 
 services:
   postgres:
@@ -19,26 +19,32 @@ services:
       - "5555:5432"
     networks: 
       - network
-    
+
   pharmacy:
       image: student161/drugstore
       container_name: savulja
-      build: ../drugstore
+      build:
+        context: .
+        dockerfile: Dockerfile
       restart: on-failure
       ports:
-        - "8081:80"
+        - "44377:80"
       networks: 
         - application
         - network
       environment:
+        ASPNETCORE_ENVIRONMENT: Development
+        DATABASE_HOST: "postgres"
+        DATABASE_PORT: "5432"
         DATABASE_USERNAME: "root"
         DATABASE_PASSWORD: "root"
+        DATABASE_SCHEMA: "drugstoredb"
       depends_on:
         - postgres
   front:
     depends_on:
       - pharmacy
-    image: student161/appforpharmacy
+    image: student161/a666:latest
     ports:
       - "4201:4200"
     restart: on-failure
@@ -47,11 +53,15 @@ services:
       - application
 volumes:
   database-data:
+    name: drugstoredb
 networks:
   public:
+    name: public
     driver: bridge
   application:
+    name: application
     driver: bridge
   network:
+    name: network
     driver: bridge
-   
+    external: true

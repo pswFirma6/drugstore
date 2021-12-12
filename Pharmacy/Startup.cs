@@ -30,7 +30,7 @@ namespace Pharmacy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql("server = localhost; port = 5432; database = drugstoredb; username = root; password = root"));
 
             services.AddControllers();
             services.AddCors();
@@ -48,8 +48,7 @@ namespace Pharmacy
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
+        
             app.UseRouting();
 
             app.UseAuthorization();
