@@ -279,3 +279,8 @@ D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\obj
 D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\obj\Debug\netcoreapp3.1\PharmacyUnitTests.AssemblyInfo.cs
 D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\obj\Debug\netcoreapp3.1\PharmacyUnitTests.csproj.CopyComplete
 D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\obj\Debug\netcoreapp3.1\PharmacyUnitTests.dll
+D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Abstractions.dll
+D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Http.Features.dll
+D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.Abstractions.dll
+D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Routing.Abstractions.dll
+D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\PharmacyUnitTests\bin\Debug\netcoreapp3.1\Microsoft.Net.Http.Headers.dll
