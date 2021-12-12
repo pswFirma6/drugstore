@@ -1,41 +1,62 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
 using PharmacyLibrary.Services;
-using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Pharmacy.Controllers
 {
-    //[Route("api/[controller]")]
     [ApiController]
     public class ReportsController : ControllerBase
     {
-        private ReportsService reportsService;
         private IMedicineRepository medicineRepository;
+        private ReportsService reportsService;
+        private readonly PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
             reportsService = new ReportsService(medicineRepository);
+            prescriptionService = new PrescriptionService();
         }
+
+        [HttpGet]
+        [Route("prescriptions")]
+        public string[] GetPrescriptionNames()
+        {
+            return prescriptionService.GetPrescriptionFileNames();
+        }
+
+        [HttpGet]
+        [Route("getPdf/{fileName}")]
+        public async Task<IActionResult> GetPrescriptionFile(String fileName)
+        {
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(prescriptionService.GetPrescriptionFile(fileName), FileMode.Open))
+                await stream.CopyToAsync(memory);
+            
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+
+            return File(memory, contentType, fileName);
+        }
+
 
         [HttpPost]
         [Route("report")]
-        public String GetMedicineSpecification([FromBody] String medicineName)
+        public IActionResult GetMedicineSpecification([FromBody] String medicineName)
         {
             if (reportsService.GetMedicine(medicineName) != null)
             {
                 reportsService.GenerateReport(medicineName);
-                return "OK";
+                return Ok();
             }
-            return "Not ok";
+            return NotFound(404);
         }
 
         [HttpGet]
@@ -50,6 +71,13 @@ namespace Pharmacy.Controllers
         public List<String> GetPharmacyMedications()
         {
             return reportsService.GetMedicineNames();
+        }
+
+        [HttpPost]
+        [Route("sendPrescription")]
+        public void GetPrescription([FromBody] string content, [FromHeader] string fileName)
+        {
+            prescriptionService.RecieveFileFromHttp(content,fileName);
         }
     }
 }

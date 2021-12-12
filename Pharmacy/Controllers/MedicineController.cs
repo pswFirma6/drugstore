@@ -10,7 +10,6 @@ using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
-using PharmacyLibrary.Services;
 using PhramacyLibrary.Model;
 
 namespace Pharmacy.Controllers
@@ -18,12 +17,12 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class MedicineController
     {
-        private MedicineService medicineService;
+        private readonly PharmacyLibrary.Services.MedicineService medicineService;
         private IMedicineRepository medicineRepository;
         public MedicineController(DatabaseContext context)
         {
             medicineRepository = new MedicineRepository(context);
-            medicineService = new MedicineService(medicineRepository);
+            medicineService = new PharmacyLibrary.Services.MedicineService(medicineRepository);
         }
 
         [HttpPost]

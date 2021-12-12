@@ -36,8 +36,8 @@
   </ItemGroup>
 
 	<ItemGroup>
-		<ProtoBuf Include="Proto\model.proto" GrpcServices="None" />
-		<ProtoBuf Include="Proto\netGrcpService.proto" GrpcServices="Server" />
+		<Protobuf Include="Proto\model.proto" GrpcServices="None" />
+	    <Protobuf Include="Proto\medicineService.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>
