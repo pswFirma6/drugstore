@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Pharmacy.Controllers
 {
-    //[Route("api/[controller]")]
+   
     [ApiController]
     public class NotificationController : ControllerBase
     {

@@ -13,7 +13,7 @@ services:
         source: database-data
         target: /var/lib/postgresql/data
       - type: bind
-        source: ./scripts/data.sql
+        source: ./scripts/dataFull.sql
         target: /docker-entrypoint-initdb.d/init.sql
     ports: 
       - "5555:5432"
@@ -32,6 +32,7 @@ services:
       networks: 
         - application
         - network
+      
       environment:
         ASPNETCORE_ENVIRONMENT: Development
         DATABASE_HOST: "postgres"
@@ -44,9 +45,9 @@ services:
   front:
     depends_on:
       - pharmacy
-    image: student161/a666:latest
+    image: student161/appforpharmacy1:latest
     ports:
-      - "4201:4200"
+      - "4200:4200"
     restart: on-failure
     networks:
       - public

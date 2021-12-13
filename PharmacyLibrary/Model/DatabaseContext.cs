@@ -38,8 +38,6 @@ namespace PharmacyLibrary.Model
             var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "root";
             var integratedSecurity = Environment.GetEnvironmentVariable("DATABASE_INTEGRATED_SECURITY") ?? "true";
             var pooling = Environment.GetEnvironmentVariable("DATABASE_POOLING") ?? "true";
-
-            //string retVal = "Server=" + server + ";Port=" + port + ";Database=" + database + ";User ID=" + user + ";Password=" + password + ";Integrated Security=" + integratedSecurity + ";Pooling=" + pooling + ";";
             return $"Server={server};Port={port};Database={database};User ID={user};Password={password};Integrated Security={integratedSecurity};Pooling={pooling};";
         }
     }

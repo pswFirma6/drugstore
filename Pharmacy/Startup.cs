@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using PharmacyLibrary.Model;
 using Grpc.Core;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Services;
 
 namespace Pharmacy
 {
@@ -30,7 +32,7 @@ namespace Pharmacy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<DatabaseContext>(options => options.UseNpgsql("server = localhost; port = 5432; database = drugstoredb; username = root; password = root"));
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(CreateConnectionStringFromEnvironment()));
             services.AddMvc();
             services.AddControllers();
             services.AddCors();

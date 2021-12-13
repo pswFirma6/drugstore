@@ -8,7 +8,7 @@ using System.Text;
 
 namespace PharmacyLibrary.Services
 {
-    public class FeedbacksService
+    public class FeedbacksService: IFeedbacksRepository
     {
         private readonly IFeedbacksRepository feedbacksRepository;
 
