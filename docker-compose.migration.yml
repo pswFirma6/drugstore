@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  drugstore-migration:
+    image: student161/drugstore
+    build:
+        context: .
+        dockerfile: Dockerfile
+        target: Pharmacy.csproj -execute-migration
+    networks:
+      - database
+    environment:
+      DATABASE_HOST: database
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+      DATABASE_SCHEMA: postgres
+
+networks:
+  database:
+    name: database
+    driver: bridge

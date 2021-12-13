@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using PharmacyLibrary.Model;
 using Grpc.Core;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Services;
 
 namespace Pharmacy
 {
@@ -30,8 +32,8 @@ namespace Pharmacy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("MyDbContextConnectionString")));
-
+            services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(CreateConnectionStringFromEnvironment()));
+            services.AddMvc();
             services.AddControllers();
             services.AddCors();
            
@@ -48,8 +50,7 @@ namespace Pharmacy
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
+        
             app.UseRouting();
 
             app.UseAuthorization();
@@ -78,7 +79,19 @@ namespace Pharmacy
             }
 
         }
+        private static string CreateConnectionStringFromEnvironment()
+        {
+            var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
+            var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
+            var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "drugstoredb";
+            var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "root";
+            var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "root";
+            var integratedSecurity = Environment.GetEnvironmentVariable("DATABASE_INTEGRATED_SECURITY") ?? "true";
+            var pooling = Environment.GetEnvironmentVariable("DATABASE_POOLING") ?? "true";
 
+            string retVal = "Server=" + server + ";Port=" + port + ";Database=" + database + ";User ID=" + user + ";Password=" + password + ";Integrated Security=" + integratedSecurity + ";Pooling=" + pooling + ";";
+            return retVal;
+        }
 
     }
 }
