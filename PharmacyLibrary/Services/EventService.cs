@@ -1,5 +1,6 @@
 ﻿using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,11 +9,13 @@ namespace PharmacyLibrary.Services
 {
     public class EventService
     {
-        private readonly IEventRepository eventRepository;
-        public EventService(IEventRepository iEventRepository)
+        private readonly EventRepository eventRepository;
+
+        public EventService()
         {
-            eventRepository = iEventRepository;
+            eventRepository = new EventRepository(new DatabaseEventContext());
         }
+
         public List<Event> GetAll()
         {
             return eventRepository.GetAll();
@@ -24,7 +27,7 @@ namespace PharmacyLibrary.Services
         public void Add(Event e)
         {
             eventRepository.Add(e);
-            eventRepository.Save();
+            eventRepository.SaveEvent();
         }
         public void Update(Event e)
         {
@@ -36,7 +39,7 @@ namespace PharmacyLibrary.Services
         }
         public void Save()
         {
-            eventRepository.Save();
+            eventRepository.SaveEvent();
         }
     }
 }

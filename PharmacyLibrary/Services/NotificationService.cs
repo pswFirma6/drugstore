@@ -9,6 +9,7 @@ namespace PharmacyLibrary.Services
     public class NotificationService
     {
         private readonly INotificationRepository notificationRepository;
+        private readonly EventService eventService;
 
         public NotificationService(INotificationRepository inotificationRepository)
         {
@@ -33,6 +34,12 @@ namespace PharmacyLibrary.Services
                 {
                     existingNotification.Read = true;
                     notificationRepository.Save();
+                    Event e = new Event();
+                    e.Id = eventService.GetAll().Count + 1;
+                    e.ApplicationName = "AppForPharmacy";
+                    e.ClickTime = DateTime.Now;
+                    e.Name = "Read notification";
+                    eventService.Add(e);
                     break;
                 }
             }

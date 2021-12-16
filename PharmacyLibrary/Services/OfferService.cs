@@ -11,6 +11,7 @@ namespace PharmacyLibrary.Services
     public class OfferService
     {
         private readonly IOfferRepository repository;
+        private static readonly EventService eventService = new EventService();
 
         public OfferService(IOfferRepository IRepository)
         {
@@ -23,6 +24,13 @@ namespace PharmacyLibrary.Services
             {
                 repository.Add(offer);
                 repository.Save();
+                Event e = new Event();
+                e.ApplicationName = "AppForPharmacy";
+                e.ClickTime = DateTime.Now;
+                e.Id = eventService.GetAll().Count + 1;
+                e.Name = "Add new offer";
+                eventService.Add(e);
+
             }
         }
 
@@ -33,6 +41,12 @@ namespace PharmacyLibrary.Services
 
         public List<Offer> GetOffers()
         {
+            Event e = new Event();
+            e.ApplicationName = "AppForPharmacy";
+            e.ClickTime = DateTime.Now;
+            e.Id = eventService.GetAll().Count + 1;
+            e.Name = "Show all offers";
+            eventService.Add(e);
             return repository.GetAll();
         }
 

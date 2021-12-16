@@ -8,9 +8,15 @@ namespace PharmacyLibrary.Repository
 {
     public class EventRepository : Repo<Event>, IEventRepository
     {
+
         public EventRepository(DatabaseEventContext context) : base(context)
         {
 
+        }
+
+        public void SaveEvent()
+        {
+            _eventContext.SaveChanges();
         }
 
     }

@@ -17,7 +17,7 @@ namespace Pharmacy.Controllers
         public EventController(DatabaseEventContext context)
         {
             eventRepository = new EventRepository(context);
-            eventService = new PharmacyLibrary.Services.EventService(eventRepository);
+            eventService = new PharmacyLibrary.Services.EventService();
         }
 
         [HttpPost]

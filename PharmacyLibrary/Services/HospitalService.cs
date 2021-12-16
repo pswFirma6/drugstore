@@ -13,6 +13,7 @@ namespace PharmacyLibrary.Services
         private const int APIKEY_LENGTH = 16;
 
         private readonly IHospitalRepository hospitalRepository;
+        private readonly EventService eventService;
         public HospitalService(IHospitalRepository iRepository)
         {
             hospitalRepository = iRepository;
@@ -28,6 +29,12 @@ namespace PharmacyLibrary.Services
             hospital.ApiKey = GenerateApiKey();
             hospitalRepository.Add(hospital);
             hospitalRepository.Save();
+            Event e = new Event();
+            e.Id = eventService.GetAll().Count + 1;
+            e.ApplicationName = "AppForPharmacy";
+            e.ClickTime = DateTime.Now;
+            e.Name = "Register hospital";
+            eventService.Add(e);
         }
 
         public bool CheckHospitalName(Hospital hospital)
