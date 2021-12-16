@@ -14,6 +14,7 @@ namespace PharmacyLibrary.Repository
     public class Repo<T> : IRepo<T> where T: class
     {
         private readonly DatabaseContext _context;
+        private readonly DatabaseEventContext _eventContext;
         private readonly DbSet<T> table;
 
         public Repo(DatabaseContext context)
@@ -21,6 +22,12 @@ namespace PharmacyLibrary.Repository
             _context = context;
             table = _context.Set<T>();
         }
+
+        public Repo(DatabaseEventContext context)
+        {
+            _eventContext = context;
+        }
+
         public void Add(T newObject)
         {
             table.Add(newObject);
