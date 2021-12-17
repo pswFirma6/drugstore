@@ -7,4 +7,7 @@ dist
 /PharmacyLibrary/bin
 /Pharmacy/obj
 /PharmacyLibrary/obj
-
+/PharmacyIntegrationTests/bin
+/PharmacyIntegrationTests/obj
+/PharmacyUnitTests/bin
+/PharmacyUnitTests/obj
