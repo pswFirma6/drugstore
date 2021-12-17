@@ -46,7 +46,7 @@ services:
   front:
     depends_on:
       - pharmacy
-    image: student161/appforpharmacy1:latest
+    image: student161/a666:latest
     ports:
       - "4200:4200"
     restart: on-failure
