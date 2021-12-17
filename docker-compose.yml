@@ -22,7 +22,11 @@ services:
       - network
 
   pharmacy:
+<<<<<<< HEAD
       image: student161/drugstore:latest
+=======
+      image: student161/drugstore
+>>>>>>> develop
       container_name: savulja
       build:
         context: .
@@ -66,3 +70,4 @@ networks:
   network:
     name: network
     driver: bridge
+    external: true
