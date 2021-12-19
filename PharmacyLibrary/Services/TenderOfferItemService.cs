@@ -11,15 +11,14 @@ namespace PharmacyLibrary.Services
     public class TenderOfferItemService
     {
         private readonly ITenderOfferItemRepository tenderOfferItemRepository;
-        private MedicineService medicineService;
-        private IMedicineRepository medicineRepository;
+        private readonly MedicineService medicineService;
 
 
         public TenderOfferItemService(ITenderOfferItemRepository iRepository)
         {
             tenderOfferItemRepository = iRepository;
             DatabaseContext context = new DatabaseContext();
-            medicineRepository = new MedicineRepository(context);
+            IMedicineRepository medicineRepository = new MedicineRepository(context);
             medicineService = new MedicineService(medicineRepository);
 
         }
