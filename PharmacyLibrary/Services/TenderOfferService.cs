@@ -1,7 +1,9 @@
-﻿using PharmacyLibrary.DTO;
+﻿using Newtonsoft.Json;
+using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
+using RabbitMQ.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -43,8 +45,27 @@ namespace PharmacyLibrary.Services
             return tenderOffersWithItems;
         }
 
-        public void AddTenderOffer(TenderOfferDto dto)
+        public void AddTenderOffer(TenderOfferDto dto, string apiKey)
         {
+            var factory = new ConnectionFactory
+            {
+                HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
+                UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
+                Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
+            };
+
+            using (var connection = factory.CreateConnection())
+            using (var channel = connection.CreateModel())
+            {
+                channel.ExchangeDeclare(exchange: "tender-offer-exchange-" + apiKey, type: ExchangeType.Fanout);
+
+                dto.Id = tenderOfferRepository.GetAll().Count;
+                var message = dto;
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+
+                channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
+            }
+
             TenderOffer tenderOffer = new TenderOffer
             {
                  Id = dto.Id,
