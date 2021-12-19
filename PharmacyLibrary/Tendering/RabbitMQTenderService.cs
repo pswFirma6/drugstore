@@ -1,6 +1,10 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PharmacyLibrary.DTO;
+using PharmacyLibrary.IRepository;
+using PharmacyLibrary.Model;
+using PharmacyLibrary.Repository;
+using PharmacyLibrary.Services;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
@@ -15,40 +19,53 @@ namespace PharmacyLibrary.Tendering
     {
         IConnection connection;
         IModel channel;
+        private readonly DatabaseContext databaseContext = new DatabaseContext();
+        private TenderService tenderService;
+        private HospitalService hospitalService;
 
         public override Task StartAsync(CancellationToken cancellationToken)
         {
-            var factory = new ConnectionFactory
-            {
-                HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
-                UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
-                Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
-            };
+            ITenderRepository repository = new TenderRepository(databaseContext);
+            IHospitalRepository hospitalRepository = new HospitalRepository(databaseContext);
+            tenderService = new TenderService(repository);
+            hospitalService = new HospitalService(hospitalRepository);
+            List<Hospital> hospitals = hospitalService.GetAll();
 
-            connection = factory.CreateConnection();
-            channel = connection.CreateModel();
+            foreach (Hospital hospital in hospitals) {
 
-            channel.ExchangeDeclare("tender-exchange", type: ExchangeType.Fanout);
-            channel.QueueDeclare("tender-queue",
-                                    durable: false,
-                                    exclusive: false,
-                                    autoDelete: false,
-                                    arguments: null);
+                var factory = new ConnectionFactory
+                {
+                    HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
+                    UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
+                    Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
+                };
 
-            channel.QueueBind("tender-queue", "tender-exchange", string.Empty);
+                connection = factory.CreateConnection();
+                channel = connection.CreateModel();
 
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, e) =>
-            {
-                byte[] body = e.Body.ToArray();
-                var jsonMessage = Encoding.UTF8.GetString(body);
-                TenderDto message;
-                message = JsonConvert.DeserializeObject<TenderDto>(jsonMessage);
-            };
+                channel.ExchangeDeclare("tender-exchange-"+hospital.ApiKey, type: ExchangeType.Fanout);
+                channel.QueueDeclare("tender-queue-"+hospital.ApiKey,
+                                        durable: false,
+                                        exclusive: false,
+                                        autoDelete: false,
+                                        arguments: null);
 
-            channel.BasicConsume(queue: "tender-queue",
-                                    autoAck: true,
-                                    consumer: consumer);
+                channel.QueueBind("tender-queue-" + hospital.ApiKey, "tender-exchange-" + hospital.ApiKey, string.Empty);
+
+                var consumer = new EventingBasicConsumer(channel);
+                consumer.Received += (model, e) =>
+                {
+                    byte[] body = e.Body.ToArray();
+                    var jsonMessage = Encoding.UTF8.GetString(body);
+                    TenderDto message;
+                    message = JsonConvert.DeserializeObject<TenderDto>(jsonMessage);
+                    tenderService.AddTender(message);
+                };
+
+                channel.BasicConsume(queue: "tender-queue-" + hospital.ApiKey,
+                                        autoAck: true,
+                                        consumer: consumer);
+            }
 
             return base.StartAsync(cancellationToken);
         }
