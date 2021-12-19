@@ -19,6 +19,16 @@ namespace PharmacyLibrary.Model
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<TenderOffer> TenderOffers { get; set; }
+        public DbSet<TenderOfferItem> TenderOfferItems { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<TenderOfferItem>()
+                .HasOne<TenderOffer>()
+                .WithMany()
+                .HasForeignKey(item => item.Id);
+        }
         protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
