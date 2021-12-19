@@ -11,8 +11,8 @@ namespace PharmacyLibrary.Services
     public class TenderOfferItemService
     {
         private readonly ITenderOfferItemRepository tenderOfferItemRepository;
-        public MedicineService medicineService;
-        public IMedicineRepository medicineRepository;
+        private MedicineService medicineService;
+        private IMedicineRepository medicineRepository;
 
 
         public TenderOfferItemService(ITenderOfferItemRepository iRepository)
@@ -29,14 +29,14 @@ namespace PharmacyLibrary.Services
             return tenderOfferItemRepository.GetAll();
         }
 
-        public List<TenderOfferItemDTO> GetTenderOfferItems(int tenderId)
+        public List<TenderOfferItemDto> GetTenderOfferItems(int tenderId)
         {
-            List<TenderOfferItemDTO> offerItems = new List<TenderOfferItemDTO>();
+            List<TenderOfferItemDto> offerItems = new List<TenderOfferItemDto>();
             foreach (TenderOfferItem item in GetAll())
             {
                 if (item.Id == tenderId)
                 {
-                    TenderOfferItemDTO dto = new TenderOfferItemDTO
+                    TenderOfferItemDto dto = new TenderOfferItemDto
                     {
                         Id=item.Id,
                         Name = item.Name,

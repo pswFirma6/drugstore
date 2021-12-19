@@ -4,16 +4,16 @@ using System.Text;
 
 namespace PharmacyLibrary.DTO
 {
-    public class TenderOfferDTO
+    public class TenderOfferDto
     {
         public int Id { get; set; }
         public int TenderId { get; set; }
         public String PharmacyName { get; set; }
 
-        public List<TenderOfferItemDTO> TenderOfferItems { get; set; }
-        public TenderOfferDTO() { }
+        public List<TenderOfferItemDto> TenderOfferItems { get; set; }
+        public TenderOfferDto() { }
 
-        public TenderOfferDTO(int id, int tenderId, string pharmacyName, List<TenderOfferItemDTO> tenderOfferItems)
+        public TenderOfferDto(int id, int tenderId, string pharmacyName, List<TenderOfferItemDto> tenderOfferItems)
         {
             Id = id;
             TenderId = tenderId;

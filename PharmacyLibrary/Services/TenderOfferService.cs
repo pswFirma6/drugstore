@@ -26,12 +26,12 @@ namespace PharmacyLibrary.Services
             return tenderOfferRepository.GetAll();
         }
 
-        public List<TenderOfferDTO> GetTendersWithItems()
+        public List<TenderOfferDto> GetTendersWithItems()
         {
-            List<TenderOfferDTO> tenderOffersWithItems = new List<TenderOfferDTO>();
+            List<TenderOfferDto> tenderOffersWithItems = new List<TenderOfferDto>();
             foreach (TenderOffer tenderOffer in GetTenderOffers())
             {
-                TenderOfferDTO dto = new TenderOfferDTO
+                TenderOfferDto dto = new TenderOfferDto
                 {
                     Id = tenderOffer.Id,
                     TenderId = tenderOffer.TenderId,
@@ -43,7 +43,7 @@ namespace PharmacyLibrary.Services
             return tenderOffersWithItems;
         }
 
-        public void AddTenderOffer(TenderOfferDTO dto)
+        public void AddTenderOffer(TenderOfferDto dto)
         {
             TenderOffer tenderOffer = new TenderOffer
             {
@@ -57,10 +57,10 @@ namespace PharmacyLibrary.Services
         }
 
 
-        private List<TenderOfferItem> SetTenderOfferItems(List<TenderOfferItemDTO> dtos, int tenderOfferId)
+        private List<TenderOfferItem> SetTenderOfferItems(List<TenderOfferItemDto> dtos, int tenderOfferId)
         {
             List<TenderOfferItem> items = new List<TenderOfferItem>();
-            foreach (TenderOfferItemDTO dto in dtos)
+            foreach (TenderOfferItemDto dto in dtos)
             {
                 TenderOfferItem item = new TenderOfferItem()
                 {

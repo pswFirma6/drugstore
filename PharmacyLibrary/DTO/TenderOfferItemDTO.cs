@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PharmacyLibrary.DTO
 {
-    public class TenderOfferItemDTO
+    public class TenderOfferItemDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,9 +13,9 @@ namespace PharmacyLibrary.DTO
 
         public int TenderOfferId { get; set; }
 
-        public TenderOfferItemDTO() { }
+        public TenderOfferItemDto() { }
 
-        public TenderOfferItemDTO(int id, string name, int quantity, double price, int tenderOfferId)
+        public TenderOfferItemDto(int id, string name, int quantity, double price, int tenderOfferId)
         {
             Id = id;
             Name = name;
