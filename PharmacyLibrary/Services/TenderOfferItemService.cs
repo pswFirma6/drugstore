@@ -2,6 +2,7 @@
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
+using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,17 +52,25 @@ namespace PharmacyLibrary.Services
         {
             foreach (TenderOfferItem item in tenderOfferItems)
             {
-                item.Id = tenderOfferItemRepository.GetAll().Count + 1;
                 tenderOfferItemRepository.Add(item);
                 tenderOfferItemRepository.Save();
             }
         }
-        public bool CheckQuantity(List<TenderOfferItem> offerItems)
+
+        public bool CheckQuantity(List<TenderOfferItemDto> offerItems)
         {
-            foreach (TenderOfferItem tenderOfferItem in offerItems)
+            foreach (TenderOfferItemDto tenderOfferItem in offerItems)
             {
-                int id = medicineService.GetMedicineInformationByName(tenderOfferItem.Name).Id;
-                if (!medicineService.IsEnoughAmount(id, tenderOfferItem.Quantity)) return false;
+                Medicine medicine = medicineService.GetMedicineInformationByName(tenderOfferItem.Name);
+                if(medicine != null)
+                {
+                    if (!medicineService.IsEnoughAmount(medicine.Id, tenderOfferItem.Quantity)) return false;
+                }
+                else
+                {
+                    return false;
+                }
+                
             }
             return true;
         }
