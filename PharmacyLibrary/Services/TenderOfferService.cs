@@ -14,6 +14,8 @@ namespace PharmacyLibrary.Services
     {
         private readonly ITenderOfferRepository tenderOfferRepository;
         private readonly TenderOfferItemService tenderOfferItemService;
+        private readonly TenderService tenderService;
+        private readonly ITenderRepository tenderRepository;
 
         public TenderOfferService(ITenderOfferRepository iRepository)
         {
@@ -21,6 +23,7 @@ namespace PharmacyLibrary.Services
             DatabaseContext context = new DatabaseContext();
             ITenderOfferItemRepository itemRepository = new TenderOfferItemRepository(context);
             tenderOfferItemService = new TenderOfferItemService(itemRepository);
+            tenderService = new TenderService(tenderRepository);
         }
 
         public List<TenderOffer> GetTenderOffers()
@@ -47,6 +50,18 @@ namespace PharmacyLibrary.Services
 
         public void AddTenderOffer(TenderOfferDto dto, string apiKey)
         {
+            TenderOffer tenderOffer = new TenderOffer
+            {
+                TenderId = dto.TenderId,
+                PharmacyName = dto.PharmacyName
+            };
+            tenderOfferRepository.Add(tenderOffer);
+            tenderOfferRepository.Save();
+            tenderOfferItemService.AddTenderOfferItems(SetTenderOfferItems(dto.TenderOfferItems, tenderOffer.Id));
+
+            dto.TenderId = tenderService.FindById(dto.TenderId).HospitalTenderId;
+            dto.HospitalApiKey = tenderService.FindById(dto.TenderId).HospitalApiKey;
+
             var factory = new ConnectionFactory
             {
                 HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
@@ -66,14 +81,6 @@ namespace PharmacyLibrary.Services
                 channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
             }
 
-            TenderOffer tenderOffer = new TenderOffer
-            {
-                 TenderId = dto.TenderId,
-                 PharmacyName = dto.PharmacyName
-            };
-            tenderOfferRepository.Add(tenderOffer);
-            tenderOfferRepository.Save();
-            tenderOfferItemService.AddTenderOfferItems(SetTenderOfferItems(dto.TenderOfferItems, tenderOffer.Id));
         }
 
 

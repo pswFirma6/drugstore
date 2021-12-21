@@ -50,7 +50,9 @@ namespace PharmacyLibrary.Services
             {
                 CreationDate = DateTime.Now,
                 StartDate = DateTime.Parse(dto.StartDate),
-                EndDate = AssignEndDate(dto.EndDate)
+                EndDate = AssignEndDate(dto.EndDate),
+                HospitalApiKey = dto.HospitalApiKey,
+                HospitalTenderId = dto.Id
             };
             tenderRepository.Add(tender);
             tenderRepository.Save();
@@ -77,6 +79,11 @@ namespace PharmacyLibrary.Services
                 items.Add(item);
             }
             return items;
+        }
+
+        public Tender FindById(int tenderId)
+        {
+            return tenderRepository.FindById(tenderId);
         }
 
     }
