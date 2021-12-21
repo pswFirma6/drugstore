@@ -15,17 +15,15 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class TenderOfferController
     {
-        private readonly ITenderOfferRepository offerRepository;
         private readonly TenderOfferService offerService;
-        private readonly ITenderOfferItemRepository itemRepository;
         private readonly TenderOfferItemService itemService;
         private readonly IConfiguration _config;
 
         public TenderOfferController(DatabaseContext databaseContext, IConfiguration config)
         {
-            offerRepository = new TenderOfferRepository(databaseContext);
+            ITenderOfferRepository offerRepository = new TenderOfferRepository(databaseContext);
             offerService = new TenderOfferService(offerRepository);
-            itemRepository = new TenderOfferItemRepository(databaseContext);
+            ITenderOfferItemRepository itemRepository = new TenderOfferItemRepository(databaseContext);
             itemService = new TenderOfferItemService(itemRepository);
             _config = config;
         }
