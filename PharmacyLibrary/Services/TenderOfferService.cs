@@ -28,7 +28,7 @@ namespace PharmacyLibrary.Services
             return tenderOfferRepository.GetAll();
         }
 
-        public List<TenderOfferDto> GetTendersWithItems()
+        public List<TenderOfferDto> GetTenderOffersWithItems()
         {
             List<TenderOfferDto> tenderOffersWithItems = new List<TenderOfferDto>();
             foreach (TenderOffer tenderOffer in GetTenderOffers())
@@ -68,7 +68,6 @@ namespace PharmacyLibrary.Services
 
             TenderOffer tenderOffer = new TenderOffer
             {
-                 Id = dto.Id,
                  TenderId = dto.TenderId,
                  PharmacyName = dto.PharmacyName
             };
@@ -85,7 +84,6 @@ namespace PharmacyLibrary.Services
             {
                 TenderOfferItem item = new TenderOfferItem()
                 {
-                    Id = dto.Id,
                     Name = dto.Name,
                     Quantity = dto.Quantity,
                     Price = dto.Price,

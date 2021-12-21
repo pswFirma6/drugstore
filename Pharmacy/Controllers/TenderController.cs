@@ -15,22 +15,20 @@ namespace Pharmacy.Controllers
     [ApiController]
     public class TenderController
     {
-        private readonly TenderOfferService tenderOfferService;
-        private readonly IConfiguration _config;
+        private readonly TenderService tenderService;
 
         public TenderController(DatabaseContext databaseContext, IConfiguration config)
         {
             ITenderOfferRepository tenderOfferRepository = new TenderOfferRepository(databaseContext);
-            tenderOfferService = new TenderOfferService(tenderOfferRepository);
-            _config = config;
+            ITenderRepository tenderRepository = new TenderRepository(databaseContext);
+            tenderService = new TenderService(tenderRepository);
         }
 
-        [HttpPost]
-        [Route("postTenderOffer")]
-        public void PostTenderOffer(TenderOfferDto dto)
+        [HttpGet]
+        [Route("getTenders")]
+        public List<TenderDto> GetTenders()
         {
-            var apiKey = _config.GetValue<string>("ApiKey");
-            tenderOfferService.AddTenderOffer(dto, apiKey);
+            return tenderService.GetTendersWithItems();
         }
     }
 }
