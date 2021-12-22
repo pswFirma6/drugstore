@@ -22,6 +22,7 @@ namespace PharmacyLibrary.Services
             tenderOfferRepository = iRepository;
             DatabaseContext context = new DatabaseContext();
             ITenderOfferItemRepository itemRepository = new TenderOfferItemRepository(context);
+            tenderRepository = new TenderRepository(context);
             tenderOfferItemService = new TenderOfferItemService(itemRepository);
             tenderService = new TenderService(tenderRepository);
         }
