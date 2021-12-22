@@ -14,17 +14,14 @@ namespace PharmacyLibrary.Services
     {
         private readonly ITenderOfferRepository tenderOfferRepository;
         private readonly TenderOfferItemService tenderOfferItemService;
-        private readonly TenderService tenderService;
-        private readonly ITenderRepository tenderRepository;
+        private DatabaseContext context;
 
         public TenderOfferService(ITenderOfferRepository iRepository)
         {
             tenderOfferRepository = iRepository;
-            DatabaseContext context = new DatabaseContext();
+            context = new DatabaseContext();
             ITenderOfferItemRepository itemRepository = new TenderOfferItemRepository(context);
-            tenderRepository = new TenderRepository(context);
             tenderOfferItemService = new TenderOfferItemService(itemRepository);
-            tenderService = new TenderService(tenderRepository);
         }
 
         public List<TenderOffer> GetTenderOffers()
@@ -51,6 +48,9 @@ namespace PharmacyLibrary.Services
 
         public void AddTenderOffer(TenderOfferDto dto, string apiKey)
         {
+            ITenderRepository tenderRepository = new TenderRepository(context);
+            TenderService tenderService = new TenderService(tenderRepository);
+
             TenderOffer tenderOffer = new TenderOffer
             {
                 TenderId = dto.TenderId,
