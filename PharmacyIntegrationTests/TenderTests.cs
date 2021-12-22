@@ -29,7 +29,9 @@ namespace PharmacyIntegrationTests
                 Id = 0,
                 CreationDate = DateTime.Now,
                 StartDate = DateTime.Now,
-                EndDate = new DateTime(2022, 3, 1)
+                EndDate = new DateTime(2022, 1, 1),
+                HospitalApiKey = "zxcvbnmasdfghjkl",
+                HospitalTenderId = 5
             };
 
             repository.Add(tender);
@@ -49,8 +51,8 @@ namespace PharmacyIntegrationTests
             {
                 Id = 0,
                 Name = "Andol",
-                Quantity = 20,
-                TenderId = 2
+                Quantity = 100,
+                TenderId = 4
             };
 
             itemRepository.Add(item);

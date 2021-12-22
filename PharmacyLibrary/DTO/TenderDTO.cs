@@ -13,10 +13,11 @@ namespace PharmacyLibrary.DTO
         public string EndDate { get; set; }
         public List<TenderItemDto> TenderItems { get; set; }
         public string HospitalApiKey { get; set; }
+        public int HospitalTenderId { get; set; }
 
         public TenderDto() { }
 
-        public TenderDto(int id, string creationDate, string startDate, string endDate, List<TenderItemDto> tenderItems, string hospitalApiKey)
+        public TenderDto(int id, string creationDate, string startDate, string endDate, List<TenderItemDto> tenderItems, string hospitalApiKey, int hospitalTnederId)
         {
             Id = id;
             CreationDate = creationDate;
@@ -24,6 +25,7 @@ namespace PharmacyLibrary.DTO
             EndDate = endDate;
             TenderItems = tenderItems;
             HospitalApiKey = hospitalApiKey;
+            HospitalTenderId = hospitalTnederId;
         }
     }
 }
