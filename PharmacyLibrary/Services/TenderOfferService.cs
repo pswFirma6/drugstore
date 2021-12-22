@@ -14,7 +14,7 @@ namespace PharmacyLibrary.Services
     {
         private readonly ITenderOfferRepository tenderOfferRepository;
         private readonly TenderOfferItemService tenderOfferItemService;
-        private DatabaseContext context;
+        private readonly DatabaseContext context;
 
         public TenderOfferService(ITenderOfferRepository iRepository)
         {
