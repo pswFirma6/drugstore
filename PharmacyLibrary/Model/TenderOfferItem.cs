@@ -11,6 +11,7 @@ namespace PharmacyLibrary.Model
         public int Quantity { get; set; }
         public double Price { get; set; }
         public int TenderOfferId { get; set; }
+
         public TenderOfferItem() { }
 
         public TenderOfferItem(int id, string name, int quantity, double price, int tenderOfferId)
