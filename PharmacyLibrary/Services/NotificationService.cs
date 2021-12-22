@@ -34,8 +34,20 @@ namespace PharmacyLibrary.Services
                     existingNotification.Read = true;
                     notificationRepository.Save();
                     break;
-                }
+                }   
             }
+        }
+
+        public void CreateTenderNotification(TenderOffer offer)
+        {
+            Notification notification = new Notification();
+            notification.Title = "Tender results";
+            notification.Content = "The winner of the tender " + offer.TenderId + " is pharmacy ";
+            notification.Name = offer.PharmacyName;
+            notification.Date = DateTime.Now;
+            notification.Read = false;
+
+            AddNotification(notification);
         }
     }
 }
