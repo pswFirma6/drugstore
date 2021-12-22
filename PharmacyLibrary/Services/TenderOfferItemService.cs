@@ -29,19 +29,20 @@ namespace PharmacyLibrary.Services
             return tenderOfferItemRepository.GetAll();
         }
 
-        public List<TenderOfferItemDto> GetTenderOfferItems(int tenderId)
+        public List<TenderOfferItemDto> GetTenderOfferItems(int offerId)
         {
             List<TenderOfferItemDto> offerItems = new List<TenderOfferItemDto>();
             foreach (TenderOfferItem item in GetAll())
             {
-                if (item.Id == tenderId)
+                if (item.TenderOfferId == offerId)
                 {
                     TenderOfferItemDto dto = new TenderOfferItemDto
                     {
-                        Id=item.Id,
+                        Id = item.Id,
                         Name = item.Name,
                         Quantity = item.Quantity,
-                        Price=item.Price
+                        Price = item.Price,
+                        TenderOfferId = offerId
                     };
                     offerItems.Add(dto);
                 }
@@ -62,14 +63,7 @@ namespace PharmacyLibrary.Services
             foreach (TenderOfferItemDto tenderOfferItem in offerItems)
             {
                 Medicine medicine = medicineService.GetMedicineInformationByName(tenderOfferItem.Name);
-                if(medicine != null)
-                {
-                    if (!medicineService.IsEnoughAmount(medicine.Id, tenderOfferItem.Quantity)) return false;
-                }
-                else
-                {
-                    return false;
-                }
+                if (medicine == null || !medicineService.IsEnoughAmount(medicine.Id, tenderOfferItem.Quantity)) return false;
                 
             }
             return true;

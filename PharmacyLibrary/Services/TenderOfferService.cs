@@ -39,7 +39,9 @@ namespace PharmacyLibrary.Services
                     Id = tenderOffer.Id,
                     TenderId = tenderOffer.TenderId,
                     PharmacyName = tenderOffer.PharmacyName,
-                    TenderOfferItems = tenderOfferItemService.GetTenderOfferItems(tenderOffer.Id)
+                    TenderOfferItems = tenderOfferItemService.GetTenderOfferItems(tenderOffer.Id),
+                    CreationDate = tenderOffer.CreationDate.ToString(),
+                    HospitalApiKey = ""
                 };
                 tenderOffersWithItems.Add(dto);
             }
@@ -54,7 +56,8 @@ namespace PharmacyLibrary.Services
             TenderOffer tenderOffer = new TenderOffer
             {
                 TenderId = dto.TenderId,
-                PharmacyName = dto.PharmacyName
+                PharmacyName = dto.PharmacyName,
+                CreationDate = DateTime.Now
             };
             tenderOfferRepository.Add(tenderOffer);
             tenderOfferRepository.Save();
