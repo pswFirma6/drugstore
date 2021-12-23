@@ -43,14 +43,14 @@ namespace PharmacyLibrary.Tendering
                 connection = factory.CreateConnection();
                 channel = connection.CreateModel();
 
-                channel.ExchangeDeclare("tender-exchange-"+hospital.ApiKey, type: ExchangeType.Fanout);
-                channel.QueueDeclare("tender-queue-"+hospital.ApiKey,
+                channel.ExchangeDeclare("tender-exchange-"+hospital.HospitalConnectionInfo.ApiKey, type: ExchangeType.Fanout);
+                channel.QueueDeclare("tender-queue-"+hospital.HospitalConnectionInfo.ApiKey,
                                         durable: false,
                                         exclusive: false,
                                         autoDelete: false,
                                         arguments: null);
 
-                channel.QueueBind("tender-queue-" + hospital.ApiKey, "tender-exchange-" + hospital.ApiKey, string.Empty);
+                channel.QueueBind("tender-queue-" + hospital.HospitalConnectionInfo.ApiKey, "tender-exchange-" + hospital.HospitalConnectionInfo.ApiKey, string.Empty);
 
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, e) =>
@@ -62,7 +62,7 @@ namespace PharmacyLibrary.Tendering
                     tenderService.AddTender(message);
                 };
 
-                channel.BasicConsume(queue: "tender-queue-" + hospital.ApiKey,
+                channel.BasicConsume(queue: "tender-queue-" + hospital.HospitalConnectionInfo.ApiKey,
                                         autoAck: true,
                                         consumer: consumer);
             }
