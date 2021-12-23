@@ -34,6 +34,12 @@ namespace PharmacyLibrary.Model
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
+            modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
+        }
+
         private static string CreateConnectionStringFromEnvironment()
         {
             var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
