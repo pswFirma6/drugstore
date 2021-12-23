@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
@@ -18,11 +19,17 @@ namespace Pharmacy.Controllers
     public class NotificationController : ControllerBase
     {
         private readonly NotificationService notificationService;
+        private readonly TenderOfferService tenderOfferService;
+        private readonly IConfiguration _config;
 
-        public NotificationController(DatabaseContext context)
+
+        public NotificationController(DatabaseContext context, IConfiguration config)
         {
             INotificationRepository notificationRepository = new NotificationRepository(context);
             notificationService = new NotificationService(notificationRepository);
+            ITenderOfferRepository tenderOfferRepository = new TenderOfferRepository(context);
+            tenderOfferService = new TenderOfferService(tenderOfferRepository);
+            _config = config;
         }
 
         [HttpPost]
@@ -46,5 +53,20 @@ namespace Pharmacy.Controllers
             notificationService.ReadNotification(notification);
         }
 
+        [HttpPost]
+        [Route("tenderNotification")]
+        public void AddTenderNotification(TenderOffer offer)
+        {
+            notificationService.CreateTenderNotification(offer);
+            tenderOfferService.MakeOfferWinner(offer);
+        }
+
+        [HttpGet]
+        [Route("pharmacyName")]
+        public string[] GetPharmacyName()
+        {
+            string[] pharmacyName = { _config.GetValue<string>("PharmacyName") };
+            return pharmacyName;
+        }
     }
 }

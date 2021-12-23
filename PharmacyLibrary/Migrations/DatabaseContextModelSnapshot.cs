@@ -93,7 +93,7 @@ namespace PharmacyLibrary.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<string>("FileName")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<bool>("Read")
@@ -191,6 +191,9 @@ namespace PharmacyLibrary.Migrations
 
                     b.Property<int>("TenderId")
                         .HasColumnType("integer");
+
+                    b.Property<bool>("isWinner")
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 

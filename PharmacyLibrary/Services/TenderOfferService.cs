@@ -63,8 +63,9 @@ namespace PharmacyLibrary.Services
             tenderOfferRepository.Save();
             tenderOfferItemService.AddTenderOfferItems(SetTenderOfferItems(dto.TenderOfferItems, tenderOffer.Id));
 
-            dto.TenderId = tenderService.FindById(dto.TenderId).HospitalTenderId;
             dto.HospitalApiKey = tenderService.FindById(dto.TenderId).HospitalApiKey;
+            dto.TenderId = tenderService.FindById(dto.TenderId).HospitalTenderId;
+
 
             var factory = new ConnectionFactory
             {
@@ -103,6 +104,13 @@ namespace PharmacyLibrary.Services
                 items.Add(item);
             }
             return items;
+        }
+
+        public void MakeOfferWinner(TenderOffer offer)
+        {
+            offer.isWinner = true;
+            tenderOfferRepository.Update(offer);
+            tenderOfferRepository.Save();
         }
 
     }

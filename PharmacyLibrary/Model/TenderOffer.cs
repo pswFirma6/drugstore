@@ -9,6 +9,7 @@ namespace PharmacyLibrary.Model
         public int Id { get; set; }
         public int TenderId { get; set; }
         public String PharmacyName { get; set; }
+        public bool isWinner { get; set; } = false;
         public DateTime CreationDate { get; set; }
 
         public TenderOffer() { }
