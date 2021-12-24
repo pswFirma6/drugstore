@@ -29,6 +29,18 @@ namespace PharmacyLibrary.Services
             return tenderOfferItemRepository.GetAll();
         }
 
+        public List<TenderOfferItem> GetById(int id)
+        {
+            List<TenderOfferItem> items = new List<TenderOfferItem>();
+           foreach(TenderOfferItem offerItem in GetAll())
+            {
+                if(offerItem.TenderOfferId == id)
+                {
+                    items.Add(offerItem);
+                }
+            }
+            return items;
+        }
         public List<TenderOfferItemDto> GetTenderOfferItems(int offerId)
         {
             List<TenderOfferItemDto> offerItems = new List<TenderOfferItemDto>();

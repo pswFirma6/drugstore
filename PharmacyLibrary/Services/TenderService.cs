@@ -12,13 +12,16 @@ namespace PharmacyLibrary.Services
     {
         private readonly ITenderRepository tenderRepository;
         private readonly TenderItemService tenderItemService;
-
+        private readonly MedicineService medicineService;
+        
         public TenderService(ITenderRepository iRepository)
         {
             tenderRepository = iRepository;
             DatabaseContext context = new DatabaseContext();
             ITenderItemRepository itemRepository = new TenderItemRepository(context);
             tenderItemService = new TenderItemService(itemRepository);
+            IMedicineRepository medicineRepository = new MedicineRepository(context);
+            medicineService = new MedicineService(medicineRepository);
         }
 
         public List<Tender> GetTenders()
@@ -37,7 +40,8 @@ namespace PharmacyLibrary.Services
                     CreationDate = tender.CreationDate.ToString(),
                     StartDate = tender.StartDate.ToString(),
                     EndDate = tender.EndDate.ToString(),
-                    TenderItems = tenderItemService.GetTenderItems(tender.Id)
+                    TenderItems = tenderItemService.GetTenderItems(tender.Id),
+                    Opened = tender.Opened
                 };
                 tendersWithItems.Add(dto);
             }
@@ -64,6 +68,19 @@ namespace PharmacyLibrary.Services
             return string.IsNullOrEmpty(endDate) ? new DateTime(2050, 01, 01) : DateTime.Parse(endDate);
         }
 
+        public void CloseTender(TenderOffer tenderOffer)
+        {
+            Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.Id);
+            tender.Opened = false;
+            List<MedicineDTO> medicines = tenderItemService.GetMedicines(tenderOffer.Id);
+            foreach (MedicineDTO medicine in medicines)
+            {
+                medicineService.OrderMedicine(medicine);
+            }
+            tenderRepository.Update(tender);
+            tenderRepository.Save();
+           
+        }
 
         private List<TenderItem> SetTenderItems(List<TenderItemDto> dtos, int tenderId)
         {

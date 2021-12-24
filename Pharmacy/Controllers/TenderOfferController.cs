@@ -48,7 +48,7 @@ namespace Pharmacy.Controllers
         public void PostTenderOffer(TenderOfferDto dto)
         {
             var apiKey = _config.GetValue<string>("ApiKey");
-            dto.PharmacyName = _config.GetValue<string>("PharmacyName");
+            dto.PharmacyName = _config.GetValue<string>("Name");
             offerService.AddTenderOffer(dto, apiKey);
         }
     }
