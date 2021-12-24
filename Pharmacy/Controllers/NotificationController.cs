@@ -61,7 +61,8 @@ namespace Pharmacy.Controllers
         public void AddTenderNotification(TenderOffer offer)
         {
             notificationService.CreateTenderNotification(offer);
-            tenderService.CloseTender(offer);
+            string url = _config.GetValue<string>("HospitalUrl");
+            tenderService.CloseTender(offer, url);
             tenderOfferService.MakeOfferWinner(offer);
         }
 

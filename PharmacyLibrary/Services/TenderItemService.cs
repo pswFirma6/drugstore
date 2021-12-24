@@ -1,4 +1,5 @@
-﻿using PharmacyLibrary.DTO;
+﻿using Microsoft.Extensions.Configuration;
+using PharmacyLibrary.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -14,7 +15,6 @@ namespace PharmacyLibrary.Services
     {
         private readonly ITenderItemRepository tenderItemRepository;
         private readonly TenderOfferItemService tenderOfferItemService;
-
         public TenderItemService(ITenderItemRepository iRepository)
         {
             tenderItemRepository = iRepository;
@@ -55,14 +55,14 @@ namespace PharmacyLibrary.Services
             }
         }
 
-        public List<MedicineDTO> GetMedicines(int id)
+        public List<MedicineDTO> GetMedicines(int id, string url)
         {
             List<TenderOfferItem> tenderOfferItems = tenderOfferItemService.GetById(id);
             List<MedicineDTO> medicines = new List<MedicineDTO>();
-            foreach(TenderOfferItem tenderOfferItem in tenderOfferItems)
+            foreach (TenderOfferItem tenderOfferItem in tenderOfferItems)
             {
                 MedicineDTO medicine = new MedicineDTO(tenderOfferItem.Name, tenderOfferItem.Quantity);
-                PostRequest("http://localhost:44392/urgentProcurement", medicine);
+                PostRequest(url, medicine);
                 medicines.Add(medicine);
             }
             return medicines;

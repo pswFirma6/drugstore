@@ -68,11 +68,11 @@ namespace PharmacyLibrary.Services
             return string.IsNullOrEmpty(endDate) ? new DateTime(2050, 01, 01) : DateTime.Parse(endDate);
         }
 
-        public void CloseTender(TenderOffer tenderOffer)
+        public void CloseTender(TenderOffer tenderOffer, string url)
         {
             Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.Id);
             tender.Opened = false;
-            List<MedicineDTO> medicines = tenderItemService.GetMedicines(tenderOffer.Id);
+            List<MedicineDTO> medicines = tenderItemService.GetMedicines(tenderOffer.Id, url);
             foreach (MedicineDTO medicine in medicines)
             {
                 medicineService.OrderMedicine(medicine);
