@@ -12,7 +12,7 @@ namespace PharmacyLibrary.Model
         public DateTime EndDate { get; set; }
         public string HospitalApiKey { get; set; }
         public int HospitalTenderId { get; set; }
-
+        public bool Opened { get; set; } = true;
         public Tender() { }
 
         public Tender(int id, DateTime creationDate, DateTime startDate, DateTime endDate, string hospitalApiKey, int hospitalTenderId)

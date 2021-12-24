@@ -20,6 +20,7 @@ namespace Pharmacy.Controllers
     {
         private readonly NotificationService notificationService;
         private readonly TenderOfferService tenderOfferService;
+        private readonly TenderService tenderService;
         private readonly IConfiguration _config;
 
 
@@ -29,6 +30,8 @@ namespace Pharmacy.Controllers
             notificationService = new NotificationService(notificationRepository);
             ITenderOfferRepository tenderOfferRepository = new TenderOfferRepository(context);
             tenderOfferService = new TenderOfferService(tenderOfferRepository);
+            ITenderRepository tenderRepository = new TenderRepository(context);
+            tenderService = new TenderService(tenderRepository);
             _config = config;
         }
 
@@ -58,6 +61,8 @@ namespace Pharmacy.Controllers
         public void AddTenderNotification(TenderOffer offer)
         {
             notificationService.CreateTenderNotification(offer);
+            string url = _config.GetValue<string>("HospitalUrl");
+            tenderService.CloseTender(offer, url);
             tenderOfferService.MakeOfferWinner(offer);
         }
 
@@ -65,7 +70,7 @@ namespace Pharmacy.Controllers
         [Route("pharmacyName")]
         public string[] GetPharmacyName()
         {
-            string[] pharmacyName = { _config.GetValue<string>("PharmacyName") };
+            string[] pharmacyName = { _config.GetValue<string>("Name") };
             return pharmacyName;
         }
     }
