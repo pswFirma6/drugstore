@@ -42,6 +42,12 @@ namespace PharmacyLibrary.Services
             AddHospital(newHospital);
         }
 
+        public void AddHospital(Hospital hospital)
+        {
+            hospitalRepository.Add(hospital);
+            hospitalRepository.Save();
+        }
+
         public bool CheckHospitalName(string hospital)
         {
             bool duplicate = false;
@@ -54,12 +60,6 @@ namespace PharmacyLibrary.Services
                 }
             }
             return duplicate;
-        }
-
-        public void AddHospital(Hospital hospital)
-        {
-            hospitalRepository.Add(hospital);
-            hospitalRepository.Save();
         }
     }
 }
