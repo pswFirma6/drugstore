@@ -63,19 +63,15 @@ namespace PharmacyLibrary.Migrations
 
             modelBuilder.Entity("PharmacyLibrary.Model.Hospital", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
                     b.Property<string>("HospitalName")
                         .HasColumnType("text");
 
-                    b.Property<string>("ApiKey")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HospitalAddress")
-                        .HasColumnType("text");
-
-                    b.Property<string>("HospitalCity")
-                        .HasColumnType("text");
-
-                    b.HasKey("HospitalName");
+                    b.HasKey("Id");
 
                     b.ToTable("Hospitals");
                 });
@@ -150,6 +146,9 @@ namespace PharmacyLibrary.Migrations
                     b.Property<int>("HospitalTenderId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("Opened")
+                        .HasColumnType("boolean");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -185,6 +184,9 @@ namespace PharmacyLibrary.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("PharmacyName")
                         .HasColumnType("text");
@@ -261,6 +263,55 @@ namespace PharmacyLibrary.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Medicines");
+                });
+
+            modelBuilder.Entity("PharmacyLibrary.Model.Hospital", b =>
+                {
+                    b.OwnsOne("PharmacyLibrary.Model.Address", "HospitalAddress", b1 =>
+                        {
+                            b1.Property<int>("HospitalId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("City")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .HasColumnType("text");
+
+                            b1.HasKey("HospitalId");
+
+                            b1.ToTable("Hospitals");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HospitalId");
+                        });
+
+                    b.OwnsOne("PharmacyLibrary.Model.ConnectionInfo", "HospitalConnectionInfo", b1 =>
+                        {
+                            b1.Property<int>("HospitalId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<string>("ApiKey")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Url")
+                                .HasColumnType("text");
+
+                            b1.HasKey("HospitalId");
+
+                            b1.ToTable("Hospitals");
+
+                            b1.WithOwner()
+                                .HasForeignKey("HospitalId");
+                        });
+
+                    b.Navigation("HospitalAddress");
+
+                    b.Navigation("HospitalConnectionInfo");
                 });
 #pragma warning restore 612, 618
         }

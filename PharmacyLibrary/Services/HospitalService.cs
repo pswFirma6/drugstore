@@ -37,9 +37,9 @@ namespace PharmacyLibrary.Services
             ConnectionInfo conInfo = new ConnectionInfo(hospital.Url, apiKey);
             Address address = new Address(hospital.HospitalAddress,hospital.HospitalCity);
 
+            Hospital newHospital = new Hospital(hospital.HospitalName, address, conInfo);
 
-            hospitalRepository.Add(new Hospital(hospital.HospitalName,address,conInfo));
-            hospitalRepository.Save();
+            AddHospital(newHospital);
         }
 
         public bool CheckHospitalName(string hospital)
@@ -54,6 +54,12 @@ namespace PharmacyLibrary.Services
                 }
             }
             return duplicate;
+        }
+
+        public void AddHospital(Hospital hospital)
+        {
+            hospitalRepository.Add(hospital);
+            hospitalRepository.Save();
         }
     }
 }
