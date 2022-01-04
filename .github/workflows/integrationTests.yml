@@ -39,7 +39,7 @@ jobs:
       - name: Update Database
         run: dotnet ef database update --project .\/${PROJECT_DIRECTORY};
       - name: Test
-        run: dotnet test . --no-restore --verbosity quiet --filter FullyQualifiedName\!~PharmacyUnitTests
+        run: dotnet test . --no-restore --verbosity quiet --filter FullyQualifiedName\!~UnitTests
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
