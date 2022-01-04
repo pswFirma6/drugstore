@@ -7,7 +7,7 @@ jobs:
   Run-Integration-Tests:
     runs-on: ubuntu-latest
     env:
-      PROJECT_DIRECTORY: Pharmacy
+      PROJECT_DIRECTORY: PharmacyLibrary
     services:
       postgres:
         image: postgres
