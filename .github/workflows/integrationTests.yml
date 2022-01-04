@@ -23,6 +23,15 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+    chrome:
+      image: selenium/node-chrome:3.141.59
+      container_name: chrome
+      depends_on:
+        - selenium-hub
+      environment:
+        - HUB_HOST=selenium-hub
+        - HUB_PORT=4444
+        - JAVA_OPTS=-Dwebdriver.chrome.whitelistedIps=
 
     steps:
       - name: Check out repository code
