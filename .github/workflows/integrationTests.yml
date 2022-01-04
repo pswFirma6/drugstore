@@ -23,6 +23,8 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+      rabbit:
+       image: rabbitmq:management-alpine
 
     steps:
       - name: Check out repository code
@@ -47,3 +49,6 @@ jobs:
           POSTGRES_PASSWORD: root
           POSRGRES_USER: root
           POSTGRES_DB: "drugstoredb"
+          RABBITMQ_HOST: rabbit
+          RABBITMQ_USERNAME: guest
+          RABBITMQ_PASSOWORD: guest
