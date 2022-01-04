@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {}
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
         "projectName": "PharmacyLibrary",
-        "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
-        "packagesPath": "C:\\Users\\pavko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pavko\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -30,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -42,7 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.Abstractions": {
               "target": "Package",
@@ -128,26 +122,22 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj",
         "projectName": "Pharmacy",
-        "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj",
-        "packagesPath": "C:\\Users\\pavko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pavko\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -158,10 +148,9 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
-                "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
               }
             }
           }
@@ -174,7 +163,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Google.Protobuf": {
               "target": "Package",
@@ -265,26 +253,22 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
         "projectName": "SeleniumTestProject",
-        "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
-        "packagesPath": "C:\\Users\\pavko\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\SeleniumTestProject\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\pavko\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -295,13 +279,12 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
-                "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
               },
-              "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj": {
-                "projectPath": "C:\\Users\\pavko\\OneDrive\\Radna površina\\Drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj"
               }
             }
           }
@@ -314,7 +297,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.Extensions.Configuration.Binder": {
               "target": "Package",
@@ -360,11 +342,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
