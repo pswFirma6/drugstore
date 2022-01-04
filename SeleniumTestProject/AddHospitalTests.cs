@@ -36,6 +36,7 @@ namespace SeleniumTestProject
             options.AddArguments("--disable-dev-shm-usage");
             options.AddArguments("--no-sandbox");
             options.AddArguments("--disable-notifications");
+            options.AddArguments("--whitelisted-ips=\"\"");
 
             driver = new ChromeDriver(options);
 
