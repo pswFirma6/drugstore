@@ -13,10 +13,8 @@ namespace Pharmacy.Controllers
     public class EventController : Controller
     {
         private readonly PharmacyLibrary.Services.EventService eventService;
-        private IEventRepository eventRepository;
         public EventController(DatabaseEventContext context)
         {
-            eventRepository = new EventRepository(context);
             eventService = new PharmacyLibrary.Services.EventService();
         }
 
