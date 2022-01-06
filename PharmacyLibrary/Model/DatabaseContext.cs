@@ -19,6 +19,11 @@ namespace PharmacyLibrary.Model
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Notification> Notifications { get; set; }
+        public DbSet<TenderOffer> TenderOffers { get; set; }
+        public DbSet<TenderOfferItem> TenderOfferItems { get; set; }
+        public DbSet<Tender> Tenders { get; set; }
+        public DbSet<TenderItem> TenderItems { get; set; }
+
         protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -27,6 +32,12 @@ namespace PharmacyLibrary.Model
                 optionsBuilder.UseNpgsql(connectionString);
             }
 
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
+            modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
         }
 
         private static string CreateConnectionStringFromEnvironment()

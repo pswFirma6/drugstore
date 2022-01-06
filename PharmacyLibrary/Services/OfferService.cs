@@ -22,6 +22,7 @@ namespace PharmacyLibrary.Services
         {
             if(AreDatesAcceptable(offer.StartDate, offer.EndDate))
             {
+                offer.Id = repository.GetAll().Count + 1;
                 repository.Add(offer);
                 repository.Save();
                 Event e = new Event();
@@ -52,12 +53,18 @@ namespace PharmacyLibrary.Services
 
         public void SendOffer(Offer offer)
         {
-            var factory = new ConnectionFactory() { HostName = "localhost" };
+            var factory = new ConnectionFactory
+            {
+                HostName = Environment.GetEnvironmentVariable("RABBITMQ_HOST") ?? "localhost",
+                UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
+                Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
+            };
             using (var connection = factory.CreateConnection())
             using (var channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: "offer-exchange", type: ExchangeType.Fanout);
 
+                offer.Id = repository.GetAll().Count;
                 var message = offer;
                 var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
 
