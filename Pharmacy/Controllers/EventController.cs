@@ -22,8 +22,8 @@ namespace Pharmacy.Controllers
 
         [HttpPost]
         [Route("addEvent")]
-        public void Add(Event e){
-            eventService.Add(e);
+        public void Add(String eventName){
+            eventService.CreateEventEntry(eventName);
         }
     }
 }

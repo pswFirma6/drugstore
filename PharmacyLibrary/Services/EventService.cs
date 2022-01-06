@@ -41,5 +41,15 @@ namespace PharmacyLibrary.Services
         {
             eventRepository.SaveEvent();
         }
+
+        public void CreateEventEntry(String eventName)
+        {
+            Event e = new Event();
+            e.Id = GetAll().Count + 1;
+            e.ApplicationName = "AppForPharmacy";
+            e.ClickTime = DateTime.Now;
+            e.Name = eventName;
+            Add(e);
+        }
     }
 }
