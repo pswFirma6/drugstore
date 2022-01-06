@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.Shared;
 using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,7 @@ namespace PharmacyLibrary.Model
         {
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
+            modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "OfferDateRange");
         }
 
         private static string CreateConnectionStringFromEnvironment()
