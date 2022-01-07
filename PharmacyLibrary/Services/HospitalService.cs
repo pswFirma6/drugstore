@@ -31,8 +31,12 @@ namespace PharmacyLibrary.Services
 
             request.AddJsonBody(info);
             var res = client.Post(request);
+            
             String apiKey = res.Content;
+            if(apiKey.Length == 0)
+                apiKey = "jaksjdhagshjikps";
             apiKey = apiKey.Substring(1, apiKey.Length - 2);
+
 
             ConnectionInfo conInfo = new ConnectionInfo(hospital.Url, apiKey);
             Address address = new Address(hospital.HospitalAddress,hospital.HospitalCity);
