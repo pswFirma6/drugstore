@@ -25,10 +25,9 @@ namespace PharmacyLibrary.Services
 
         public void AddHospital(HospitalInfo hospital,PersonalInfo info)
         {
-            var client = new RestClient(hospital.Url + "registerPharmacy");
+            String hospitalUrl = Environment.GetEnvironmentVariable("NASA_VARIJABLA") ?? hospital.Url;
+            var client = new RestClient(hospitalUrl + "/registerPharmacy");
             var request = new RestRequest();
-
-
             request.AddJsonBody(info);
             var res = client.Post(request);
             
