@@ -43,6 +43,7 @@ namespace PharmacyLibrary.Services
 
         public void CreateFeedback(Feedback feedback)
         {
+            feedback.Id = feedbacksRepository.GetAll().Count + 1;
             Add(feedback);
             Save();
         }
