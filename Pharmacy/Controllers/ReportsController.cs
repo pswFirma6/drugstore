@@ -16,6 +16,7 @@ namespace Pharmacy.Controllers
     {
         private IMedicineRepository medicineRepository;
         private ReportsService reportsService;
+        private MedicineSpecificationService specificationsService;
         private readonly PrescriptionService prescriptionService;
 
         public ReportsController(DatabaseContext context)
@@ -23,6 +24,7 @@ namespace Pharmacy.Controllers
             medicineRepository = new MedicineRepository(context);
             reportsService = new ReportsService(medicineRepository);
             prescriptionService = new PrescriptionService();
+            specificationsService = new MedicineSpecificationService(medicineRepository);
         }
 
         [HttpGet]
@@ -33,13 +35,33 @@ namespace Pharmacy.Controllers
         }
 
         [HttpGet]
-        [Route("getPdf/{fileName}")]
+        [Route("specifications")]
+        public string[] GetSpecificationNames()
+        {
+            return specificationsService.GetSpecificationsDirectoryFileNames();
+        }
+
+        [HttpGet]
+        [Route("getPrescriptionPdf/{fileName}")]
         public async Task<IActionResult> GetPrescriptionFile(String fileName)
         {
             var memory = new MemoryStream();
             using (var stream = new FileStream(prescriptionService.GetPrescriptionFile(fileName), FileMode.Open))
                 await stream.CopyToAsync(memory);
-            
+
+            memory.Position = 0;
+            var contentType = "APPLICATION/octet-stream";
+
+            return File(memory, contentType, fileName);
+        }
+        [HttpGet]
+        [Route("getSpecificationPdf/{fileName}")]
+        public async Task<IActionResult> GetSpecificationFile(String fileName)
+        {
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(specificationsService.GetSpecificationFile(fileName), FileMode.Open))
+                await stream.CopyToAsync(memory);
+
             memory.Position = 0;
             var contentType = "APPLICATION/octet-stream";
 
@@ -77,7 +99,7 @@ namespace Pharmacy.Controllers
         [Route("sendPrescription")]
         public void GetPrescription([FromBody] string content, [FromHeader] string fileName)
         {
-            prescriptionService.RecieveFileFromHttp(content,fileName);
+            prescriptionService.RecieveFileFromHttp(content, fileName);
         }
     }
 }
