@@ -11,4 +11,5 @@ dist
 /PharmacyUnitTests/obj/
 /PharmacyIntegrationTests/bin/
 /PharmacyUnitTests/bin/
-
+/SeleniumTestProject/bin
+/SeleniumTestProject/obj
