@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {}
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {}
   },
   "projects": {
-    "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
         "projectName": "PharmacyLibrary",
-        "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
-        "packagesPath": "C:\\Users\\dajan\\.nuget\\packages\\",
-        "outputPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dajan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -38,7 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.AspNetCore.Mvc.Abstractions": {
               "target": "Package",
@@ -124,21 +122,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj",
         "projectName": "Pharmacy",
-        "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj",
-        "packagesPath": "C:\\Users\\dajan\\.nuget\\packages\\",
-        "outputPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dajan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -150,10 +148,9 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
-                "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
               }
             }
           }
@@ -166,7 +163,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Google.Protobuf": {
               "target": "Package",
@@ -257,21 +253,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {
+    "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
+        "projectUniqueName": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
         "projectName": "SeleniumTestProject",
-        "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
-        "packagesPath": "C:\\Users\\dajan\\.nuget\\packages\\",
-        "outputPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\SeleniumTestProject\\obj\\",
+        "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\SeleniumTestProject.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\SeleniumTestProject\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\dajan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -283,13 +279,12 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
-                "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\PharmacyLibrary\\PharmacyLibrary.csproj"
               },
-              "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj": {
-                "projectPath": "D:\\4 godina\\Apoteka\\PharmacyBack\\drugstore\\drugstore\\Pharmacy\\Pharmacy.csproj"
+              "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj": {
+                "projectPath": "D:\\Cetvrta\\PSW\\Projekti\\Drugstore\\New folder (2)\\drugstore\\Pharmacy\\Pharmacy.csproj"
               }
             }
           }
@@ -302,7 +297,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.Extensions.Configuration.Binder": {
               "target": "Package",
@@ -348,11 +342,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"
         }
       }
     }

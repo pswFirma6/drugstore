@@ -27,7 +27,7 @@ namespace Pharmacy
                     webBuilder.UseStartup<Startup>();
                 }).ConfigureServices((hostContext, services) =>
                 {
-                    //services.AddHostedService<RabbitMQTenderService>();
+                    services.AddHostedService<RabbitMQTenderService>();
                 });
     }
 }

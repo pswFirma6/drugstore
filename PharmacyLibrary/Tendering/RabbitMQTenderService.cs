@@ -17,7 +17,7 @@ namespace PharmacyLibrary.Tendering
 {
     public class RabbitMQTenderService : BackgroundService
     {
-        /*IConnection connection;
+        IConnection connection;
         IModel channel;
         private readonly DatabaseContext databaseContext = new DatabaseContext();
         private TenderService tenderService;
@@ -40,7 +40,7 @@ namespace PharmacyLibrary.Tendering
                     Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
                 };
 
-                //connection = factory.CreateConnection();
+                connection = factory.CreateConnection();
                 channel = connection.CreateModel();
 
                 channel.ExchangeDeclare("tender-exchange-"+hospital.HospitalConnectionInfo.ApiKey, type: ExchangeType.Fanout);
@@ -81,11 +81,7 @@ namespace PharmacyLibrary.Tendering
         {
             return Task.CompletedTask;
         }
-        */
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 
 }
