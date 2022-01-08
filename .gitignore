@@ -1,0 +1,13 @@
+*.log
+.DS_Store
+node_modules
+dist
+.vs
+/Pharmacy/bin
+/PharmacyLibrary/bin
+/Pharmacy/obj
+/PharmacyLibrary/obj
+/PharmacyIntegrationTests/bin
+/PharmacyIntegrationTests/obj
+/PharmacyUnitTests/bin
+/PharmacyUnitTests/obj
