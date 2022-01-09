@@ -41,12 +41,12 @@ namespace FakePharmacy.Controller
             }
             else
             {   
-                string pharmacyName = _config.GetValue<string>("Name");
-                string street = _config.GetValue<string>("Street").ToString();
-                string city = _config.GetValue<string>("City").ToString();
-                string apiKey = _config.GetValue<string>("ApiKey").ToString();
-                string fileprotocol = _config.GetValue<string>("FileProtocol").ToString();
-                string url = _config.GetValue<string>("Url").ToString();
+                string pharmacyName = Environment.GetEnvironmentVariable("NAME") ?? _config.GetValue<string>("Name");
+                string street = Environment.GetEnvironmentVariable("STREET") ?? _config.GetValue<string>("Street").ToString();
+                string city = Environment.GetEnvironmentVariable("CITY") ?? _config.GetValue<string>("City").ToString();
+                string apiKey = Environment.GetEnvironmentVariable("API_KEY") ?? _config.GetValue<string>("ApiKey").ToString();
+                string fileprotocol = Environment.GetEnvironmentVariable("FILE_PROTOCOL") ?? _config.GetValue<string>("FileProtocol").ToString();
+                string url = Environment.GetEnvironmentVariable("URL") ?? _config.GetValue<string>("Url").ToString();
 
                 service.AddHospital(hospitalInfo, new PersonalInfo(pharmacyName,street,city,apiKey,fileprotocol,url));
                 return Ok();
