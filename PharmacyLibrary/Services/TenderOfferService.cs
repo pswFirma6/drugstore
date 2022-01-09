@@ -55,6 +55,7 @@ namespace PharmacyLibrary.Services
 
             TenderOffer tenderOffer = new TenderOffer
             {
+                Id = tenderOfferRepository.GetAll().Count + 1,
                 TenderId = dto.TenderId,
                 PharmacyName = dto.PharmacyName,
                 CreationDate = DateTime.Now
@@ -65,7 +66,7 @@ namespace PharmacyLibrary.Services
 
             dto.HospitalApiKey = tenderService.FindById(dto.TenderId).HospitalApiKey;
             dto.TenderId = tenderService.FindById(dto.TenderId).HospitalTenderId;
-
+            dto.TenderOfferItems = SetTenderOfferItemsDto(dto.TenderOfferItems, tenderOffer.Id);
 
             var factory = new ConnectionFactory
             {
@@ -78,17 +79,33 @@ namespace PharmacyLibrary.Services
             using (var channel = connection.CreateModel())
             {
                 channel.ExchangeDeclare(exchange: "tender-offer-exchange-" + apiKey, type: ExchangeType.Fanout);
+                dto.Id = tenderOffer.Id;
+                Console.WriteLine("Drugstore dto id:" + dto.Id);
 
-                dto.Id = tenderOfferRepository.GetAll().Count;
                 var message = dto;
                 var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
-
+                Console.WriteLine("Drugstore body: " + body.Length);
                 channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
             }
 
         }
 
-        
+        private List<TenderOfferItemDto> SetTenderOfferItemsDto(List<TenderOfferItemDto> dtos, int tenderOfferId)
+        {
+            List<TenderOfferItemDto> items = new List<TenderOfferItemDto>();
+            foreach (TenderOfferItemDto dto in dtos)
+            {
+                TenderOfferItemDto item = new TenderOfferItemDto()
+                {
+                    Name = dto.Name,
+                    Quantity = dto.Quantity,
+                    Price = dto.Price,
+                    TenderOfferId = tenderOfferId
+                };
+                items.Add(item);
+            }
+            return items;
+        }
 
         private List<TenderOfferItem> SetTenderOfferItems(List<TenderOfferItemDto> dtos, int tenderOfferId)
         {

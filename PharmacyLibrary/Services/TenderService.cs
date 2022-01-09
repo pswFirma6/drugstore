@@ -52,6 +52,7 @@ namespace PharmacyLibrary.Services
         {
             Tender tender = new Tender
             {
+                Id = GetTenders().Count + 1,
                 CreationDate = DateTime.Now,
                 StartDate = DateTime.Parse(dto.StartDate),
                 EndDate = AssignEndDate(dto.EndDate),
@@ -70,7 +71,9 @@ namespace PharmacyLibrary.Services
 
         public void CloseTender(TenderOffer tenderOffer, string url)
         {
-            Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.Id);
+            Console.WriteLine("Drugstore CloseTender tenderOFfer: " + tenderOffer.Id + " tenderOffer.tenderId: " + tenderOffer.TenderId);
+            Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.HospitalTenderId);
+            Console.WriteLine("Tender: " + tender.Id);
             tender.Opened = false;
             List<MedicineDTO> medicines = tenderItemService.GetMedicines(tenderOffer.Id, url);
             foreach (MedicineDTO medicine in medicines)

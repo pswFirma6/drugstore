@@ -15,6 +15,8 @@ using PharmacyLibrary.Model;
 using Grpc.Core;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Services;
+using System.IO;
+using Microsoft.Extensions.FileProviders;
 
 namespace Pharmacy
 {
@@ -83,13 +85,13 @@ namespace Pharmacy
             }
 
         }
-        private static string CreateConnectionStringFromEnvironment()
+        private string CreateConnectionStringFromEnvironment()
         {
             var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
             var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "drugstoredb";
-            var user = Environment.GetEnvironmentVariable("DATABASE_USERNAME") ?? "root";
-            var password = Environment.GetEnvironmentVariable("DATABASE_PASSWORD") ?? "root";
+            var user = GetSecretOrEnvVar(Environment.GetEnvironmentVariable("DATABASE_USERNAME_FILE") ?? "") ?? "root";
+            var password = GetSecretOrEnvVar("db_pass") ?? "root";
             var integratedSecurity = Environment.GetEnvironmentVariable("DATABASE_INTEGRATED_SECURITY") ?? "true";
             var pooling = Environment.GetEnvironmentVariable("DATABASE_POOLING") ?? "true";
 
@@ -97,5 +99,29 @@ namespace Pharmacy
             return retVal;
         }
 
+        private string GetSecretOrEnvVar(string key)
+        {
+            const string DOCKER_SECRET_PATH = "/run/secrets/";
+            Console.WriteLine("JKFJFJKFAK");
+            if (Directory.Exists(DOCKER_SECRET_PATH))
+            {
+                Console.WriteLine("OVDE SAM");
+                IFileProvider provider = new PhysicalFileProvider(DOCKER_SECRET_PATH);
+                IFileInfo fileInfo = provider.GetFileInfo(key);
+                if (fileInfo.Exists)
+                {
+                    Console.WriteLine("POSTOJI FAJL");
+                    using (var stream = fileInfo.CreateReadStream())
+                    using (var streamReader = new StreamReader(stream))
+                    {
+                        String retVal = streamReader.ReadToEnd();
+                        Console.WriteLine(retVal);
+                        return retVal;
+                    }
+                }
+            }
+
+            return Configuration.GetValue<string>(key);
+        }
     }
 }

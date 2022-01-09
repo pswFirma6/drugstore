@@ -62,6 +62,7 @@ namespace Pharmacy.Controllers
         {
             notificationService.CreateTenderNotification(offer);
             string url = Environment.GetEnvironmentVariable("HOSPITAL_URL") ?? _config.GetValue<string>("HospitalUrl");
+            Console.WriteLine("Drugstore TenderOffer AddNotification: " + offer.Id);
             tenderService.CloseTender(offer, url);
             tenderOfferService.MakeOfferWinner(offer);
         }

@@ -30,7 +30,7 @@ namespace PharmacyLibrary.Tendering
             tenderService = new TenderService(repository);
             hospitalService = new HospitalService(hospitalRepository);
             List<Hospital> hospitals = hospitalService.GetAll();
-
+            Console.WriteLine(hospitals.Count);
             foreach (Hospital hospital in hospitals) {
 
                 var factory = new ConnectionFactory
@@ -51,13 +51,15 @@ namespace PharmacyLibrary.Tendering
                                         arguments: null);
 
                 channel.QueueBind("tender-queue-" + hospital.HospitalConnectionInfo.ApiKey, "tender-exchange-" + hospital.HospitalConnectionInfo.ApiKey, string.Empty);
-
+                Console.WriteLine(hospital.HospitalConnectionInfo.ApiKey);
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, e) =>
                 {
+                    Console.WriteLine("Drugstore: consumer.Received");
                     byte[] body = e.Body.ToArray();
                     var jsonMessage = Encoding.UTF8.GetString(body);
                     TenderDto message;
+                    Console.WriteLine("Drugstore-json message: " + jsonMessage);
                     message = JsonConvert.DeserializeObject<TenderDto>(jsonMessage);
                     tenderService.AddTender(message);
                 };
