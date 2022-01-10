@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # branch - shoud be from develop
-BRANCH="feature-serverDeploy"
+BRANCH="master"
 
 GH_COMPOSE_REPO="https://github.com/pswFirma6/dockerCompose.git"
 
