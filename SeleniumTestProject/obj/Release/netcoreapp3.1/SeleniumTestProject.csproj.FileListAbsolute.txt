@@ -1,3 +1,0 @@
-D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\SeleniumTestProject\obj\Release\netcoreapp3.1\SeleniumTestProject.csprojAssemblyReference.cache
-D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\SeleniumTestProject\obj\Release\netcoreapp3.1\SeleniumTestProject.AssemblyInfoInputs.cache
-D:\Cetvrta\PSW\Projekti\Drugstore\New folder (2)\drugstore\SeleniumTestProject\obj\Release\netcoreapp3.1\SeleniumTestProject.AssemblyInfo.cs
