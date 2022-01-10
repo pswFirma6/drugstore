@@ -1,4 +1,3 @@
-﻿
 using Pharmacy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -61,5 +60,4 @@ namespace FakePharmacy.Controller
         }
 
     }
-
 }

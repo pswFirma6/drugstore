@@ -83,7 +83,8 @@ namespace Pharmacy
             }
 
         }
-        private string CreateConnectionStringFromEnvironment()
+
+      private string CreateConnectionStringFromEnvironment()
         {
             var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";

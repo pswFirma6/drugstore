@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using RabbitMQ.Client;

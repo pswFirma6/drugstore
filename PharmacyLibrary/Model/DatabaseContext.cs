@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PharmacyLibrary.Shared;
 using PhramacyLibrary.Model;
 using System;

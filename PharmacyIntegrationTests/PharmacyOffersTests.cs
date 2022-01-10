@@ -1,4 +1,4 @@
-﻿using Moq;
+using Moq;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -22,7 +22,6 @@ namespace PharmacyAppTests
             repository = new OfferRepository(context);
             service = new OfferService(repository);
             Offer offer = new Offer { Title = "Offer1", Content = "Offer1", OfferDateRange = new PharmacyLibrary.Shared.DateRange( new DateTime(2021, 11, 11), new DateTime(2021, 11, 30)) };
-
             List<Offer> beforeAdding = service.GetOffers();
             service.AddOffer(offer);
             List<Offer> afterAdding = service.GetOffers();

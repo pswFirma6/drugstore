@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Pharmacy.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;

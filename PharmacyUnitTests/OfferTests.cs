@@ -1,4 +1,4 @@
-﻿using Moq;
+using Moq;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Services;
@@ -62,6 +62,7 @@ namespace PharmacyAppTests.UnitTests
 
             List<Offer> offers = new List<Offer>();
             Offer offer = new Offer { Id = 1, Title = "Offer1", Content = "Offer1", OfferDateRange = new DateRange(new DateTime(2021, 11, 11), new DateTime(2021, 11, 30) )};
+
             offers.Add(offer);
 
             stubRepository.Setup(m => m.GetAll()).Returns(offers);

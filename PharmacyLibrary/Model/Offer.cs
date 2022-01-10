@@ -1,4 +1,4 @@
-﻿using PharmacyLibrary.Shared;
+using PharmacyLibrary.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -27,7 +27,6 @@ namespace PharmacyLibrary.Model
             Title = title;
             Content = content;
             OfferDateRange = offerDateRange;
-
         }
     }
 }
