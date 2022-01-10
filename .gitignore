@@ -7,7 +7,9 @@ dist
 /PharmacyLibrary/bin
 /Pharmacy/obj
 /PharmacyLibrary/obj
-/PharmacyIntegrationTests/bin
-/PharmacyIntegrationTests/obj
-/PharmacyUnitTests/bin
-/PharmacyUnitTests/obj
+/PharmacyIntegrationTests/obj/
+/PharmacyUnitTests/obj/
+/PharmacyIntegrationTests/bin/
+/PharmacyUnitTests/bin/
+/SeleniumTestProject/bin
+/SeleniumTestProject/obj
