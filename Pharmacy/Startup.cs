@@ -90,7 +90,7 @@ namespace Pharmacy
             var server = Environment.GetEnvironmentVariable("DATABASE_HOST") ?? "localhost";
             var port = Environment.GetEnvironmentVariable("DATABASE_PORT") ?? "5432";
             var database = Environment.GetEnvironmentVariable("DATABASE_SCHEMA") ?? "drugstoredb";
-            var user = GetSecretOrEnvVar(Environment.GetEnvironmentVariable("DATABASE_USERNAME_FILE") ?? "") ?? "root";
+            var user = GetSecretOrEnvVar("db_user") ?? "root";
             var password = GetSecretOrEnvVar("db_pass") ?? "root";
             var integratedSecurity = Environment.GetEnvironmentVariable("DATABASE_INTEGRATED_SECURITY") ?? "true";
             var pooling = Environment.GetEnvironmentVariable("DATABASE_POOLING") ?? "true";
