@@ -1,69 +1,42 @@
-version: "3.9"
-
+version: "3.4"
 services:
-  postgres:
-    image: postgres
-    container_name: db
+  database-pharmacy:
+    image: postgres:13
     restart: always
+    container_name: database-pharmacy
+    networks:
+      - pharmacy_database_net
     environment:
       POSTGRES_PASSWORD: "root"
       POSTGRES_USER: "root"
-      POSTGRES_DB: "drugstoredb"
-    volumes:
-      - type: volume
-        source: database-data
-        target: /var/lib/postgresql/data
-      - type: bind
-        source: ./scripts/data.sql
-        target: /docker-entrypoint-initdb.d/init.sql
-    ports: 
-      - "5555:5432"
-    networks: 
-      - network
-
-  pharmacy:
-      image: student161/drugstore
-      container_name: savulja
-      build:
-        context: .
-        dockerfile: Dockerfile
-      restart: on-failure
-      ports:
-        - "44377:80"
-      networks: 
-        - application
-        - network
-      
-      environment:
-        ASPNETCORE_ENVIRONMENT: Development
-        DATABASE_HOST: "postgres"
-        DATABASE_PORT: "5432"
-        DATABASE_USERNAME: "root"
-        DATABASE_PASSWORD: "root"
-        DATABASE_SCHEMA: "drugstoredb"
-      depends_on:
-        - postgres
-  front:
-    depends_on:
-      - pharmacy
-    image: student161/a666:latest
     ports:
-      - "4200:4200"
-    restart: on-failure
-    networks:
-      - public
-      - application
-volumes:
-  database-data:
-    name: drugstoredb
+      - "5555:5432"
+  integration-tests:
+      container_name: integration-tests
+      environment:
+        DB_USER: "root"
+        DB_PASSWORD: "root"
+        DATABASE_PORT: "5432"
+        DATABASE_SCHEMA: "postgres"
+        DATABASE_HOST: "database-pharmacy"
+      networks:
+      - pharmacy_database_net
+      image: mcr.microsoft.com/dotnet/sdk:3.1
+      working_dir: /Pharmacy
+      volumes:
+      - .:/Pharmacy
+      command: bash -c "
+        dotnet new tool-manifest --force && 
+        dotnet tool install --local dotnet-ef --version 5.0.11 &&
+        apt-get update && apt-get -y install libxml2 libgdiplus libc6-dev &&
+        dotnet restore PharmacyLibrary &&
+        dotnet dotnet-ef migrations add TestingMigration6 --project PharmacyLibrary/ &&
+        dotnet dotnet-ef database update --project PharmacyLibrary/ &&
+        dotnet test PharmacyLibrary
+        "
+      depends_on:
+        - database-pharmacy
 networks:
-  public:
-    name: public
+  pharmacy_database_net:
+    name: pharmacy_database_net
     driver: bridge
-  application:
-    name: application
-    driver: bridge
-  network:
-    name: network
-    driver: bridge
-    external: true

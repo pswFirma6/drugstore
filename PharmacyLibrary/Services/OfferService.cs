@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using RabbitMQ.Client;
@@ -19,7 +19,7 @@ namespace PharmacyLibrary.Services
 
         public void AddOffer(Offer offer)
         {
-            if(AreDatesAcceptable(offer.StartDate, offer.EndDate))
+            if(AreDatesAcceptable(offer.OfferDateRange.StartDate, offer.OfferDateRange.EndDate))
             {
                 offer.Id = repository.GetAll().Count + 1;
                 repository.Add(offer);

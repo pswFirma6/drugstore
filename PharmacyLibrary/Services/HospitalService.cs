@@ -5,12 +5,12 @@ using PharmacyLibrary.Repository;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using RestSharp;
 
 namespace PharmacyLibrary.Services
 {
     public class HospitalService
     {
-        private const int APIKEY_LENGTH = 16;
 
         private readonly IHospitalRepository hospitalRepository;
         public HospitalService(IHospitalRepository iRepository)
@@ -23,38 +23,46 @@ namespace PharmacyLibrary.Services
             return hospitalRepository.GetAll();
         }
 
+        public void AddHospital(HospitalInfo hospital,PersonalInfo info)
+        {
+            String hospitalUrl = Environment.GetEnvironmentVariable("NASA_VARIJABLA") ?? hospital.Url;
+            var client = new RestClient(hospitalUrl + "/registerPharmacy");
+            var request = new RestRequest();
+            request.AddJsonBody(info);
+            var res = client.Post(request);
+            
+            String apiKey = res.Content;
+            if(apiKey.Length == 0)
+                apiKey = "jaksjdhagshjikps";
+            apiKey = apiKey.Substring(1, apiKey.Length - 2);
+
+
+            ConnectionInfo conInfo = new ConnectionInfo(hospital.Url, apiKey);
+            Address address = new Address(hospital.HospitalAddress,hospital.HospitalCity);
+
+            Hospital newHospital = new Hospital(hospital.HospitalName, address, conInfo);
+
+            AddHospital(newHospital);
+        }
+
         public void AddHospital(Hospital hospital)
         {
-            hospital.ApiKey = GenerateApiKey();
             hospitalRepository.Add(hospital);
             hospitalRepository.Save();
         }
 
-        public bool CheckHospitalName(Hospital hospital)
+        public bool CheckHospitalName(string hospital)
         {
             bool duplicate = false;
             foreach (Hospital currHospital in hospitalRepository.GetAll())
             {
-                if (currHospital.HospitalName.Equals(hospital.HospitalName))
+                if (currHospital.HospitalName.Equals(hospital))
                 {
                     duplicate = true;
                     break;
                 }
             }
             return duplicate;
-        }
-
-        private String GenerateApiKey()
-        {
-            const string src = "abcdefghijklmnopqrstuvwxyz0123456789";
-            var sb = new StringBuilder();
-            Random RNG = new Random();
-            for (var i = 0; i < APIKEY_LENGTH; i++)
-            {
-                var c = src[RNG.Next(0, src.Length)];
-                sb.Append(c);
-            }
-            return sb.ToString();
         }
     }
 }

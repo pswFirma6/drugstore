@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Pharmacy.DTO;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -24,9 +25,9 @@ namespace Pharmacy.Controllers
 
         [HttpPost]
         [Route("addOffer")]
-        public IActionResult AddOffer(Offer offer)
+        public IActionResult AddOffer(OfferDTO offer)
         {
-            Offer newOffer = new Offer { Title = offer.Title, Content = offer.Content, StartDate = offer.StartDate, EndDate = offer.EndDate };
+            Offer newOffer = new Offer { Title = offer.Title, Content = offer.Content, OfferDateRange = new PharmacyLibrary.Shared.DateRange(offer.StartDate,offer.EndDate) };
             service.AddOffer(newOffer);
             service.SendOffer(newOffer);
             return Ok(newOffer);
