@@ -44,9 +44,7 @@ namespace Pharmacy
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
-            app.UseCors(options => options.WithOrigins("http://localhost:4202",
-                                                       "http://localhost:4201",
-                                                       "http://localhost:4200")
+            app.UseCors(options => options.AllowAnyOrigin()
                                           .AllowAnyMethod()
                                           .AllowAnyHeader());
 
