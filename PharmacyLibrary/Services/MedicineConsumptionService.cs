@@ -31,7 +31,7 @@ namespace PharmacyLibrary.Services
 
         public string GetConsumptionsDirectory()
         {
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "Data\\Consumptions\\").ToString();
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "PharmacyLibrary\\Data\\Consumptions\\").ToString();
             return path.Replace("\\bin\\Debug", "");
         }
 
