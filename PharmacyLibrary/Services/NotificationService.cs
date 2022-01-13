@@ -1,8 +1,10 @@
-﻿using PharmacyLibrary.IRepository;
+﻿using MimeKit;
+using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using MailKit.Net.Smtp;
+using System.Threading.Tasks;
 
 namespace PharmacyLibrary.Services
 {
@@ -46,8 +48,58 @@ namespace PharmacyLibrary.Services
             notification.Name = offer.PharmacyName;
             notification.Date = DateTime.Now;
             notification.Read = false;
-
+            var message = new Message(new string[] { "pswapoteka@gmail.com" }, notification.Title, notification.Content + notification.Name);
             AddNotification(notification);
+            SendEmail(message);
+        }
+
+        public void SendEmail(Message message)
+        {
+            var mailMessage = CreateEmailMessage(message);
+
+            Send(mailMessage);
+        }
+
+        public MimeMessage CreateEmailMessage(Message message)
+        {
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("","bogdanovicognjen@gmail.com"));
+         
+            emailMessage.To.AddRange(message.To);
+            emailMessage.Subject = message.Subject;
+
+            var bodyBuilder = new BodyBuilder
+            {
+                HtmlBody = "<!DOCTYPE html><body>" + message.Content + "</body></html>",
+            };
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+            return emailMessage;
+        }
+
+        private void Send(MimeMessage mailMessage)
+        {
+            using (var client = new SmtpClient())
+            {
+                try
+                {
+                     client.Connect("smtp.gmail.com", 465, true);
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                     client.Authenticate("bogdanovicognjen@gmail.com", "mihajloognjen");
+
+                     client.Send(mailMessage);
+                }
+                catch
+                {
+                    //log an error message or throw an exception, or both.
+                    throw;
+                }
+                finally
+                {
+                    client.Disconnect(true);
+                    client.Dispose();
+                }
+            }
         }
     }
 }
