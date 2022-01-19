@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.Shared;
 using PhramacyLibrary.Model;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace PharmacyLibrary.Model
         public DbSet<TenderOfferItem> TenderOfferItems { get; set; }
         public DbSet<Tender> Tenders { get; set; }
         public DbSet<TenderItem> TenderItems { get; set; }
+        public DbSet<MedicineAd> MedicineAds { get; set; }
 
         protected override void OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder optionsBuilder)
         {
@@ -38,6 +40,8 @@ namespace PharmacyLibrary.Model
         {
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
+            modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "OfferDateRange");
+            modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "MedicineAdDateRange");
         }
 
         private static string CreateConnectionStringFromEnvironment()

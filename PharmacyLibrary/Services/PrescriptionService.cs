@@ -11,7 +11,7 @@ namespace PharmacyLibrary.Services
 
         public void GetPrescription(string prescriptionId)
         {
-            string fileName = "Prescription" + prescriptionId +".pdf";
+            string fileName = "Prescription" + prescriptionId + ".pdf";
             String localFile = Path.Combine(GetPrescriptionsDirectory(), fileName);
             String serverFile = @"\public\prescriptions\" + fileName + ".pdf";
 
@@ -29,12 +29,12 @@ namespace PharmacyLibrary.Services
         public void RecieveFileFromHttp(string content, string fileName)
         {
             byte[] bytes = Convert.FromBase64String(content);
-            File.WriteAllBytes(Path.Combine(GetPrescriptionsDirectory(),fileName), bytes);
+            File.WriteAllBytes(Path.Combine(GetPrescriptionsDirectory(), fileName), bytes);
         }
 
         public string GetPrescriptionsDirectory()
         {
-            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "Data\\Prescriptions\\").ToString();
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "PharmacyLibrary\\Data\\Prescriptions\\").ToString();
             return path.Replace("\\bin\\Debug", "");
         }
 
@@ -45,7 +45,7 @@ namespace PharmacyLibrary.Services
 
         public string GetPrescriptionFile(string fileName)
         {
-            return Path.Combine(GetPrescriptionsDirectory(),fileName);
+            return Path.Combine(GetPrescriptionsDirectory(), fileName);
         }
 
     }

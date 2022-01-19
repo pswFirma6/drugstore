@@ -87,5 +87,21 @@ namespace PharmacyLibrary.Services
             return names;
         }
 
+        public string GetSpecificationsDirectory()
+        {
+            string path = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).ToString(), "PharmacyLibrary\\Data\\Specifications\\").ToString();
+            return path.Replace("\\bin\\Debug", "");
+        }
+
+        public string[] GetSpecificationsDirectoryFileNames()
+        {
+            return Directory.GetFiles(GetSpecificationsDirectory(), "*.pdf");
+        }
+
+        public string GetSpecificationFile(string fileName)
+        {
+            return Path.Combine(GetSpecificationsDirectory(), fileName);
+        }
+
     }
 }

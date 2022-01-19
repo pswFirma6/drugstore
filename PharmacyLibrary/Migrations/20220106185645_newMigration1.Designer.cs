@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PharmacyLibrary.Model;
@@ -9,9 +10,10 @@ using PharmacyLibrary.Model;
 namespace PharmacyLibrary.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20220106185645_newMigration1")]
+    partial class newMigration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,12 +114,6 @@ namespace PharmacyLibrary.Migrations
 
                     b.Property<string>("Content")
                         .HasColumnType("text");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
@@ -312,6 +308,32 @@ namespace PharmacyLibrary.Migrations
                     b.Navigation("HospitalAddress");
 
                     b.Navigation("HospitalConnectionInfo");
+                });
+
+            modelBuilder.Entity("PharmacyLibrary.Model.Offer", b =>
+                {
+                    b.OwnsOne("PharmacyLibrary.Shared.DateRange", "OfferDateRange", b1 =>
+                        {
+                            b1.Property<int>("OfferId")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("integer")
+                                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                            b1.Property<DateTime>("EndDate")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.Property<DateTime>("StartDate")
+                                .HasColumnType("timestamp without time zone");
+
+                            b1.HasKey("OfferId");
+
+                            b1.ToTable("Offers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OfferId");
+                        });
+
+                    b.Navigation("OfferDateRange");
                 });
 #pragma warning restore 612, 618
         }

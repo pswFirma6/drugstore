@@ -61,7 +61,7 @@ namespace Pharmacy.Controllers
         public void AddTenderNotification(TenderOffer offer)
         {
             notificationService.CreateTenderNotification(offer);
-            string url = _config.GetValue<string>("HospitalUrl");
+            string url = Environment.GetEnvironmentVariable("HOSPITAL_URL") ?? _config.GetValue<string>("HospitalUrl");
             tenderService.CloseTender(offer, url);
             tenderOfferService.MakeOfferWinner(offer);
         }
@@ -70,7 +70,7 @@ namespace Pharmacy.Controllers
         [Route("pharmacyName")]
         public string[] GetPharmacyName()
         {
-            string[] pharmacyName = { _config.GetValue<string>("Name") };
+            string[] pharmacyName = {Environment.GetEnvironmentVariable("NAME") ?? _config.GetValue<string>("Name") };
             return pharmacyName;
         }
     }
