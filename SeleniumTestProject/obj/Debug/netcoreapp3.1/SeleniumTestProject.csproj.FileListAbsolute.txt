@@ -191,3 +191,4 @@ C:\Users\pavko\OneDrive\Radna površina\Drugstore\drugstore\SeleniumTestProject\
 C:\Users\pavko\OneDrive\Radna površina\Drugstore\drugstore\SeleniumTestProject\obj\Debug\netcoreapp3.1\SeleniumTestProject.dll
 C:\Users\pavko\OneDrive\Radna površina\Drugstore\drugstore\SeleniumTestProject\obj\Debug\netcoreapp3.1\SeleniumTestProject.pdb
 C:\Users\pavko\OneDrive\Radna površina\Drugstore\drugstore\SeleniumTestProject\obj\Debug\netcoreapp3.1\SeleniumTestProject.genruntimeconfig.cache
+C:\Users\pavko\OneDrive\Radna površina\Drugstore\drugstore\SeleniumTestProject\obj\Debug\netcoreapp3.1\SeleniumTestProject.csproj.CopyComplete
