@@ -43,7 +43,7 @@ namespace PharmacyLibrary.Services
             Notification notification = new Notification();
             notification.Title = "Tender results";
             notification.Content = "The winner of the tender " + offer.TenderId + " is pharmacy ";
-            notification.Name = offer.PharmacyName;
+            //notification.Name = offer.PharmacyName;
             notification.Date = DateTime.Now;
             notification.Read = false;
 

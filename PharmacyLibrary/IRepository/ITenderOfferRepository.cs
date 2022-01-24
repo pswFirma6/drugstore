@@ -7,5 +7,6 @@ namespace PharmacyLibrary.IRepository
 {
     public interface ITenderOfferRepository: IRepo<TenderOffer>
     {
+        List<TenderOffer> GetOffers();
     }
 }

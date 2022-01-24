@@ -26,7 +26,7 @@ namespace PharmacyLibrary.Services
 
         public List<Tender> GetTenders()
         {
-            return tenderRepository.GetAll();
+            return tenderRepository.GetTenders();
         }
 
         public List<TenderDto> GetTendersWithItems()
@@ -38,8 +38,8 @@ namespace PharmacyLibrary.Services
                 {
                     Id = tender.Id,
                     CreationDate = tender.CreationDate.ToString(),
-                    StartDate = tender.StartDate.ToString(),
-                    EndDate = tender.EndDate.ToString(),
+                    StartDate = tender.TenderDateRange.StartDate.ToString(),
+                    EndDate = tender.TenderDateRange.EndDate.ToString(),
                     TenderItems = tenderItemService.GetTenderItems(tender.Id),
                     Opened = tender.Opened
                 };
@@ -52,15 +52,30 @@ namespace PharmacyLibrary.Services
         {
             Tender tender = new Tender
             {
-                CreationDate = DateTime.Now,
-                StartDate = DateTime.Parse(dto.StartDate),
-                EndDate = AssignEndDate(dto.EndDate),
+                Id = GetLastID() + 1,
+                CreationDate = DateTime.Parse(dto.CreationDate),
+                TenderDateRange = new Shared.DateRange
+                {
+                    StartDate = DateTime.Parse(dto.StartDate),
+                    EndDate = AssignEndDate(dto.EndDate)
+                },
                 HospitalApiKey = dto.HospitalApiKey,
-                HospitalTenderId = dto.Id
+                HospitalTenderId = dto.Id,
+                Opened = dto.Opened
             };
+            SetTenderItems(dto.TenderItems, tender);
             tenderRepository.Add(tender);
             tenderRepository.Save();
-            tenderItemService.AddTenderItems(SetTenderItems(dto.TenderItems, tender.Id));
+        }
+
+        private int GetLastID()
+        {
+            List<Tender> tenders = GetTenders();
+            if (tenders.Count == 0)
+            {
+                return 0;
+            }
+            return tenders[tenders.Count - 1].Id;
         }
 
         private DateTime AssignEndDate(string endDate)
@@ -70,7 +85,7 @@ namespace PharmacyLibrary.Services
 
         public void CloseTender(TenderOffer tenderOffer, string url)
         {
-            Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.Id);
+            Tender tender = GetTenders().Find(tender => tenderOffer.TenderId == tender.HospitalTenderId);
             tender.Opened = false;
             List<MedicineDTO> medicines = tenderItemService.GetMedicines(tenderOffer.Id, url);
             foreach (MedicineDTO medicine in medicines)
@@ -82,20 +97,13 @@ namespace PharmacyLibrary.Services
            
         }
 
-        private List<TenderItem> SetTenderItems(List<TenderItemDto> dtos, int tenderId)
+        private Tender SetTenderItems(List<TenderItemDto> dtos, Tender tender)
         {
-            List<TenderItem> items = new List<TenderItem>();
             foreach (TenderItemDto dto in dtos)
             {
-                TenderItem item = new TenderItem()
-                {
-                    Name = dto.Name,
-                    Quantity = dto.Quantity,
-                    TenderId = tenderId
-                };
-                items.Add(item);
+                tender.AddTenderItem(tender, dto.Name, dto.Quantity);
             }
-            return items;
+            return tender;
         }
 
         public Tender FindById(int tenderId)

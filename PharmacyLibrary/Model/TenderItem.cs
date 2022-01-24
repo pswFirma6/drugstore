@@ -9,6 +9,7 @@ namespace PharmacyLibrary.Model
         public int Id { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
+        public Tender Tender { get; set; }
         public int TenderId { get; set; }
 
         public TenderItem() { }
@@ -19,6 +20,13 @@ namespace PharmacyLibrary.Model
             Name = name;
             Quantity = quantity;
             TenderId = tenderId;
+        }
+
+        public TenderItem(Tender tender, string name, int quantity)
+        {
+            Tender = tender;
+            Name = name;
+            Quantity = quantity;
         }
 
     }

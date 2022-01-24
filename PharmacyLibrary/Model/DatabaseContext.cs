@@ -38,10 +38,25 @@ namespace PharmacyLibrary.Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<TenderItem>()
+                .HasOne<Tender>(item => item.Tender)
+                .WithMany(tender => tender.TenderItems)
+                .HasForeignKey(item => item.TenderId)
+                .IsRequired();
+
+            modelBuilder.Entity<TenderOfferItem>()
+                .HasOne<TenderOffer>(item => item.Offer)
+                .WithMany(offer => offer.OfferItems)
+                .HasForeignKey(item => item.OfferId)
+                .IsRequired();
+
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
             modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "OfferDateRange");
-            modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "MedicineAdDateRange");
+            //modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "MedicineAdDateRange");
+            modelBuilder.Entity<Tender>().OwnsOne(typeof(DateRange), "TenderDateRange");
+
+            modelBuilder.UsePropertyAccessMode(PropertyAccessMode.Field);
         }
 
         private static string CreateConnectionStringFromEnvironment()
