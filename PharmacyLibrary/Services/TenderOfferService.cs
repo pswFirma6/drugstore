@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using PharmacyLibrary.DTO;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -74,16 +75,23 @@ namespace PharmacyLibrary.Services
                 Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
             };
 
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            try
             {
-                channel.ExchangeDeclare(exchange: "tender-offer-exchange-" + apiKey, type: ExchangeType.Fanout);
+                using (var connection = factory.CreateConnection())
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare(exchange: "tender-offer-exchange-" + apiKey, type: ExchangeType.Fanout);
 
-                dto.Id = tenderOfferRepository.GetAll().Count;
-                var message = dto;
-                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+                    dto.Id = tenderOfferRepository.GetAll().Count;
+                    var message = dto;
+                    var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
 
-                channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
+                    channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
+                }
+            }
+            catch
+            {
+                throw new CustomNotFoundException("Sftp server refuses to connect!");
             }
 
         }

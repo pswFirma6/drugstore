@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PharmacyLibrary.DTO;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -77,8 +78,10 @@ namespace Pharmacy.Controllers
             {
                 reportsService.GenerateReport(medicineName);
                 return Ok();
+            } else
+            {
+                throw new CustomNotFoundException("Medicine by name: " + medicineName + " doesn't exist!");
             }
-            return NotFound(404);
         }
 
         [HttpGet]

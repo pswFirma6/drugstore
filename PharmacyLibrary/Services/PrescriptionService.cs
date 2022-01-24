@@ -1,4 +1,5 @@
-﻿using Renci.SshNet;
+﻿using PharmacyLibrary.Exceptions;
+using Renci.SshNet;
 using System;
 using System.IO;
 
@@ -17,7 +18,13 @@ namespace PharmacyLibrary.Services
 
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
             {
-                client.Connect();
+                try
+                {
+                    client.Connect();
+                } catch
+                {
+                    throw new CustomNotFoundException("Sftp server refuses to connect!");
+                }
                 using (Stream stream = File.OpenWrite(localFile))
                 {
                     client.DownloadFile(serverFile, stream, null);

@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using RabbitMQ.Client;
@@ -45,18 +46,31 @@ namespace PharmacyLibrary.Services
                 UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
                 Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
             };
-            using (var connection = factory.CreateConnection())
-            using (var channel = connection.CreateModel())
+            try
             {
-                channel.ExchangeDeclare(exchange: "offer-exchange", type: ExchangeType.Fanout);
+                using (var connection = factory.CreateConnection())
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare(exchange: "offer-exchange", type: ExchangeType.Fanout);
 
-                offer.Id = repository.GetAll().Count;
-                var message = offer;
-                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+                    offer.Id = GetLastId() + 1;
+                    var message = offer;
+                    var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
 
-                channel.BasicPublish("offer-exchange", string.Empty, null, body);
+                    channel.BasicPublish("offer-exchange", string.Empty, null, body);
+                }
+            }
+            catch
+            {
+                throw new CustomNotFoundException("RabbitMQ server is not running!");
             }
 
+        }
+
+        private int GetLastId()
+        {
+            List<Offer> offers = repository.GetAll();
+            return offers[offers.Count - 1].Id;
         }
     }
 }

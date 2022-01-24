@@ -41,7 +41,8 @@ namespace PharmacyLibrary.Model
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(Address), "HospitalAddress");
             modelBuilder.Entity<Hospital>().OwnsOne(typeof(ConnectionInfo), "HospitalConnectionInfo");
             modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "OfferDateRange");
-           // modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "MedicineAdDateRange");
+            //modelBuilder.Entity<Offer>().OwnsOne(typeof(DateRange), "MedicineAdDateRange");
+
         }
 
         private static string CreateConnectionStringFromEnvironment()

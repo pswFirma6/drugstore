@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -35,7 +36,12 @@ namespace Pharmacy.Controllers
         [HttpGet("{id}")]
         public FeedbackResponse GetFeedbackResponse(int id)
         {
-            return feedbackResponsesService.FindById(id);
+            FeedbackResponse feedbackResponse = feedbackResponsesRepository.FindById(id);
+            if(feedbackResponse == null)
+            {
+                throw new CustomNotFoundException("No feedback response with id: " + id);
+            }
+            return feedbackResponse;
         }
     }
 }
