@@ -82,7 +82,6 @@ namespace Pharmacy.Controllers
             {
                 throw new CustomNotFoundException("Medicine by name: " + medicineName + " doesn't exist!");
             }
-            //return NotFound(404);
         }
 
         [HttpGet]
