@@ -10,7 +10,8 @@ namespace PharmacyLibrary.Model
         public string Name { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
-        public int TenderOfferId { get; set; }
+        public TenderOffer Offer { get; set; }
+        public int OfferId { get; set; }
 
         public TenderOfferItem() { }
 
@@ -20,7 +21,15 @@ namespace PharmacyLibrary.Model
             Name = name;
             Quantity = quantity;
             Price = price;
-            TenderOfferId = tenderOfferId;
+            OfferId = tenderOfferId;
+        }
+
+        public TenderOfferItem(TenderOffer offer, string name, int quantity, double price)
+        {
+            Offer = offer;
+            Name = name;
+            Quantity = quantity;
+            Price = price;
         }
     }
 }

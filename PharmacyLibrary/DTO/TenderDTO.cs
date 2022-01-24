@@ -14,7 +14,6 @@ namespace PharmacyLibrary.DTO
         public List<TenderItemDto> TenderItems { get; set; }
         public string HospitalApiKey { get; set; }
         public int HospitalTenderId { get; set; }
-
         public bool Opened { get; set; }
 
         public TenderDto() { }

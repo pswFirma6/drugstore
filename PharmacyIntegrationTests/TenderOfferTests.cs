@@ -28,7 +28,7 @@ namespace PharmacyIntegrationTests
             {
                 Id = 0,
                 TenderId = 1,
-                PharmacyName = "Benu",
+                //PharmacyName = "Benu",
                 CreationDate = new DateTime(2021, 12, 22)
             };
 
@@ -50,7 +50,7 @@ namespace PharmacyIntegrationTests
                 Name = "Brufen",
                 Quantity = 20,
                 Price = 500.0,
-                TenderOfferId = 3
+                OfferId = 3
             };
 
             itemRepository.Add(item);

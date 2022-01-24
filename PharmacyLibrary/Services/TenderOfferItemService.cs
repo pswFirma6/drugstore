@@ -34,7 +34,7 @@ namespace PharmacyLibrary.Services
             List<TenderOfferItem> items = new List<TenderOfferItem>();
            foreach(TenderOfferItem offerItem in GetAll())
             {
-                if(offerItem.TenderOfferId == id)
+                if(offerItem.OfferId == id)
                 {
                     items.Add(offerItem);
                 }
@@ -46,7 +46,7 @@ namespace PharmacyLibrary.Services
             List<TenderOfferItemDto> offerItems = new List<TenderOfferItemDto>();
             foreach (TenderOfferItem item in GetAll())
             {
-                if (item.TenderOfferId == offerId)
+                if (item.OfferId == offerId)
                 {
                     TenderOfferItemDto dto = new TenderOfferItemDto
                     {

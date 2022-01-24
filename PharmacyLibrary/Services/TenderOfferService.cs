@@ -27,7 +27,7 @@ namespace PharmacyLibrary.Services
 
         public List<TenderOffer> GetTenderOffers()
         {
-            return tenderOfferRepository.GetAll();
+            return tenderOfferRepository.GetOffers();
         }
 
         public List<TenderOfferDto> GetTenderOffersWithItems()
@@ -39,7 +39,6 @@ namespace PharmacyLibrary.Services
                 {
                     Id = tenderOffer.Id,
                     TenderId = tenderOffer.TenderId,
-                    PharmacyName = tenderOffer.PharmacyName,
                     TenderOfferItems = tenderOfferItemService.GetTenderOfferItems(tenderOffer.Id),
                     CreationDate = tenderOffer.CreationDate.ToString(),
                     HospitalApiKey = ""
@@ -56,13 +55,13 @@ namespace PharmacyLibrary.Services
 
             TenderOffer tenderOffer = new TenderOffer
             {
+                Id = GetLastID() + 1,
                 TenderId = dto.TenderId,
-                PharmacyName = dto.PharmacyName,
                 CreationDate = DateTime.Now
             };
+            SetTenderOfferItems(dto.TenderOfferItems, tenderOffer);
             tenderOfferRepository.Add(tenderOffer);
             tenderOfferRepository.Save();
-            tenderOfferItemService.AddTenderOfferItems(SetTenderOfferItems(dto.TenderOfferItems, tenderOffer.Id));
 
             dto.HospitalApiKey = tenderService.FindById(dto.TenderId).HospitalApiKey;
             dto.TenderId = tenderService.FindById(dto.TenderId).HospitalTenderId;
@@ -82,9 +81,9 @@ namespace PharmacyLibrary.Services
                 {
                     channel.ExchangeDeclare(exchange: "tender-offer-exchange-" + apiKey, type: ExchangeType.Fanout);
 
-                    dto.Id = tenderOfferRepository.GetAll().Count;
-                    var message = dto;
-                    var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
+                dto.Id = tenderOffer.Id;
+                var message = dto;
+                var body = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(message));
 
                     channel.BasicPublish("tender-offer-exchange-" + apiKey, String.Empty, null, body);
                 }
@@ -96,28 +95,28 @@ namespace PharmacyLibrary.Services
 
         }
 
-        
-
-        private List<TenderOfferItem> SetTenderOfferItems(List<TenderOfferItemDto> dtos, int tenderOfferId)
+        private int GetLastID()
         {
-            List<TenderOfferItem> items = new List<TenderOfferItem>();
+            List<TenderOffer> offers = GetTenderOffers();
+            if (offers.Count == 0)
+            {
+                return 0;
+            }
+            return offers[offers.Count - 1].Id;
+        }
+
+        private TenderOffer SetTenderOfferItems(List<TenderOfferItemDto> dtos, TenderOffer offer)
+        {
             foreach (TenderOfferItemDto dto in dtos)
             {
-                TenderOfferItem item = new TenderOfferItem()
-                {
-                    Name = dto.Name,
-                    Quantity = dto.Quantity,
-                    Price = dto.Price,
-                    TenderOfferId= tenderOfferId
-                };
-                items.Add(item);
+                offer.AddOfferItem(offer, dto.Name, dto.Quantity, dto.Price);
             }
-            return items;
+            return offer;
         }
 
         public void MakeOfferWinner(TenderOffer offer)
         {
-            offer.isWinner = true;
+            offer.IsWinner = true;
             tenderOfferRepository.Update(offer);
             tenderOfferRepository.Save();
         }

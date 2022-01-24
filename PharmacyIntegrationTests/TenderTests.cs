@@ -28,11 +28,16 @@ namespace PharmacyIntegrationTests
             {
                 Id = 0,
                 CreationDate = DateTime.Now,
-                StartDate = DateTime.Now,
-                EndDate = new DateTime(2022, 1, 1),
+                TenderDateRange = new PharmacyLibrary.Shared.DateRange
+                {
+                    StartDate = DateTime.Now,
+                    EndDate = new DateTime(2022, 1, 1)
+                },
                 HospitalApiKey = "zxcvbnmasdfghjkl",
-                HospitalTenderId = 5
+                HospitalTenderId = 1
             };
+            tender.AddTenderItem(tender, "Brufen", 5);
+            tender.AddTenderItem(tender, "Aspirin", 5);
 
             repository.Add(tender);
             repository.Save();

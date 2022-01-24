@@ -9,8 +9,8 @@ namespace PharmacyLibrary.DTO
         public int Id { get; set; }
         public int TenderId { get; set; }
         public string PharmacyName { get; set; }
-        public List<TenderOfferItemDto> TenderOfferItems { get; set; }
         public string HospitalApiKey { get; set; }
+        public List<TenderOfferItemDto> TenderOfferItems { get; set; }
         public string CreationDate { get; set; }
 
 
