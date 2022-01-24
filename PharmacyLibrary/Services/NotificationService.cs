@@ -5,16 +5,20 @@ using System;
 using System.Collections.Generic;
 using MailKit.Net.Smtp;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
 
 namespace PharmacyLibrary.Services
 {
     public class NotificationService
     {
         private readonly INotificationRepository notificationRepository;
+        private readonly IConfiguration _config;
 
-        public NotificationService(INotificationRepository inotificationRepository)
+        public NotificationService(INotificationRepository inotificationRepository, IConfiguration config)
         {
             notificationRepository = inotificationRepository;
+            _config = config;
         }
 
         public void AddNotification(Notification notification)
@@ -48,7 +52,8 @@ namespace PharmacyLibrary.Services
             notification.Name = offer.PharmacyName;
             notification.Date = DateTime.Now;
             notification.Read = false;
-            var message = new Message(new string[] { "pswapoteka@gmail.com" }, notification.Title, notification.Content + notification.Name);
+            var message = new Message(new string[] { "pswapoteka@gmail.com","pswgalenpharm@gmail.com", "pswzdravlje@gmail.com",
+            "pswhemofarm@gmail.com"}, notification.Title, notification.Content + notification.Name);
             AddNotification(notification);
             SendEmail(message);
         }
@@ -63,14 +68,15 @@ namespace PharmacyLibrary.Services
         public MimeMessage CreateEmailMessage(Message message)
         {
             var emailMessage = new MimeMessage();
-            emailMessage.From.Add(new MailboxAddress("","bogdanovicognjen@gmail.com"));
+            string hospitalEmail = _config.GetValue<string>("Email");
+            emailMessage.From.Add(new MailboxAddress("", hospitalEmail));
          
             emailMessage.To.AddRange(message.To);
             emailMessage.Subject = message.Subject;
 
             var bodyBuilder = new BodyBuilder
             {
-                HtmlBody = "<!DOCTYPE html><body>" + message.Content + "</body></html>",
+                HtmlBody = "<!DOCTYPE html><body>" + message.Content + "<br></body></html>",
             };
 
             emailMessage.Body = bodyBuilder.ToMessageBody();
@@ -79,13 +85,15 @@ namespace PharmacyLibrary.Services
 
         private void Send(MimeMessage mailMessage)
         {
+            string hospitalEmail = _config.GetValue<string>("Email");
+            string password = _config.GetValue<string>("Password");
             using (var client = new SmtpClient())
             {
                 try
                 {
                      client.Connect("smtp.gmail.com", 465, true);
-                    client.AuthenticationMechanisms.Remove("XOAUTH2");
-                     client.Authenticate("bogdanovicognjen@gmail.com", "mihajloognjen");
+                     client.AuthenticationMechanisms.Remove("XOAUTH2");
+                     client.Authenticate(hospitalEmail, password);
 
                      client.Send(mailMessage);
                 }

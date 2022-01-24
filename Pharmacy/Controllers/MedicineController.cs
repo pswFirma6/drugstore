@@ -51,6 +51,7 @@ namespace Pharmacy.Controllers
         public void OrderMedicine(MedicineDTO medicine)
         {
             medicineService.OrderMedicine(medicine);
+
         }
 
     }
