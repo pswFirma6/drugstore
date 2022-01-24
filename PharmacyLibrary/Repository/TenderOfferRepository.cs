@@ -11,7 +11,6 @@ namespace PharmacyLibrary.Repository
     public class TenderOfferRepository: Repo<TenderOffer>, ITenderOfferRepository
     {
         readonly DatabaseContext _context = new DatabaseContext();
-        private DbSet<TenderOffer> table;
 
         public TenderOfferRepository(DatabaseContext context) : base(context)
         {
@@ -20,7 +19,7 @@ namespace PharmacyLibrary.Repository
 
         public List<TenderOffer> GetOffers()
         {
-            table = _context.Set<TenderOffer>();
+            DbSet<TenderOffer>  table = _context.Set<TenderOffer>();
             var offers = table.Include(offer => offer.OfferItems).ToList();
             return offers;
         }

@@ -49,7 +49,7 @@ namespace PharmacyLibrary.Services
             Notification notification = new Notification();
             notification.Title = "Tender results";
             notification.Content = "The winner of the tender " + offer.TenderId + " is pharmacy ";
-            //notification.Name = offer.PharmacyName;
+            notification.Name = "GalenPharm";
             notification.Date = DateTime.Now;
             notification.Read = false;
             var message = new Message(new string[] { "pswapoteka@gmail.com","pswgalenpharm@gmail.com", "pswzdravlje@gmail.com",
