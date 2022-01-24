@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PharmacyLibrary.DTO;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Repository;
@@ -18,7 +19,7 @@ namespace PharmacyLibrary.Tendering
 {
     public class RabbitMQTenderService : BackgroundService
     {
-        IConnection connection;
+        IConnection connection = null;
         IModel channel;
         private readonly DatabaseContext databaseContext = new DatabaseContext();
         private TenderService tenderService;
@@ -33,6 +34,10 @@ namespace PharmacyLibrary.Tendering
             List<Hospital> hospitals = hospitalService.GetAll();
 
             foreach (Hospital hospital in hospitals) {
+                if(hospital.HospitalConnectionInfo.ApiKey == null)
+                {
+                    throw new CustomNotFoundException("Database is not updated!");
+                }
 
                 var factory = new ConnectionFactory
                 {
@@ -40,16 +45,17 @@ namespace PharmacyLibrary.Tendering
                     UserName = Environment.GetEnvironmentVariable("RABBITMQ_USERNAME") ?? "guest",
                     Password = Environment.GetEnvironmentVariable("RABBITMQ_PASSWORD") ?? "guest",
                 };
-
-                connection = factory.CreateConnection();
+                try
+                {
+                    connection = factory.CreateConnection();
+                } catch
+                {
+                    throw new CustomNotFoundException("RabbitMQ server is not running!");
+                }
                 channel = connection.CreateModel();
 
                 channel.ExchangeDeclare("tender-exchange-"+hospital.HospitalConnectionInfo.ApiKey, type: ExchangeType.Fanout);
-                channel.QueueDeclare("tender-queue-"+hospital.HospitalConnectionInfo.ApiKey,
-                                        durable: false,
-                                        exclusive: false,
-                                        autoDelete: false,
-                                        arguments: null);
+                channel.QueueDeclare("tender-queue-"+hospital.HospitalConnectionInfo.ApiKey, durable: false, exclusive: false, autoDelete: false,arguments: null);
 
                 channel.QueueBind("tender-queue-" + hospital.HospitalConnectionInfo.ApiKey, "tender-exchange-" + hospital.HospitalConnectionInfo.ApiKey, string.Empty);
 
@@ -58,14 +64,16 @@ namespace PharmacyLibrary.Tendering
                 {
                     byte[] body = e.Body.ToArray();
                     var jsonMessage = Encoding.UTF8.GetString(body);
+                    if (jsonMessage == null)
+                    {
+                        throw new CustomNotFoundException("You are not receiving messages!");
+                    }
                     TenderDto message;
                     message = JsonConvert.DeserializeObject<TenderDto>(jsonMessage);
                     tenderService.AddTender(message);
                 };
 
-                channel.BasicConsume(queue: "tender-queue-" + hospital.HospitalConnectionInfo.ApiKey,
-                                        autoAck: true,
-                                        consumer: consumer);
+                channel.BasicConsume(queue: "tender-queue-" + hospital.HospitalConnectionInfo.ApiKey, autoAck: true, consumer: consumer);
             }
 
             return base.StartAsync(cancellationToken);
