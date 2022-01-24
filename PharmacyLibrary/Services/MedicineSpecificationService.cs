@@ -7,7 +7,7 @@ using System.IO;
 using Spire.Pdf;
 using Spire.Pdf.Graphics;
 using System.Drawing;
-
+using PharmacyLibrary.Exceptions;
 
 namespace PharmacyLibrary.Services
 {
@@ -52,8 +52,14 @@ namespace PharmacyLibrary.Services
         {
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
             {
-                client.Connect();
-
+                try
+                {
+                    client.Connect();
+                }
+                catch
+                {
+                    throw new CustomNotFoundException("Sftp server is not running!");
+                }
                 using (Stream stream = File.OpenRead(filePath))
                 {
                     client.UploadFile(stream, @"\public\specifications" + Path.GetFileName(filePath), null);
