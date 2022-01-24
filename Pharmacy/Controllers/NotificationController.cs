@@ -27,7 +27,7 @@ namespace Pharmacy.Controllers
         public NotificationController(DatabaseContext context, IConfiguration config)
         {
             INotificationRepository notificationRepository = new NotificationRepository(context);
-            notificationService = new NotificationService(notificationRepository);
+            notificationService = new NotificationService(notificationRepository, config);
             ITenderOfferRepository tenderOfferRepository = new TenderOfferRepository(context);
             tenderOfferService = new TenderOfferService(tenderOfferRepository);
             ITenderRepository tenderRepository = new TenderRepository(context);
