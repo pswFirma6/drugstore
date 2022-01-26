@@ -32,7 +32,7 @@ namespace PharmacyLibrary.Services
 
         public void GenerateReport(String medicineName)
         {
-            String filePath = Directory.GetCurrentDirectory();
+            String filePath = GetSpecificationsDirectory();
             String fileName = "MedicineSpecification (" + medicineName + ").pdf";
 
             PdfDocument doc = new PdfDocument();
@@ -62,7 +62,7 @@ namespace PharmacyLibrary.Services
                 }
                 using (Stream stream = File.OpenRead(filePath))
                 {
-                    client.UploadFile(stream, @"\public\specifications" + Path.GetFileName(filePath), null);
+                    client.UploadFile(stream, @"\public\specifications\" + Path.GetFileName(filePath), null);
                 }
                 client.Disconnect();
             }
@@ -71,7 +71,7 @@ namespace PharmacyLibrary.Services
 
         private String GetReportContent(String medicineName)
         {
-            String content = "Specification for " + medicineName + "\r\n";
+            String content = "\r\n\nSpecification for " + medicineName + "\r\n";
             Medicine medicine = GetMedicine(medicineName);
             content += "Manufacturer: " + medicine.Manufacturer + "\r\n";
             content += "Medicine type: " + medicine.MedicineType.ToString() + "\r\n";

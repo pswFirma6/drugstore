@@ -76,7 +76,7 @@ namespace Pharmacy.Controllers
         {
             if (reportsService.GetMedicine(medicineName) != null)
             {
-                reportsService.GenerateReport(medicineName);
+                specificationsService.GenerateReport(medicineName);
                 return Ok();
             } else
             {
@@ -103,6 +103,20 @@ namespace Pharmacy.Controllers
         public void GetPrescription([FromBody] string content, [FromHeader] string fileName)
         {
             prescriptionService.RecieveFileFromHttp(content, fileName);
+        }
+
+        [HttpPost]
+        [Route("downloadPrescription")]
+        public void DownloadPrescription([FromBody] string fileName)
+        {
+            prescriptionService.GetPrescription(fileName);
+        }
+
+        [HttpPost]
+        [Route("downloadConsumption")]
+        public void DownloadConsumption([FromBody] string fileName)
+        {
+            reportsService.GetConsumption(fileName);
         }
     }
 }
