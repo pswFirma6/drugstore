@@ -10,11 +10,10 @@ namespace PharmacyLibrary.Services
     {
         public PrescriptionService() { }
 
-        public void GetPrescription(string prescriptionId)
+        public void GetPrescription(string fileName)
         {
-            string fileName = "Prescription" + prescriptionId + ".pdf";
             String localFile = Path.Combine(GetPrescriptionsDirectory(), fileName);
-            String serverFile = @"\public\prescriptions\" + fileName + ".pdf";
+            String serverFile = @"\public\prescriptions\" + fileName;
 
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
             {
@@ -54,6 +53,7 @@ namespace PharmacyLibrary.Services
         {
             return Path.Combine(GetPrescriptionsDirectory(), fileName);
         }
+
 
     }
 }

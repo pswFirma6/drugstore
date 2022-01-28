@@ -1,4 +1,5 @@
 ﻿using PharmacyLibrary.DTO;
+using PharmacyLibrary.Exceptions;
 using PharmacyLibrary.IRepository;
 using PharmacyLibrary.Model;
 using PharmacyLibrary.Model.Enums;
@@ -31,47 +32,30 @@ namespace PharmacyLibrary.Services
             return null;
         }
 
-        public void GenerateReport(String medicineName)
+
+
+        public void GetConsumption(string fileName)
         {
-            String filePath = Directory.GetCurrentDirectory();
-            String fileName = "MedicineSpecification (" + medicineName + ").txt";
+            String localFile = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            String serverFile = @"\public\consumptions\" + fileName;
 
-
-            StreamWriter File = new StreamWriter(Path.Combine(filePath, fileName), true);
-            File.Write(GetReportContent(medicineName));
-            File.Close();
-
-            SendReport(Path.Combine(filePath, fileName));
-
-        }
-
-        private void SendReport(String filePath)
-        {
             using (SftpClient client = new SftpClient(new PasswordConnectionInfo("192.168.56.1", "tester", "password")))
             {
-                client.Connect();
-
-                using (Stream stream = File.OpenRead(filePath))
+                try
                 {
-                    client.UploadFile(stream, @"\public\" + Path.GetFileName(filePath), null);
+                    client.Connect();
+                }
+                catch
+                {
+                    throw new CustomNotFoundException("Sftp server refuses to connect!");
+                }
+                using (Stream stream = File.OpenWrite(localFile))
+                {
+                    client.DownloadFile(serverFile, stream, null);
                 }
                 client.Disconnect();
             }
-        }
 
-
-        private String GetReportContent(String medicineName)
-        {
-            String content = "Specification for " + medicineName + "\r\n";
-            Medicine medicine = GetMedicine(medicineName);
-            content += "Manufacturer: " + medicine.Manufacturer + "\r\n";
-            content += "Medicine type: " + medicine.MedicineType.ToString() + "\r\n";
-            content += "Medicine description: " + medicine.Description + "\r\n";
-            content += "Side effects: " + medicine.SideEffects + "\r\n";
-            content += "Intensity: " + medicine.Intensity + "\r\n";
-            content += "RecommendedDose: " + medicine.RecommendedDose + "\r\n";
-
-            return content;
         }
 
         public FileDto GetConsumptionReport()
